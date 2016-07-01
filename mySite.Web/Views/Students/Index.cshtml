@@ -1,0 +1,23 @@
+﻿@model ICollection<StudentViewModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Student list</title>
+</head>
+<body>
+    <div class="student-content"> 
+        @foreach (var student in Model)
+        {
+            <label class="student-name">@student.Name</label>
+            <label class="student-surname">@student.Surname</label>
+            <label class="student-university">@student.University</label>
+        }
+    </div>
+</body>
+</html>

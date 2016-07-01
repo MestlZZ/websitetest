@@ -3,8 +3,7 @@
         router: router,
         activate: function () {
             router.map([
-                { route: '', title:'Welcome', moduleId: 'viewmodels/welcome', nav: true },
-                { route: 'flickr', moduleId: 'viewmodels/flickr', nav: true }
+                { route: '', title:'Home', moduleId: 'viewmodels/index', nav: true },
             ]).buildNavigationModel();
             
             return router.activate();

@@ -19,6 +19,12 @@ namespace mySite.Web
                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
            );
 
+            routes.MapRoute(
+               name: "Students",
+               url: "students",
+               defaults: new { controller = "Students", action = "Index", id = UrlParameter.Optional }
+           );
+
             /*routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

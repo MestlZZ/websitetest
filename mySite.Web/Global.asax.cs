@@ -12,6 +12,8 @@ namespace mySite.Web
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+
+            ContainerConfig.Configure();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
     }
