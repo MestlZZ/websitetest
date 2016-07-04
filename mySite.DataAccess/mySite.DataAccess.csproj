@@ -76,7 +76,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\mySite.Models\mySite.DomainModel.csproj">
+    <ProjectReference Include="..\mySite.DomainModel\mySite.DomainModel.csproj">
       <Project>{5c009cf2-f9bc-4515-90e4-119f60f9d0e2}</Project>
       <Name>mySite.DomainModel</Name>
     </ProjectReference>

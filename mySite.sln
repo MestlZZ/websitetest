@@ -1,13 +1,13 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mySite.Web", "mySite.Web\mySite.Web.csproj", "{D8D2DA56-2CCB-4078-923D-9EDDC2B63D6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mySite.DataAccess", "mySite.Database\mySite.DataAccess.csproj", "{DEB5C4DC-72F8-4F95-8819-2E0A16FECA2F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mySite.DataAccess", "mySite.DataAccess\mySite.DataAccess.csproj", "{DEB5C4DC-72F8-4F95-8819-2E0A16FECA2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mySite.DomainModel", "mySite.Models\mySite.DomainModel.csproj", "{5C009CF2-F9BC-4515-90E4-119F60F9D0E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mySite.DomainModel", "mySite.DomainModel\mySite.DomainModel.csproj", "{5C009CF2-F9BC-4515-90E4-119F60F9D0E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

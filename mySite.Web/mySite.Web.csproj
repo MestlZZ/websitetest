@@ -145,7 +145,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\constants.js" />
     <Content Include="App\main.js" />
+    <Content Include="App\dataContexts\studentContext.js" />
     <Content Include="App\viewmodels\index.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\views\index.html" />
@@ -201,6 +203,7 @@
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\text.js" />
+    <Content Include="Scripts\underscore.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Home\_splash.cshtml" />
   </ItemGroup>
@@ -242,11 +245,11 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\mySite.Database\mySite.DataAccess.csproj">
+    <ProjectReference Include="..\mySite.DataAccess\mySite.DataAccess.csproj">
       <Project>{deb5c4dc-72f8-4f95-8819-2e0a16feca2f}</Project>
       <Name>mySite.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\mySite.Models\mySite.DomainModel.csproj">
+    <ProjectReference Include="..\mySite.DomainModel\mySite.DomainModel.csproj">
       <Project>{5c009cf2-f9bc-4515-90e4-119f60f9d0e2}</Project>
       <Name>mySite.DomainModel</Name>
     </ProjectReference>
