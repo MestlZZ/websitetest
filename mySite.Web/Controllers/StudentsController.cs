@@ -33,6 +33,7 @@ namespace mySite.Web.Controllers
             return View(students);
         }
 
+        [HttpPost]
         [Route("students/get-data")]
         public JsonResult GetData()
         {

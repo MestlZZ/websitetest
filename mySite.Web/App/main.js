@@ -10,7 +10,11 @@
 define('jquery', function () { return jQuery; });
 define('knockout', ko);
 
-define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],  function (system, app, viewLocator) {
+define(['durandal/system', 'durandal/app',
+    'durandal/viewLocator', 'http/storageHttpWrapper',
+    'constants', 'storageContext'],
+    function (system, app, viewLocator, storageHttpWrapper,
+                constants, storage) {
     //>>excludeStart("build", true);
     system.debug(true);
     //>>excludeEnd("build");
@@ -28,6 +32,10 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],  function (s
         viewLocator.useConvention();
 
         //Show the app by setting the root view model for our application with a transition.
+        storageHttpWrapper.post(constants.storage.host + constants.storage.studentsUrl).then(function (students) {
+            storage.set('students', students);
+        });
+
         app.setRoot('viewmodels/shell', 'entrance');
     });
 });

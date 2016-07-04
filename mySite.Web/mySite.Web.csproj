@@ -146,8 +146,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\constants.js" />
+    <Content Include="App\http\httpRequestSender.js" />
+    <Content Include="App\http\storageHttpWrapper.js" />
     <Content Include="App\main.js" />
-    <Content Include="App\dataContexts\studentContext.js" />
+    <Content Include="App\storageContext.js" />
     <Content Include="App\viewmodels\index.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\views\index.html" />

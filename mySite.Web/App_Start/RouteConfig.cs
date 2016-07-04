@@ -13,6 +13,8 @@ namespace mySite.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapMvcAttributeRoutes();
+
             routes.MapRoute(
                name: "Home",
                url: "",

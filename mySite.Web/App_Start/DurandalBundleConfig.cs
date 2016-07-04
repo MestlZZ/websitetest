@@ -10,6 +10,7 @@ namespace mySite.Web {
 	  bundles.Add(
 		new ScriptBundle("~/Scripts/vendor")
             .Include("~/Scripts/underscore.js")
+            .Include("~/Scripts/q.js")
             .Include("~/Scripts/jquery-{version}.js")
 			.Include("~/Scripts/bootstrap.js")
 			.Include("~/Scripts/knockout-{version}.js")
