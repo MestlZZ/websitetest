@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using mySite.DomainModel.Repositories;
 using mySite.DataAccess.Repositories;
+using mySite.DomainModel.Entities;
 
 namespace mySite.DataAccess
 {
-    class DatasAccessModule : Module
+    public class DataAccessModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -19,7 +20,7 @@ namespace mySite.DataAccess
 
             builder.RegisterType<StudentRepository>()
                .As<IStudentRepository>()
-               .InstancePerLifetimeScope();
+               .As<IQueryableRepository<Student>>();
 
             base.Load(builder);
         }

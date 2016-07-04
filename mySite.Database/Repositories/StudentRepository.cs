@@ -9,11 +9,16 @@ using mySite.DomainModel.Repositories;
 
 namespace mySite.DataAccess.Repositories
 {
-    class StudentRepository : Repository<Student>, IStudentRepository
+    public class StudentRepository : Repository<Student>, IStudentRepository
     {
         public StudentRepository(IDataContext dataContext)
             : base(dataContext)
         {
+        }
+
+        public void Save()
+        {
+            _dataContext.Save();
         }
 
         public ICollection<Student> GetStudentsStudienOnUniversity(string university)

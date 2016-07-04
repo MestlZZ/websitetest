@@ -10,5 +10,7 @@ namespace mySite.DomainModel.Repositories
     public interface IStudentRepository : IRepository<Student>
     {
         ICollection<Student> GetStudentsStudienOnUniversity(string university);
+
+        void Save();
     }
 }

@@ -6,7 +6,7 @@ namespace mySite.DataAccess.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             CommandTimeout = 600;
         }
 

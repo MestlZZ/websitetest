@@ -1,4 +1,4 @@
-﻿@model ICollection<StudentViewModel>
+﻿@model IEnumerable<StudentViewModel>
 @{
     Layout = null;
 }
@@ -11,12 +11,15 @@
     <title>Student list</title>
 </head>
 <body>
+    <h1>Hello</h1>
     <div class="student-content"> 
         @foreach (var student in Model)
         {
-            <label class="student-name">@student.Name</label>
-            <label class="student-surname">@student.Surname</label>
-            <label class="student-university">@student.University</label>
+            <div class="student">
+                <label class="student-name">@student.Name</label>
+                <label class="student-surname">@student.Surname</label>
+                <label class="student-university">@student.University</label>
+            </div>
         }
     </div>
 </body>

@@ -7,8 +7,6 @@ namespace mySite.DataAccess
 {
     public class DatabaseContext : DbContext, IDataContext
     {
-        public DbSet<Student> Students { get; set; }
-
         public DatabaseContext()
         {
             try
@@ -21,9 +19,16 @@ namespace mySite.DataAccess
             }
         }
 
+        public DbSet<Student> Students { get; set; }
+
         public IDbSet<T> GetSet<T>() where T : Identifiable
         {
             return Set<T>();
+        }
+
+        public void Save()
+        {
+            SaveChanges();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

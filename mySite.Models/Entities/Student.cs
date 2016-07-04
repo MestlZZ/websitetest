@@ -8,6 +8,17 @@ namespace mySite.DomainModel.Entities
 {
     public class Student : Entity
     {
+        public Student()
+        {
+
+        }
+
+        public Student(string createdBy)
+            :base(createdBy)
+        {
+
+        }
+
         public string Name { get; set; }
 
         public string Surname { get; set; }

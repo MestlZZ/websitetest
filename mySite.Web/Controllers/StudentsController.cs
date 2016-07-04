@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.Web.Mvc;
 using mySite.DomainModel.Repositories;
 using mySite.Web.ViewModels;
+using mySite.DomainModel.Entities;
 
 namespace mySite.Web.Controllers
 {
@@ -20,7 +21,7 @@ namespace mySite.Web.Controllers
 
         public ActionResult Index()
         {
-            var students = _studentRepository.GetCollection()
+           var students = _studentRepository.GetCollection()
                     .OrderBy(student => student.Name)
                     .Select(student => new StudentViewModel()
                     {

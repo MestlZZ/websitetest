@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using mySite.DomainModel.Repositories;
+using mySite.DataAccess;
 
 namespace mySite.Web
 {
@@ -17,6 +19,10 @@ namespace mySite.Web
 
             var applicationAssembly = typeof(MvcApplication).Assembly;
             builder.RegisterControllers(applicationAssembly);
+            
+            builder.RegisterFilterProvider();
+
+            builder.RegisterModule(new DataAccessModule());
 
             var container = builder.Build();
 
