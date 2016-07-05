@@ -149,6 +149,7 @@
     <Content Include="App\http\httpRequestSender.js" />
     <Content Include="App\http\storageHttpWrapper.js" />
     <Content Include="App\main.js" />
+    <Content Include="App\repositories\studentsRepository.js" />
     <Content Include="App\storageContext.js" />
     <Content Include="App\viewmodels\index.js" />
     <Content Include="App\viewmodels\shell.js" />
@@ -202,6 +203,8 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\knockout-3.1.0.debug.js" />
     <Content Include="Scripts\knockout-3.1.0.js" />
+    <Content Include="Scripts\q.js" />
+    <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\text.js" />

@@ -1,5 +1,5 @@
-﻿define([], function () {
-    var storage = [];
+﻿define(function () {
+    var storage = {};
 
     function set(key, value) {
         if (_.isNull(key) ||
@@ -9,7 +9,7 @@
             throw 'Invalid arguments';
         }
 
-        storage.push({ key: key, value: value });
+        storage[key] = value;
         return value;
     };
 
@@ -20,9 +20,7 @@
             throw 'Invalid arguments';
         }
 
-        return _.find(storage, function (item) {
-            return item.key == key;
-        }).value;
+        return storage[key];
     };
 
     function remove(key) {
@@ -32,7 +30,7 @@
             throw 'Invalid arguments';
         }
 
-        storage = _.without(storage, get(key));
+        delete storage[key];
     };
 
     return {

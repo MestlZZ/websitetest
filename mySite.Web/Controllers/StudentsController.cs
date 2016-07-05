@@ -10,6 +10,8 @@ using mySite.DomainModel.Entities;
 
 namespace mySite.Web.Controllers
 {
+
+    [RoutePrefix("students")]
     public class StudentsController : Controller
     {
         private readonly IStudentRepository _studentRepository;
@@ -19,6 +21,8 @@ namespace mySite.Web.Controllers
             _studentRepository = studentRepository;
         }
 
+        [HttpGet]
+        [Route("")]
         public ActionResult Index()
         {
            var students = _studentRepository.GetCollection()
@@ -34,7 +38,7 @@ namespace mySite.Web.Controllers
         }
 
         [HttpPost]
-        [Route("students/get-data")]
+        [Route("get-data")]
         public JsonResult GetData()
         {
             var students = _studentRepository.GetCollection()
