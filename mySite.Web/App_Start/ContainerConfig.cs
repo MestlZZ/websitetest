@@ -17,11 +17,8 @@ namespace mySite.Web
         {
             var builder = new ContainerBuilder();
 
-            var applicationAssembly = typeof(MvcApplication).Assembly;
-            builder.RegisterControllers(applicationAssembly);
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
             
-            builder.RegisterFilterProvider();
-
             builder.RegisterModule(new DataAccessModule());
 
             var container = builder.Build();
