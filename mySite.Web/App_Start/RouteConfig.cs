@@ -16,16 +16,10 @@ namespace mySite.Web
             routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
-               name: "Home",
+               name: "Default",
                url: "",
                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
            );
-
-            /*routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );*/
         }
     }
 }

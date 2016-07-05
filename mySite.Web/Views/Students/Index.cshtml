@@ -16,9 +16,7 @@
         @foreach (var student in Model)
         {
             <div class="student">
-                <label class="student-name">@student.Name</label>
-                <label class="student-surname">@student.Surname</label>
-                <label class="student-university">@student.University</label>
+                @Html.DisplayFor(o => student)
             </div>
         }
     </div>
