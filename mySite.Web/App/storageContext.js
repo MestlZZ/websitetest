@@ -1,12 +1,20 @@
-﻿define(function () {
-    var storage = {};
+﻿define(['http/storageHttpWrapper', 'constants'],
+function (storageHttpWrapper, constants) {
+
+    var storage = {
+        boards: []
+    };
+
+    function initialize()
+    {
+        return storageHttpWrapper.post(constants.storage.host + constants.storage.boardsUrl).then(function (students) {
+            storage[constants.storage.keys.boards] = JSON.parse(students);
+        });
+    }
 
     function set(key, value) {
-        if (_.isNull(key) ||
-            _.isUndefined(key) ||
-                _.isEmpty(key) ||
-                _.isUndefined(value)) {
-            throw 'Invalid arguments';
+        if (!(key in storage)) {
+            throw 'Invalid key';
         }
 
         storage[key] = value;
@@ -14,20 +22,16 @@
     };
 
     function get(key) {
-        if (_.isNull(key) ||
-            _.isUndefined(key) ||
-            _.isEmpty(key)) {
-            throw 'Invalid arguments';
+        if (!(key in storage)) {
+            throw 'Invalid key';
         }
 
         return storage[key];
     };
 
     function remove(key) {
-        if (_.isNull(key) ||
-            _.isUndefined(key) ||
-            _.isEmpty(key)) {
-            throw 'Invalid arguments';
+        if (!(key in storage)) {
+            throw 'Invalid key';
         }
 
         delete storage[key];
@@ -36,7 +40,7 @@
     return {
         set: set,
         get: get,
-        remove: remove
+        remove: remove,
+        initialize: initialize
     }
-
 });

@@ -2,7 +2,11 @@
     return {
         storage: {
             host: 'http://localhost:52114/',
-            studentsUrl: 'students/get-data'
+            boardsUrl: 'boards/get-data',
+            setTitleUrl: 'boards/point/set-title',
+            keys: {
+                boards: 'boards'
+            }
         }
     }
 });

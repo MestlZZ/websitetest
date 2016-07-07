@@ -1,4 +1,3 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
@@ -8,6 +7,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mySite.DataAccess", "mySite.DataAccess\mySite.DataAccess.csproj", "{DEB5C4DC-72F8-4F95-8819-2E0A16FECA2F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mySite.DomainModel", "mySite.DomainModel\mySite.DomainModel.csproj", "{5C009CF2-F9BC-4515-90E4-119F60F9D0E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mySite.Infrastructure", "mySite.Infrastucture\mySite.Infrastructure.csproj", "{EEF1121F-5A4A-40CB-8C20-01BD17BF4A1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +28,10 @@ Global
 		{5C009CF2-F9BC-4515-90E4-119F60F9D0E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C009CF2-F9BC-4515-90E4-119F60F9D0E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C009CF2-F9BC-4515-90E4-119F60F9D0E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEF1121F-5A4A-40CB-8C20-01BD17BF4A1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEF1121F-5A4A-40CB-8C20-01BD17BF4A1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEF1121F-5A4A-40CB-8C20-01BD17BF4A1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF1121F-5A4A-40CB-8C20-01BD17BF4A1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

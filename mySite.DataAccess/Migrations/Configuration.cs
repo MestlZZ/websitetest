@@ -1,16 +1,18 @@
-﻿using System.Data.Entity.Migrations;
-
 namespace mySite.DataAccess.Migrations
 {
-    public class Configuration : DbMigrationsConfiguration<DatabaseContext>
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<mySite.DataAccess.DatabaseContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            CommandTimeout = 600;
         }
 
-        protected override void Seed(DatabaseContext context)
+        protected override void Seed(mySite.DataAccess.DatabaseContext context)
         {
         }
     }

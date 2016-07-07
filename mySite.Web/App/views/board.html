@@ -1,0 +1,24 @@
+﻿<div class="board">
+    <h2 class="board__title" data-bind="text: board().title"></h2>
+    <div class="board__body">
+        <table class="board__body-table">
+            <thead>
+                <tr>
+                    <td class="point__title">
+                        <span>Title</span>
+                    </td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody class="body__points" data-bind="foreach: board().points">
+                <tr>
+                    <td class="point__title noselect" data-bind="dblclickEdit: title, onEnterKeyDown: $root.sendPoint">
+                        <input class="point__title_input invisible" type="text" required data-bind="value: title, valueUpdate: 'afterkeydown'" />
+                        <span data-bind="text: title"></span>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using mySite.DomainModel.Entities;
 using mySite.DomainModel.Repositories;
 
@@ -23,14 +21,11 @@ namespace mySite.DataAccess.Repositories
             return _dataContext.GetSet<T>().SingleOrDefault(e => e.Id == id);
         }
 
-        public ICollection<T> GetCollection()
+        public ICollection<T> GetCollection(Expression<Func<T, bool>> predicate = null)
         {
-            return _dataContext.GetSet<T>().ToList();
-        }
+            var _predicate = predicate != null ? predicate : (o => true);
 
-        public ICollection<T> GetCollection(Expression<Func<T, bool>> predicate)
-        {
-            return _dataContext.GetSet<T>().Where(predicate).ToList();
+            return _dataContext.GetSet<T>().Where(_predicate).ToList();
         }
     }
 }

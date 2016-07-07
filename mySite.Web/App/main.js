@@ -11,8 +11,8 @@ define('jquery', function () { return jQuery; });
 define('knockout', ko);
 
 define(['durandal/system', 'durandal/app',
-    'durandal/viewLocator', 'repositories/studentsRepository'],
-    function (system, app, viewLocator, studentRepository) {
+    'durandal/viewLocator', 'storageContext'],
+    function (system, app, viewLocator, storage) {
     //>>excludeStart("build", true);
     system.debug(true);
     //>>excludeEnd("build");
@@ -27,7 +27,7 @@ define(['durandal/system', 'durandal/app',
     app.start().then(function() {
         viewLocator.useConvention();
 
-        studentRepository.initialize().then(function(){
+        storage.initialize().then(function(){
             app.setRoot('viewmodels/shell', 'entrance');
         });
     });

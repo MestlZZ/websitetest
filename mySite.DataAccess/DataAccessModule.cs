@@ -1,12 +1,8 @@
 ﻿using Autofac;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using mySite.DomainModel.Repositories;
 using mySite.DataAccess.Repositories;
 using mySite.DomainModel.Entities;
+using mySite.Infrastructure;
 
 namespace mySite.DataAccess
 {
@@ -16,11 +12,24 @@ namespace mySite.DataAccess
         {
             builder.RegisterType<DatabaseContext>()
                 .As<IDataContext>()
+                .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<StudentRepository>()
-               .As<IStudentRepository>()
-               .As<IQueryableRepository<Student>>();
+            builder.RegisterType<BoardRepository>()
+               .As<IBoardRepository>()
+               .As<IQueryableRepository<Board>>();
+
+            builder.RegisterType<MarkRepository>()
+               .As<IMarkRepository>()
+               .As<IQueryableRepository<Mark>>();
+
+            builder.RegisterType<PointRepository>()
+               .As<IPointRepository>()
+               .As<IQueryableRepository<Point>>();
+
+            builder.RegisterType<CriterionRepository>()
+               .As<ICriterionRepository>()
+               .As<IQueryableRepository<Criterion>>();
 
             base.Load(builder);
         }

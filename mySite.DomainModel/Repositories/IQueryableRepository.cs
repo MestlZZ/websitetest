@@ -8,8 +8,7 @@ namespace mySite.DomainModel.Repositories
     public interface IQueryableRepository<T> where T : Identifiable
     {
         T Get(Guid id);
-
-        ICollection<T> GetCollection();
-        ICollection<T> GetCollection(Expression<Func<T, bool>> predicate);
+        
+        ICollection<T> GetCollection(Expression<Func<T, bool>> predicate = null);
     }
 }

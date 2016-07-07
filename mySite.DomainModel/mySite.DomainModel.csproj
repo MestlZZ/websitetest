@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,14 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Board.cs" />
+    <Compile Include="Entities\Mark.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Identifiable.cs" />
-    <Compile Include="Entities\IIdentifiable.cs" />
+    <Compile Include="Entities\Point.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\Сriterion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\Student.cs" />
+    <Compile Include="Repositories\IMarkRepository.cs" />
+    <Compile Include="Repositories\ICriterionRepository.cs" />
+    <Compile Include="Repositories\IPointRepository.cs" />
     <Compile Include="Repositories\IQueryableRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\IStudentRepository.cs" />
+    <Compile Include="Repositories\IBoardRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -35,11 +35,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -56,20 +56,22 @@
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="DataAccessModule.cs" />
     <Compile Include="IDataContext.cs" />
-    <Compile Include="Migrations\201607040629544_create.cs" />
-    <Compile Include="Migrations\201607040629544_create.Designer.cs">
-      <DependentUpon>201607040629544_create.cs</DependentUpon>
+    <Compile Include="Migrations\201607070829526_initialize.cs" />
+    <Compile Include="Migrations\201607070829526_initialize.Designer.cs">
+      <DependentUpon>201607070829526_initialize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607070929534_AddEntitiesRelation.cs" />
+    <Compile Include="Migrations\201607070929534_AddEntitiesRelation.Designer.cs">
+      <DependentUpon>201607070929534_AddEntitiesRelation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\MarkRepository.cs" />
+    <Compile Include="Repositories\PointRepository.cs" />
+    <Compile Include="Repositories\CriterionRepository.cs" />
     <Compile Include="Repositories\QueryableRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Repositories\StudentRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607040629544_create.resx">
-      <DependentUpon>201607040629544_create.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="Repositories\BoardRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -80,6 +82,18 @@
       <Project>{5c009cf2-f9bc-4515-90e4-119f60f9d0e2}</Project>
       <Name>mySite.DomainModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\mySite.Infrastucture\mySite.Infrastructure.csproj">
+      <Project>{eef1121f-5a4a-40cb-8c20-01bd17bf4a1d}</Project>
+      <Name>mySite.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201607070829526_initialize.resx">
+      <DependentUpon>201607070829526_initialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607070929534_AddEntitiesRelation.resx">
+      <DependentUpon>201607070929534_AddEntitiesRelation.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

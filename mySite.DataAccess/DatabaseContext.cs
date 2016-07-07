@@ -1,25 +1,25 @@
 ﻿using System;
-using System.Data.Entity;
 using mySite.DomainModel.Entities;
 using mySite.DataAccess.Migrations;
+using mySite.Infrastructure;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
+using System.Data.Entity.ModelConfiguration.Configuration;
 
 namespace mySite.DataAccess
 {
-    public class DatabaseContext : DbContext, IDataContext
+    public class DatabaseContext : DbContext, IDataContext, IUnitOfWork
     {
         public DatabaseContext()
         {
-            try
-            {
-                Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, Configuration>());
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+           Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, Configuration>());
         }
 
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Board> Boards { get; set; }
+        public DbSet<Point> Points { get; set; }
+        public DbSet<Criterion> Criterions { get; set; }
+        public DbSet<Mark> Marks { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Identifiable
         {
@@ -34,10 +34,19 @@ namespace mySite.DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Properties<Guid>().Where(p => p.Name == "Id").Configure(p => p.IsKey());
-            modelBuilder.Properties<string>().Configure(p => p.IsRequired().HasMaxLength(254));
+            modelBuilder.Properties<Guid>().Where(p => p.Name == "Title").Configure(p => p.HasMaxLength(254).IsRequired());
 
-            modelBuilder.Entity<Student>().Property(p => p.Name).HasMaxLength(30).IsRequired();
-            modelBuilder.Entity<Student>().Property(p => p.Surname).HasMaxLength(30).IsRequired();
+            modelBuilder.Entity<Mark>().HasRequired(e => e.Criterion).WithMany(e => e.Marks);
+            modelBuilder.Entity<Mark>().HasRequired(e => e.Point).WithMany(e => e.Marks);
+            modelBuilder.Entity<Mark>().Property(e => e.Value).IsRequired();
+
+            modelBuilder.Entity<Point>()
+                .HasMany(mark => mark.Marks).WithRequired(e => e.Point);
+            modelBuilder.Entity<Point>().HasRequired(e => e.Board).WithMany(e => e.Points);
+
+            modelBuilder.Entity<Criterion>()
+                .HasMany(mark => mark.Marks).WithRequired(e => e.Criterion);
+            modelBuilder.Entity<Criterion>().HasRequired(e => e.Board).WithMany(e => e.Criterions);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -3,7 +3,7 @@
         router: router,
         activate: function () {
             router.map([
-                { route: '', title:'Home', moduleId: 'viewmodels/index', nav: true },
+                { route: '', title:'Home', moduleId: 'viewmodels/board', nav: true },
             ]).buildNavigationModel();
             
             return router.activate();
