@@ -3,9 +3,6 @@ using mySite.DomainModel.Entities;
 using mySite.DataAccess.Migrations;
 using mySite.Infrastructure;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
-using System.Data.Entity.ModelConfiguration.Configuration;
 
 namespace mySite.DataAccess
 {
@@ -39,6 +36,7 @@ namespace mySite.DataAccess
             modelBuilder.Entity<Mark>().HasRequired(e => e.Criterion).WithMany(e => e.Marks);
             modelBuilder.Entity<Mark>().HasRequired(e => e.Point).WithMany(e => e.Marks);
             modelBuilder.Entity<Mark>().Property(e => e.Value).IsRequired();
+            modelBuilder.Entity<Mark>().HasKey(e => new { e.PointId, e.CriterionId });
 
             modelBuilder.Entity<Point>()
                 .HasMany(mark => mark.Marks).WithRequired(e => e.Point);

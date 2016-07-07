@@ -8,9 +8,9 @@ namespace mySite.DomainModel.Entities
 
         public virtual Point Point { get; set; }
 
-        //public Guid CriterionId { get; set; }
+        public Guid CriterionId { get; set; }
 
-        //public Guid PointId { get; set; }
+        public Guid PointId { get; set; }
 
         public int Value { get; set; }
     }

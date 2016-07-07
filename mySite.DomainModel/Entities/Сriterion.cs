@@ -13,7 +13,7 @@ namespace mySite.DomainModel.Entities
 
         public virtual Board Board { get; set; }
 
-        //public Guid BoardId { get; set; }
+        public Guid BoardId { get; set; }
 
         public virtual List<Mark> Marks { get; set; }
     }

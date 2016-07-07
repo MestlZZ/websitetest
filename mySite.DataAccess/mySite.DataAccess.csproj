@@ -64,6 +64,10 @@
     <Compile Include="Migrations\201607070929534_AddEntitiesRelation.Designer.cs">
       <DependentUpon>201607070929534_AddEntitiesRelation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607070958586_addMarkDoubleKey.cs" />
+    <Compile Include="Migrations\201607070958586_addMarkDoubleKey.Designer.cs">
+      <DependentUpon>201607070958586_addMarkDoubleKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\MarkRepository.cs" />
@@ -93,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607070929534_AddEntitiesRelation.resx">
       <DependentUpon>201607070929534_AddEntitiesRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607070958586_addMarkDoubleKey.resx">
+      <DependentUpon>201607070958586_addMarkDoubleKey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

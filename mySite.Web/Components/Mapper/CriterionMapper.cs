@@ -8,6 +8,13 @@ namespace mySite.Web.Components.Mapper
 {
     public class CriterionMapper : EntityModelMapper<Criterion>
     {
+        private readonly IEntityMapper _mapper;
+
+        public CriterionMapper(IEntityMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
         public override dynamic Map(Criterion entity)
         {
             return new
@@ -15,7 +22,8 @@ namespace mySite.Web.Components.Mapper
                 id = entity.Id,
                 title = entity.Title,
                 width = entity.Width,
-                isBenefit = entity.IsBenefit
+                isBenefit = entity.IsBenefit,
+                marks = entity.Marks.Select(e => _mapper.Map(e))
             };
         }
     }
