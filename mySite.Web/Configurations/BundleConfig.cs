@@ -8,7 +8,8 @@ namespace mySite.Web {
             .Include("~/Scripts/underscore.js")
             .Include("~/Scripts/q.js")
             .Include("~/Scripts/jquery-{version}.js")
-			.Include("~/Scripts/knockout-{version}.js")
+            .Include("~/Scripts/knockout-{version}.js")
+            .Include("~/Scripts/knockout.mapping.js")
             .IncludeDirectory("~/Scripts/knockoutBindings/", "*Binding.js")
         );
 

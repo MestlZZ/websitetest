@@ -1,5 +1,5 @@
 ﻿<div class="board">
-    <h2 class="board__title" data-bind="text: board().title"></h2>
+    <h2 class="board__title" data-bind="text: title"></h2>
     <div class="board__body">
         <table class="board__body-table">
             <thead>
@@ -10,11 +10,12 @@
                     <td></td>
                 </tr>
             </thead>
-            <tbody class="body__points" data-bind="foreach: board().points">
+            <tbody class="body__points" data-bind="foreach: points">
                 <tr>
-                    <td class="point__title noselect" data-bind="dblclickEdit: title, onEnterKeyDown: $root.sendPoint">
-                        <input class="point__title_input invisible" type="text" required data-bind="value: title, valueUpdate: 'afterkeydown'" />
-                        <span data-bind="text: title"></span>
+                    <td class="point__title noselect" data-bind="dblclickEditTitle: $root.sendTitle">
+                        <input class="point__title_input" type="text" required data-bind="value: title, valueUpdate: 'afterkeydown', visible: title.isMustBeEdit" />
+                        <span class="point__title_value" data-bind="text: title, visible: !title.isMustBeEdit()"></span>
+                        <span class="point__title_validation-message validation-message" data-bind="visible: title.hasError, text: title.validationMessage"></span>
                     </td>
                     <td></td>
                 </tr>
