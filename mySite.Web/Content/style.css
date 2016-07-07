@@ -19,6 +19,9 @@ body{
     opacity: 1;
     visibility: visible;
 }
+.error-input{
+    box-shadow: red;
+}
 .invisible{
     display: none;
 }
@@ -64,41 +67,48 @@ body{
     flex-direction: column;
     height: 100%;
 }
-.board .board__title{
+.board__title{
     text-align: center;
     font-size: 30px;
     margin: 1%;
 }
-.board .board__body{
+.board__body{
     background-color: #EEE;
     border: 1px solid rgba(0, 0, 0, .2);
     margin: 0 1%;
     padding: 1%;
     height: 80%;
 }
-.board .board__body-table{
+.board__body-table{
     width: 100%;
     text-align: center;
     border-collapse: collapse;
 }
-
-.board .board__body-table thead .point__title{
+.point__title_input{
+    transition: all .3s ease;
+}
+.point__title{
     font-size: 1.7em;
     color: black;
 }
 
-.board .board__body-table tbody tr{
+.point__cell{
     text-align: center;
     border-top: 1px solid rgba(123, 123, 123, .3);
 }
-.board .board__body-table .point__title{
+.body__points .point__title{
     font-size: 1.2em;
     width: 10%;
     color: rgba(0, 0, 105, .7);
 }
-.board .board__body-table td{
+.cell_field{
     padding: 5px;
+    transition: background-color 0.3s ease;
 }
-.board .board__body-table td:not(:last-child){
+.cell_field:not(:last-child){
     border-right: 1px solid rgba(123, 123, 123, .3);
+}
+.body__points .cell_field:hover{
+    cursor: pointer;
+    background-color: rgba(0, 0, 155, .1);
 }
