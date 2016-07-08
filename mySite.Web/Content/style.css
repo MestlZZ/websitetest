@@ -92,11 +92,13 @@ body{
     border-collapse: collapse;
 }
 .point__title_input{
+    margin-left: 14px;
     transition: all .3s ease;
     background: transparent;
     width: auto;
     overflow: auto;
     border: none;
+    cursor: text;
 }
 .point__title_value{    
     font-size: 1em;
@@ -113,17 +115,19 @@ body{
 }
 .point__title_delete{
     position: absolute;
-    left: -15px;
+    left: 0;
     top: 0;
     font-style: normal;
     color: rgb(200, 0, 0);
     font-weight: bold;
-    font-size: 20px;
+    font-size: 21px;
     opacity: 0;
-    transition: all .1s ease;
+    transition: all .3s ease;
 }
 .point__title_delete:hover {    
     font-size: 25px;
+    left: -2px;
+    top: -2px;
 }
 .point__cell{
     text-align: center;
@@ -133,6 +137,7 @@ body{
     position: relative;
     font-size: 1.2em;
     width: 10%;
+    min-width: 100px;
     color: rgba(0, 0, 105, .7);
 }
 .body__points .point__title:hover .point__title_delete{
@@ -147,5 +152,5 @@ body{
 }
 .body__points .cell_field:hover{
     cursor: pointer;
-    background-color: rgba(0, 0, 155, .1);
+    background-color: rgba(0, 0, 155, .05);
 }

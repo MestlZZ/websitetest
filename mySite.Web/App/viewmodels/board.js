@@ -40,12 +40,14 @@
 
             this.points = board.points;
         },
-        setItemTitle: function (data, context) {
+        updateItemTitle: function (data, context) {
             data.title(data.title().trim());
 
             pointRepository.setTitle(data.title(), data.id(), board.id());
         },
         deleteItem: function (item) {
+            if (!confirm("Remove?")) return;
+
             pointRepository.remove(item, board.id());
             board.points.remove(item);
         }

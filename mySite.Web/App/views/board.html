@@ -13,7 +13,7 @@
             <tbody class="body__points" data-bind="foreach: points">
                 <tr class="point__cell">
                     <td class="cell_field point__title noselect"> 
-                        <div class="point__title_input point__title_value" contenteditable="true" data-bind="editableText: $root.setItemTitle"><!--ko text: title--><!--/ko--></div>
+                        <div class="point__title_input point__title_value" contenteditable="true" data-bind="editableText: $root.updateItemTitle"><!--ko text: title--><!--/ko--></div>
                         <i class="point__title_delete" data-bind="click: $root.deleteItem">✗</i>
                         <span class="point__title_validation-message validation-message" data-bind="css: {'visible':title.hasError}, text: title.validationMessage"></span>
                     </td>
