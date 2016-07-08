@@ -9,13 +9,12 @@
 
             if (!text) {
                 target.hasError(true);
-                target.validationMessage("Field " + fieldName + " can't be clear");
+                target.validationMessage(fieldName + " field can't be clear.");
             } else if (text.length > 255) {
                 target.hasError(true);
-                target.validationMessage('Text in ' + fieldName + ' field must have less than 255 symbols');
+                target.validationMessage('Text in ' + fieldName + ' field must have less than 255 symbols.');
             } else {
                 target.hasError(false);
-                target.validationMessage('');
             }
         }
 
@@ -36,7 +35,7 @@
 
             for (var i = 0; i < board.points().length; i++) {
                 board.points()[i].title.extend({
-                    validTitle: 'point title'
+                    validTitle: 'Title'
                 });
             }
 
@@ -44,8 +43,12 @@
 
             
         },
-        sendTitle: function (data, context) {
+        setTitle: function (data, context) {
+            data.title(data.title().trim());
+
             pointRepository.setTitle(data.title(), data.id(), context.board().id());
+
+            console.log('sended');
         }
     }
 });

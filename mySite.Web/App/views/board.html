@@ -12,10 +12,9 @@
             </thead>
             <tbody class="body__points" data-bind="foreach: points">
                 <tr class="point__cell">
-                    <td class="cell_field point__title noselect" data-bind="dblclickEditTitle: $root.sendTitle">
-                        <input class="point__title_input" type="text" required data-bind="value: title, valueUpdate: 'afterkeydown', visible: title.isMustBeEdit, css: {'error-input':title.hasError}" />
-                        <span class="point__title_value" data-bind="text: title, visible: !title.isMustBeEdit()"></span>
-                        <span class="point__title_validation-message validation-message" data-bind="visible: title.hasError, text: title.validationMessage"></span>
+                    <td class="cell_field point__title noselect"> 
+                        <div class="point__title_input point__title_value" contenteditable="true" data-bind="editableText: $root.setTitle"><!--ko text: title--><!--/ko--></div>
+                        <span class="point__title_validation-message validation-message" data-bind="css: {'visible':title.hasError}, text: title.validationMessage"></span>
                     </td>
                     <td class="cell_field"></td>
                 </tr>
