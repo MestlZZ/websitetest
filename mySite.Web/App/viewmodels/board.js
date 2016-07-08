@@ -23,14 +23,12 @@
         return target;
     };
 
+    var board = ko.mapping.fromJS(boardRepository.getCollection()[0]);
+
     return {
-        board: ko.observable(),
         title: ko.observable(),
         points: ko.observableArray(),
         activate: function () {
-            var board = ko.mapping.fromJS(boardRepository.getCollection()[0]);
-
-            this.board(board);
             this.title = board.title;
 
             for (var i = 0; i < board.points().length; i++) {
@@ -40,15 +38,17 @@
             }
 
             this.points = board.points;
-
-            
         },
-        setTitle: function (data, context) {
+        setItemTitle: function (data, context) {
             data.title(data.title().trim());
 
-            pointRepository.setTitle(data.title(), data.id(), context.board().id());
+            pointRepository.setTitle(data.title(), data.id(), board.id());
+        },
+        deleteItem: function (item) {
+            pointRepository.remove(item, board.id());
+            board.points.remove(item);
 
-            console.log('sended');
+            console.log(board.points());
         }
     }
 });

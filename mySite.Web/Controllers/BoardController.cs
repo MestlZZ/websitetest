@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using System;
 using System.Collections.Generic;
 using mySite.DomainModel.Entities;
 using mySite.DomainModel.Repositories;
@@ -44,10 +45,18 @@ namespace mySite.Web.Controllers
         }
 
         [HttpPost]
-        [Route("point/set-title")]
+        [Route("item/set-title")]
         public void SetTitle(string title, string id)
         {
             _pointRepository.SetTitle(title, id);
+            _unitOfWork.Save();
+        }
+
+        [HttpPost]
+        [Route("item/remove")]
+        public void Remove(string id)
+        {
+            _pointRepository.Remove(_pointRepository.Get(Guid.Parse(id)));
             _unitOfWork.Save();
         }
     }

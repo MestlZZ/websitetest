@@ -106,12 +106,25 @@ body{
     font-family: time;
     color: rgba(0, 0, 105, .7);
 }
-}
+
 .point__title{
     font-size: 1.7em;
     color: black;
 }
-
+.point__title_delete{
+    position: absolute;
+    left: -15px;
+    top: 0;
+    font-style: normal;
+    color: rgb(200, 0, 0);
+    font-weight: bold;
+    font-size: 20px;
+    opacity: 0;
+    transition: all .1s ease;
+}
+.point__title_delete:hover {    
+    font-size: 25px;
+}
 .point__cell{
     text-align: center;
     border-top: 1px solid rgba(123, 123, 123, .3);
@@ -121,6 +134,9 @@ body{
     font-size: 1.2em;
     width: 10%;
     color: rgba(0, 0, 105, .7);
+}
+.body__points .point__title:hover .point__title_delete{
+    opacity: 1;
 }
 .cell_field{
     padding: 5px;

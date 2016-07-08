@@ -2,17 +2,11 @@
     function (constants, storage) {
 
     return {
-        getCollection: getCollection,
-        clearCollection: clearCollection
+        getCollection: getCollection
     }
 
     function getCollection()
     {
-        return storage.get(constants.storage.keys.boards);
-    }
-
-    function clearCollection()
-    {
-        storage.remove(constants.storage.keys.boards);
+        return storage.boards;
     }
 });
