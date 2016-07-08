@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201607070958586_addMarkDoubleKey.Designer.cs">
       <DependentUpon>201607070958586_addMarkDoubleKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607081300380_cascadeRemoving.cs" />
+    <Compile Include="Migrations\201607081300380_cascadeRemoving.Designer.cs">
+      <DependentUpon>201607081300380_cascadeRemoving.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\MarkRepository.cs" />
@@ -100,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607070958586_addMarkDoubleKey.resx">
       <DependentUpon>201607070958586_addMarkDoubleKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607081300380_cascadeRemoving.resx">
+      <DependentUpon>201607081300380_cascadeRemoving.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

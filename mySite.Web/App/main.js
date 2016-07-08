@@ -27,7 +27,7 @@ define(['durandal/system', 'durandal/app',
     app.start().then(function() {
         viewLocator.useConvention();
 
-        storage.initialize().then(function(){
+        storage.initialize().then(function () {
             app.setRoot('viewmodels/shell', 'entrance');
         });
     });

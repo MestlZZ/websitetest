@@ -1,4 +1,5 @@
-﻿define(['repositories/boardRepository', 'repositories/pointRepository'], function (boardRepository, pointRepository) {
+﻿define(['repositories/boardRepository', 'repositories/pointRepository', 'durandal/app'],
+    function (boardRepository, pointRepository, app) {
     ko.extenders.validTitle = function (target, fieldName) {
         target.hasError = ko.observable(false);
         target.validationMessage = ko.observable();
@@ -47,8 +48,6 @@
         deleteItem: function (item) {
             pointRepository.remove(item, board.id());
             board.points.remove(item);
-
-            console.log(board.points());
         }
     }
 });
