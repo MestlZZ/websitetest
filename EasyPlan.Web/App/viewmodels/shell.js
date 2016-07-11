@@ -1,11 +1,14 @@
 ﻿define(['plugins/router', 'durandal/app'], function (router, app) {
     return {
         router: router,
+        spinner: ko.observable(false),
         activate: function () {
+            var self = this;
+
             router.map([
                 { route: '', title:'Home', moduleId: 'viewmodels/board', nav: true },
-            ]).buildNavigationModel();
-            
+            ]).buildNavigationModel();            
+
             return router.activate();
         }
     };

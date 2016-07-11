@@ -1,6 +1,7 @@
 ﻿<div class="board">
     <h2 class="board__title" data-bind="text: title"></h2>
     <div class="board__body">
+        <button class="board__body_item-add" data-bind="click: $root.addItem">Add item</button>
         <table class="board__body-table">
             <thead>
                 <tr>
@@ -8,7 +9,7 @@
                         <span>Title</span>
                     </td>
                     <td class="cell_field"></td>
-                </tr>
+                </tr>                
             </thead>
             <tbody class="body__points" data-bind="foreach: items">
                 <tr class="point__cell">

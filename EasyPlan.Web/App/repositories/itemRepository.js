@@ -1,9 +1,10 @@
-﻿define(['constants', 'storageContext', 'http/storageHttpWrapper', ],
-    function (constants, storage, storageHttpWrapper) {
+﻿define(['constants', 'storageContext', 'http/storageHttpWrapper', 'mappers/itemMapper'],
+    function (constants, storage, storageHttpWrapper, itemMapper) {
 
         return {
-            setTitle: setTitle,
-            remove, remove
+            setTitle,
+            remove,
+            getNewItem
         }
 
         function setTitle(title, itemId, boardId){
@@ -21,8 +22,16 @@
                 var item = board.items.find(function (elem) { return elem.id === itemId })
 
                 board.items.splice(board.items.indexOf(item), 1);
+            });
+        }
 
-                console.log(items);
+        function getNewItem(boardId) {
+            return storageHttpWrapper.post(constants.storage.host + constants.storage.createNewItemUrl, { id: boardId }).then(function (item) {
+                var board = storage.boards.find(function (elem) { return elem.id === boardId });
+                var newItem = itemMapper.map(item);
+                board.items.push(newItem);
+                
+                return newItem;
             });
         }
     });

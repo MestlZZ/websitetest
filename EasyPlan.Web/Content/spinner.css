@@ -1,0 +1,17 @@
+﻿.spinner{
+    position: absolute;
+    background-color: rgba(0,0,0,0.01);
+    width: 100%;
+    height: 100%;
+    transition: all 1s;
+}
+
+.spinner-on{
+    opacity: 1;
+    z-index: 100;
+}
+
+.spinner-off{
+    opacity: 0;
+    z-index: -1;
+}

@@ -7,7 +7,7 @@ namespace EasyPlan.DomainModel.Entities
     {
         public string Title { get; set; }
 
-        public int Width { get; set; }
+        public int Weight { get; set; }
 
         public bool IsBenefit { get; set; }
 

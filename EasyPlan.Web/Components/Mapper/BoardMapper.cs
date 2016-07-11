@@ -19,10 +19,10 @@ namespace EasyPlan.Web.Components.Mapper
         public override dynamic Map(Board entity)
         {
             return new {
-                id = entity.Id,
-                title = entity.Title,
-                items = entity.Items.Select(e => _mapper.Map(e)),
-                criterion = entity.Criterions.Select(e => _mapper.Map(e))
+                Id = entity.Id,
+                Title = entity.Title,
+                Items = entity.Items.Select(e => _mapper.Map(e)),
+                Criterions = entity.Criterions.Select(e => _mapper.Map(e))
             };
         }
     }

@@ -1,0 +1,14 @@
+﻿.confirmation-popup{
+    background: white;
+    text-align: center;
+    box-shadow: rgba(0,0,0,.3) 0 0 15px 5px;
+    border-radius: 20px;
+}
+.ui-dialog-titlebar-close{
+    display: none;
+}
+.ui-dialog-buttonset{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5px;
+}

@@ -1,5 +1,5 @@
-﻿define(['http/storageHttpWrapper', 'constants'],
-function (storageHttpWrapper, constants) {
+﻿define(['http/storageHttpWrapper', 'constants', 'mappers/boardMapper'],
+function (storageHttpWrapper, constants, boardMapper) {
 
     var storage = {
         boards: [],
@@ -9,7 +9,7 @@ function (storageHttpWrapper, constants) {
     function initialize()
     {
         return storageHttpWrapper.post(constants.storage.host + constants.storage.boardsUrl).then(function (boards) {
-            storage.boards = boards;
+            storage.boards = _.map(boards, boardMapper.map);
         });
     }
 

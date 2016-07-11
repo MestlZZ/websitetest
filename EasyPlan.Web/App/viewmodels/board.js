@@ -1,5 +1,5 @@
-﻿define(['repositories/boardRepository', 'repositories/itemRepository', 'durandal/app'],
-    function (boardRepository, itemRepository, app) {
+﻿define(['repositories/boardRepository', 'repositories/itemRepository', 'durandal/app', 'mappers/boardMapper', 'mappers/itemMapper'],
+    function (boardRepository, itemRepository, app, boardMapper, itemMapper) {
     ko.extenders.validTitle = function (target, fieldName) {
         target.hasError = ko.observable(false);
         target.validationMessage = ko.observable();
@@ -24,7 +24,7 @@
         return target;
     };
 
-    var board = ko.mapping.fromJS(boardRepository.getCollection()[0]);
+    var board = boardMapper.mapToObservable(boardRepository.getFirstBoard());
 
     return {
         title: ko.observable(),
@@ -43,13 +43,27 @@
         updateItemTitle: function (item, context) {
             item.title(item.title().trim());
 
-            itemRepository.setTitle(item.title(), item.id(), item.id());
+            itemRepository.setTitle(item.title(), item.id, board.id);
         },
-        deleteItem: function (item) {
-            if (!confirm("Remove?")) return;
+        deleteItem: function (item, event) {
+            $('#confirmation-popup-template').popup({ title: item.title(), body: 'You realy want remove this item?' }, event.toElement)
+            .then(function (s) { 
+                if (s) {
+                    itemRepository.remove(item.id, board.id);
+                    board.items.remove(item);
+                }
+            });            
+        },
+        addItem: function () {
+            itemRepository.getNewItem(board.id).then(function(item){
+                item = itemMapper.mapToObservable(item);
 
-            itemRepository.remove(item.id(), board.id());
-            board.points.remove(item);
+                item.title.extend({
+                    validTitle: 'Title'
+                });
+
+                board.items.unshift(item);
+            });
         }
     }
 });

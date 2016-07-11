@@ -19,9 +19,9 @@ namespace EasyPlan.Web.Components.Mapper
         {
             return new
             {
-                id = entity.Id,
-                title = entity.Title,
-                marks = entity.Marks.Select(e => _mapper.Map(e))
+                Id = entity.Id,
+                Title = entity.Title,
+                Marks = entity.Marks.Select(e => _mapper.Map(e))
             };
         }
     }

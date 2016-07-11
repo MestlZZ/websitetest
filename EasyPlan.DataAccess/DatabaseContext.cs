@@ -14,7 +14,7 @@ namespace EasyPlan.DataAccess
         }
 
         public DbSet<Board> Boards { get; set; }
-        public DbSet<Item> Points { get; set; }
+        public DbSet<Item> Items { get; set; }
         public DbSet<Criterion> Criterions { get; set; }
         public DbSet<Mark> Marks { get; set; }
 

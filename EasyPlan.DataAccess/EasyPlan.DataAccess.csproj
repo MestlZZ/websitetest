@@ -76,6 +76,10 @@
     <Compile Include="Migrations\201607110623561_Point-Rename.Designer.cs">
       <DependentUpon>201607110623561_Point-Rename.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607110732479_Rename-Criteria.cs" />
+    <Compile Include="Migrations\201607110732479_Rename-Criteria.Designer.cs">
+      <DependentUpon>201607110732479_Rename-Criteria.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\MarkRepository.cs" />
@@ -114,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607110623561_Point-Rename.resx">
       <DependentUpon>201607110623561_Point-Rename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607110732479_Rename-Criteria.resx">
+      <DependentUpon>201607110732479_Rename-Criteria.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -12,8 +12,8 @@ namespace EasyPlan.Web.Components.Mapper
         {
             return new
             {
-                id = entity.Id,
-                value = entity.Value
+                Id = entity.Id,
+                Value = entity.Value
             };
         }
     }

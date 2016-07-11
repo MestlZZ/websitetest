@@ -4,7 +4,8 @@
             host: 'http://localhost:52114/',
             boardsUrl: 'boards/get-data',
             setItemTitleUrl: 'boards/item/set-title',
-            removeItemUrl: 'boards/item/remove'
+            removeItemUrl: 'boards/item/remove',
+            createNewItemUrl: 'boards/item/create',
         }
     }
 });

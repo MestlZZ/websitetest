@@ -1,6 +1,7 @@
 ﻿html{
     height: 100%;
 }
+
 body{
     margin: 0px;
     padding: 0px;
@@ -12,6 +13,7 @@ body{
     background-repeat: no-repeat;
     height: 100%;
 }
+
 .validation-message{
     position: absolute;
     top: 2px;
@@ -26,9 +28,11 @@ body{
     opacity: 0;
     z-index: 1;
 }
+
 .error-input{
     box-shadow: red;
 }
+
 .visible{
     opacity: 1;
 }
@@ -36,17 +40,20 @@ body{
 #applicationHost{
     height: 100%;
 }
+
 .durandal-wrapper{
     height: 100%;
     display: flex;
     flex-direction: column;
 }
+
 .header__title{
     color: #e2e2e2;
     margin: 0;
     vertical-align: middle;
     text-align: center;
 }
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */
@@ -56,6 +63,7 @@ body{
   user-select: none;           /* Non-prefixed version, currently
                                   not supported by any browser */
 }
+
 .header{
     flex: 0 40px;
 	background: rgb(125,185,232); /* Old browsers */
@@ -64,19 +72,23 @@ body{
 	background: linear-gradient(to bottom, rgb(125,185,232) 0%,rgb(49,127,155) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7db9e8', endColorstr='#317f9b',GradientType=0 ); /* IE6-9 */
 }
+
 .body-content{
     flex: 1;
 }
+
 .board{
     display: flex;
     flex-direction: column;
     height: 100%;
 }
+
 .board__title{
     text-align: center;
     font-size: 30px;
     margin: 1%;
 }
+
 .board__body{
     background-color: #EEE;
     border: 1px solid rgba(0, 0, 0, .2);
@@ -85,11 +97,35 @@ body{
     flex: 1;
     margin-bottom: 20px;
 }
+
+.board__body_item-add{
+    width: 100px;
+    height: 30px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    /*background-color: rgba(10, 150, 255, .2);*/
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 10px;
+    font-size: 17px;
+    box-shadow: black 0 0 8px -3px;
+    cursor: pointer;
+    font-family: time;
+    transition: all .1s;
+}
+
+.board__body_item-add:hover{
+     width: 104px;
+    height: 34px;
+    margin-bottom: 6px;
+    margin-left: 19px;
+}
+
 .board__body-table{
     width: 100%;
     text-align: center;
     border-collapse: collapse;
 }
+
 .point__title_input{
     margin-left: 14px;
     transition: all .3s ease;
@@ -99,6 +135,7 @@ body{
     border: none;
     cursor: text;
 }
+
 .point__title_value{    
     font-size: 1em;
     text-align: center;
@@ -112,6 +149,7 @@ body{
     font-size: 1.7em;
     color: black;
 }
+
 .point__title_delete{
     position: absolute;
     left: 0;
@@ -123,15 +161,18 @@ body{
     opacity: 0;
     transition: all .3s ease;
 }
+
 .point__title_delete:hover {    
     font-size: 25px;
     left: -2px;
     top: -2px;
 }
+
 .point__cell{
     text-align: center;
     border-top: 1px solid rgba(123, 123, 123, .3);
 }
+
 .body__points .point__title{
     position: relative;
     font-size: 1.2em;
@@ -139,16 +180,20 @@ body{
     min-width: 100px;
     color: rgba(0, 0, 105, .7);
 }
+
 .body__points .point__title:hover .point__title_delete{
     opacity: 1;
 }
+
 .cell_field{
     padding: 5px;
     transition: background-color 0.3s ease;
 }
+
 .cell_field:not(:last-child){
     border-right: 1px solid rgba(123, 123, 123, .3);
 }
+
 .body__points .cell_field:hover{
     cursor: pointer;
     background-color: rgba(0, 0, 155, .05);
