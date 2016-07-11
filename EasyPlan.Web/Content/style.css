@@ -37,17 +37,13 @@ body{
     opacity: 1;
 }
 
-#applicationHost{
-    height: 100%;
-}
-
 .durandal-wrapper{
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.header__title{
+.header-title{
     color: #e2e2e2;
     margin: 0;
     vertical-align: middle;
@@ -83,13 +79,13 @@ body{
     height: 100%;
 }
 
-.board__title{
+.board-title{
     text-align: center;
     font-size: 30px;
     margin: 1%;
 }
 
-.board__body{
+.board-body{
     background-color: #EEE;
     border: 1px solid rgba(0, 0, 0, .2);
     margin: 0 1%;
@@ -98,7 +94,7 @@ body{
     margin-bottom: 20px;
 }
 
-.board__body_item-add{
+.board-body-item-add{
     width: 100px;
     height: 30px;
     margin-bottom: 10px;
@@ -113,20 +109,20 @@ body{
     transition: all .1s;
 }
 
-.board__body_item-add:hover{
+.board-body-item-add:hover{
      width: 104px;
     height: 34px;
     margin-bottom: 6px;
     margin-left: 19px;
 }
 
-.board__body-table{
+.board-body-table{
     width: 100%;
     text-align: center;
     border-collapse: collapse;
 }
 
-.point__title_input{
+.point-title-input{
     margin-left: 14px;
     transition: all .3s ease;
     background: transparent;
@@ -136,7 +132,7 @@ body{
     cursor: text;
 }
 
-.point__title_value{    
+.point-title-value{    
     font-size: 1em;
     text-align: center;
     overflow: hidden;
@@ -145,12 +141,12 @@ body{
     color: rgba(0, 0, 105, .7);
 }
 
-.point__title{
+.point-title{
     font-size: 1.7em;
     color: black;
 }
 
-.point__title_delete{
+.point-title-delete{
     position: absolute;
     left: 0;
     top: 0;
@@ -162,18 +158,18 @@ body{
     transition: all .3s ease;
 }
 
-.point__title_delete:hover {    
+.point-title-delete:hover {    
     font-size: 25px;
     left: -2px;
     top: -2px;
 }
 
-.point__cell{
+.point-cell{
     text-align: center;
     border-top: 1px solid rgba(123, 123, 123, .3);
 }
 
-.body__points .point__title{
+.body-points .point-title{
     position: relative;
     font-size: 1.2em;
     width: 10%;
@@ -181,20 +177,20 @@ body{
     color: rgba(0, 0, 105, .7);
 }
 
-.body__points .point__title:hover .point__title_delete{
+.body-points .point-title:hover .point-title-delete{
     opacity: 1;
 }
 
-.cell_field{
+.cell-field{
     padding: 5px;
     transition: background-color 0.3s ease;
 }
 
-.cell_field:not(:last-child){
+.cell-field:not(:last-child){
     border-right: 1px solid rgba(123, 123, 123, .3);
 }
 
-.body__points .cell_field:hover{
+.body-points .cell-field:hover{
     cursor: pointer;
     background-color: rgba(0, 0, 155, .05);
 }

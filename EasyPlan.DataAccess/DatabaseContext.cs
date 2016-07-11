@@ -46,6 +46,16 @@ namespace EasyPlan.DataAccess
                 .HasMany(mark => mark.Marks).WithRequired(e => e.Criterion);
             modelBuilder.Entity<Criterion>().HasRequired(e => e.Board).WithMany(e => e.Criterions);
 
+            modelBuilder.Entity<Board>().Property(e => e.Title).HasMaxLength(50).IsRequired();
+
+            modelBuilder.Entity<Item>().Property(e => e.Title).HasMaxLength(254).IsRequired();
+
+            modelBuilder.Entity<Criterion>().Property(e => e.Title).HasMaxLength(254).IsRequired();
+            modelBuilder.Entity<Criterion>().Property(e => e.IsBenefit).IsRequired();
+            modelBuilder.Entity<Criterion>().Property(e => e.Weight).IsRequired();
+
+            modelBuilder.Entity<Mark>().Property(e => e.Value).IsRequired();
+            
             base.OnModelCreating(modelBuilder);
         }
     }

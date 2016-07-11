@@ -29,6 +29,7 @@
     return {
         title: ko.observable(),
         items: ko.observableArray(),
+        criterions: ko.observableArray(),
         activate: function () {
             this.title = board.title;
 
@@ -39,6 +40,7 @@
             }
 
             this.items = board.items;
+            this.criterions = board.criterions;
         },
         updateItemTitle: function (item, context) {
             item.title(item.title().trim());

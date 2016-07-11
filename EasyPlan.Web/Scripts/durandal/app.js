@@ -58,7 +58,7 @@ define(['durandal/system', 'durandal/viewEngine', 'durandal/composition', 'duran
          * The title of your application.
          * @property {string} title
          */
-        title: 'Application',
+        title: 'EasyPlan',
         /**
          * Configures one or more plugins to be loaded and installed into the application.
          * @method configurePlugins

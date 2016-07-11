@@ -32,7 +32,7 @@ define(['durandal/system', 'durandal/app',
             spinner.initialize();
             spinner.stop();
 
-            app.setRoot('viewmodels/shell', 'entrance');
+            app.setRoot('viewmodels/shell', 'entrance', 'application');
         });
     });
 });
