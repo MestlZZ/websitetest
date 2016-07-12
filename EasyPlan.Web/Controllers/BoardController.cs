@@ -18,43 +18,36 @@ namespace EasyPlan.Web.Controllers
         private readonly IEntityMapper _mapper;
         private readonly IItemRepository _itemRepository;
         private readonly IMarkRepository _markRepository;
+        private readonly ICriterionRepository _criterionRepository;
 
         public BoardController(IBoardRepository boardRepository, IUnitOfWork unitOfWork,
-            IEntityMapper mapper, IItemRepository itemRepository, IMarkRepository markRepository)
+            IEntityMapper mapper, IItemRepository itemRepository, IMarkRepository markRepository,
+            ICriterionRepository criterionRepository)
         {
             _boardRepository = boardRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _itemRepository = itemRepository;
             _markRepository = markRepository;
+            _criterionRepository = criterionRepository;
         }
 
         [HttpPost]
         [Route("get-data")]
-        public JsonResult GetData()
+        public JsonResult GetBoardData(string id)
+        {            
+            var tmp = _boardRepository.Get(Guid.Parse(id));
+            var boards = _mapper.Map(tmp);
+
+            return Json(boards, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [Route("get-info")]
+        public JsonResult GetBoardsInfo()
         {
-            /*set data
-            var items = new List<Item>();
-            var criterions = new List<Criterion>();
-            var marks = new List<Mark>();
-
-            items.Add(new Item() { Title = "First item" });
-            items.Add(new Item() { Title = "Second item" });
-            items.Add(new Item() { Title = "Third item" });
-
-            criterions.Add(new Criterion() { Title = "First criterion", Width = 1, IsBenefit = true });
-
-            _markRepository.Add(new Mark() { Value = 1, Criterion = criterions[0], Item = items[0] });
-            _markRepository.Add(new Mark() { Value = 4, Criterion = criterions[0], Item = items[1] });
-            _markRepository.Add(new Mark() { Value = 3, Criterion = criterions[0], Item = items[2] });
-
-            _boardRepository.Add(new Board() { Criterions = criterions, Items = items, Title = "First board!" });
-                        
-            _unitOfWork.Save();
-            /*end*/
-
             var tmp = _boardRepository.GetCollection();
-            var boards = tmp.Select(board => _mapper.Map(board));
+            var boards = tmp.Select(e => BoardMapper.MapToView(e));
 
             return Json(boards, JsonRequestBehavior.AllowGet);
         }
@@ -94,6 +87,16 @@ namespace EasyPlan.Web.Controllers
             _unitOfWork.Save();
 
             return Json(_mapper.Map(_itemRepository.Get(item.Id)), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [Route("mark/set-value")]
+        public void SetMarkValue(string value, string id)
+        {
+            var mark = _markRepository.Get(Guid.Parse(id));
+            mark.Value = Convert.ToInt16(value);
+
+            _unitOfWork.Save();
         }
     }
 }

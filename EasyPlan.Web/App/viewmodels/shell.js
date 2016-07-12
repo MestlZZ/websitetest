@@ -6,7 +6,7 @@
             var self = this;
 
             router.map([
-                { route: '', title:'Home', moduleId: 'viewmodels/board', nav: true },
+                { route: '', title:'Board', moduleId: 'viewmodels/board', nav: true },
             ]).buildNavigationModel();            
 
             return router.activate();

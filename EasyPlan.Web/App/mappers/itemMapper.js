@@ -19,7 +19,9 @@
         return {
             id: src.id,
             marks: ko.observableArray(_.map(src.marks, markMapper.mapToObservable)),
-            title: ko.observable(src.title)
+            title: ko.observable(src.title).extend({
+                validItemTitle: 'Title'
+            })
         }
     }
 });

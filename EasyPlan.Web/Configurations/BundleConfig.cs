@@ -12,6 +12,7 @@ namespace EasyPlan.Web {
             .Include("~/Scripts/knockout-{version}.js")
             .Include("~/Scripts/knockout.mapping.js")
             .IncludeDirectory("~/Scripts/knockoutBindings/", "*Binding.js")
+            .IncludeDirectory("~/Scripts/knockoutExtenders/", "*Extender.js")
         );
 
       bundles.Add(

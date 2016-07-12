@@ -18,11 +18,21 @@ namespace EasyPlan.Web.Components.Mapper
 
         public override dynamic Map(Board entity)
         {
-            return new {
+            return new
+            {
                 Id = entity.Id,
                 Title = entity.Title,
                 Items = entity.Items.Select(e => _mapper.Map(e)),
                 Criterions = entity.Criterions.Select(e => _mapper.Map(e))
+            };
+        }
+
+        public static dynamic MapToView(Board entity)
+        {
+            return new
+            {
+                Id = entity.Id,
+                Title = entity.Title
             };
         }
     }

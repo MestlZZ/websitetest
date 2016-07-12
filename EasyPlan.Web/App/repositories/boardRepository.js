@@ -1,5 +1,5 @@
-﻿define(['constants', 'storageContext'],
-    function (constants, storage) {
+﻿define(['constants', 'storageContext', 'mappers/boardMapper', 'http/storageHttpWrapper'],
+    function (constants, storage, boardMapper, storageHttpWrapper) {
 
     return {
         getCollection: getCollection,
@@ -13,9 +13,10 @@
 
     function getFirstBoard()
     {
-        if (!storage.boards[0])
+        var boardInfo = storage.boards[0];
+        if (!boardInfo)
             throw "Failed to load board";
 
-        return storage.boards[0];
+        return storageHttpWrapper.post(constants.storage.host + constants.storage.boardDataUrl, { id: boardInfo.id });
     }
 });

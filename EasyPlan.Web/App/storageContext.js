@@ -8,8 +8,8 @@ function (storageHttpWrapper, constants, boardMapper) {
 
     function initialize()
     {
-        return storageHttpWrapper.post(constants.storage.host + constants.storage.boardsUrl).then(function (boards) {
-            storage.boards = _.map(boards, boardMapper.map);
+        return storageHttpWrapper.post(constants.storage.host + constants.storage.boardsInfoUrl).then(function (boards) {
+            storage.boards = _.map(boards, boardMapper.mapInfo);
         });
     }
 

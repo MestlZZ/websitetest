@@ -17,7 +17,9 @@
 
         return {
             id: src.id,
-            value: ko.observable(src.value)
+            value: ko.observable(src.value).extend({
+                validMarkValue: 'Mark'
+            })
         }
     }
 });

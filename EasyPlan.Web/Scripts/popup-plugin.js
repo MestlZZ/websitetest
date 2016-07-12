@@ -1,15 +1,17 @@
 ﻿(function ($) {
-    $.fn.popup = function (context, element) {
+    $.fn.popup = function (context) {
         var deferred = Q.defer();
-        
-        $('.confirmation-popup').remove();
+
         var source = $(this).html();
         var template = Handlebars.compile(source);
         var htmlResut = template(context);
+        var popup = $('<div />').html(htmlResut).find('div').first();
 
-        $('body').append(htmlResut);
+        $('.' + popup.attr('class')).remove();
 
-        $('.confirmation-popup').dialog({
+        $('body').append(popup);
+
+        popup.dialog({
             dialogClass: "no-close",
             modal: true,
             hide: { effect: "fade", duration: 200 },
@@ -32,36 +34,7 @@
               }
             ]
         });
-
-        /*$('.popup-button.button-cancel').click(function cl(e) {
-            $('.confirmation-popup').remove();
-            $(this).unbind('click', cl);
-            
-            deferred.resolve(false);
-            e.preventDefault();
-        })
-
-        $('.popup-button.button-ok').click(function cl(e) {
-            $('.confirmation-popup').remove();
-            $(this).unbind('click', cl);
-
-            deferred.resolve(true);
-            e.preventDefault();
-        })
-
-        $('html').click(function cl(e) {
-            if (e.target != $('.popup-button')[0])
-            {
-                console.log(e.target);
-                console.log($('.popup-button')[0]);
-
-               // $('html').unbind('click', cl);
-
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        })
-        */
+        
         return deferred.promise;
     };
 })(jQuery);

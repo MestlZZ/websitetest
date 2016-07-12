@@ -158,6 +158,7 @@
     <Content Include="App\models\criterion.js" />
     <Content Include="App\models\item.js" />
     <Content Include="App\repositories\boardRepository.js" />
+    <Content Include="App\repositories\markRepository.js" />
     <Content Include="App\repositories\itemRepository.js" />
     <Content Include="App\spinner.js" />
     <Content Include="App\storageContext.js" />
@@ -198,6 +199,8 @@
     <Content Include="Scripts\knockout-3.1.0.debug.js" />
     <Content Include="Scripts\knockout-3.1.0.js" />
     <Content Include="Scripts\knockoutBindings\editableTextBinding.js" />
+    <Content Include="Scripts\knockoutExtenders\validItemTitleExtender.js" />
+    <Content Include="Scripts\knockoutExtenders\validMarkValueExtender.js" />
     <Content Include="Scripts\popup-plugin.js" />
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />

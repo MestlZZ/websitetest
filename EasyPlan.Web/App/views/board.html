@@ -3,30 +3,33 @@
     <div class="board-body">
         <button class="board-body-item-add" data-bind="click: $root.addItem">Add item</button>
         <table class="board-body-table">
-            <thead>
+            <thead class="table-head">
                 <tr>
-                    <td class="cell-field point-title">
+                    <td class="cell-field item-title">
                         <span>Title</span>
                     </td>
                     <!--ko foreach: criterions-->
-                    <td class="cell-field point-criterion" data-bind="text: title"></td>
+                    <td class="cell-field item-criterion" data-bind="text: title"></td>
                     <!--/ko-->
-                    <td class="cell-field point-score">Score</td>
-                    <td class="cell-field point-rank">Rank</td>
+                    <td class="cell-field item-score">Score</td>
+                    <td class="cell-field item-rank">Rank</td>
                 </tr>                
             </thead>
-            <tbody class="body-points" data-bind="foreach: items">
-                <tr class="point-cell">
-                    <td class="cell-field point-title noselect"> 
-                        <div class="point-title-input point-title-value" contenteditable="true" data-bind="editableText: $root.updateItemTitle"><!--ko text: title--><!--/ko--></div>
-                        <i class="point-title-delete" data-bind="click: $root.deleteItem">✗</i>
-                        <span class="point-title-validation-message validation-message" data-bind="css: {'visible':title.hasError}, text: title.validationMessage"></span>
+            <tbody class="table-body" data-bind="foreach: items">
+                <tr class="item-cell">
+                    <td class="cell-field item-title noselect"> 
+                        <div class="item-title-input item-title-value" data-bind="editableText: {function: $root.updateItemTitle, value: title}"></div>
+                        <i class="item-title-delete" data-bind="click: $root.deleteItem">✗</i>
+                        <span class="item-title-validation-message validation-message" data-bind="css: {'visible':title.hasError}, text: title.validationMessage"></span>
                     </td>                    
                     <!--ko foreach: marks-->
-                    <td class="cell-field point-criterion" data-bind="text: value"></td>
+                    <td class="cell-field item-criterion">
+                        <div class="item-mark-input" data-bind="editableText: {function: $root.setMark, value: value}"></div>
+                        <span class="item-mark-validation-message validation-message" data-bind="css: {'visible':value.hasError}, text: value.validationMessage"></span>
+                    </td>
                     <!--/ko-->
-                    <td class="cell-field point-score">0</td>
-                    <td class="cell-field point-rank">0</td>
+                    <td class="cell-field item-score">0</td>
+                    <td class="cell-field item-rank">0</td>
                 </tr>
             </tbody>
         </table>

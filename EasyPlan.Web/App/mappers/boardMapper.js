@@ -1,7 +1,8 @@
 ﻿define(['models/board', 'mappers/itemMapper', 'mappers/criterionMapper'], function (Board, itemMapper, criterionMapper) {
     return {
-        map: map,
-        mapToObservable: mapToObservable
+        map,
+        mapToObservable,
+        mapInfo
     }
 
     function map(src) {
@@ -12,9 +13,17 @@
             criterions: _.map(src.Criterions, criterionMapper.map)
         });
     }
+
+    function mapInfo(src) {
+        return {
+            id: src.Id,
+            title: src.Title,
+        };
+    }
+
     function mapToObservable(src) {
         if (src.id === undefined)
-            src = Map(src);
+            src = map(src);
 
         return {
             id: src.id,

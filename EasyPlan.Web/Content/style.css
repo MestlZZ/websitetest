@@ -1,5 +1,7 @@
 ﻿html{
     height: 100%;
+    overflow-y: scroll;
+    overflow-x: auto;
 }
 
 body{
@@ -12,6 +14,14 @@ body{
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#61a6cc', endColorstr='#8bafc4',GradientType=0 ); /* IE6-9 */
     background-repeat: no-repeat;
     height: 100%;
+}
+
+#application{
+    height: 100%;
+}
+
+.ui-dialog{
+    z-index: 80;
 }
 
 .validation-message{
@@ -27,6 +37,7 @@ body{
     font-size: 16px;
     opacity: 0;
     z-index: 1;
+    transform: scale(0);
 }
 
 .error-input{
@@ -34,7 +45,8 @@ body{
 }
 
 .visible{
-    opacity: 1;
+    opacity: 1;    
+    transform: scale(1);
 }
 
 .durandal-wrapper{
@@ -92,6 +104,8 @@ body{
     padding: 1%;
     flex: 1;
     margin-bottom: 20px;
+    overflow: auto;
+    height: 0;
 }
 
 .board-body-item-add{
@@ -99,7 +113,6 @@ body{
     height: 30px;
     margin-bottom: 10px;
     margin-left: 20px;
-    /*background-color: rgba(10, 150, 255, .2);*/
     border: 1px solid rgba(0,0,0,.1);
     border-radius: 10px;
     font-size: 17px;
@@ -110,10 +123,7 @@ body{
 }
 
 .board-body-item-add:hover{
-     width: 104px;
-    height: 34px;
-    margin-bottom: 6px;
-    margin-left: 19px;
+    transform: scale(1.04);
 }
 
 .board-body-table{
@@ -122,7 +132,7 @@ body{
     border-collapse: collapse;
 }
 
-.point-title-input{
+.item-title-input{
     margin-left: 14px;
     transition: all .3s ease;
     background: transparent;
@@ -132,7 +142,7 @@ body{
     cursor: text;
 }
 
-.point-title-value{    
+.item-title-value{    
     font-size: 1em;
     text-align: center;
     overflow: hidden;
@@ -141,12 +151,12 @@ body{
     color: rgba(0, 0, 105, .7);
 }
 
-.point-title{
+.item-title{
     font-size: 1.7em;
     color: black;
 }
 
-.point-title-delete{
+.item-title-delete{
     position: absolute;
     left: 0;
     top: 0;
@@ -158,26 +168,27 @@ body{
     transition: all .3s ease;
 }
 
-.point-title-delete:hover {    
+.item-title-delete:hover {    
     font-size: 25px;
-    left: -2px;
-    top: -2px;
+    transform: scale(1.04);
 }
 
-.point-cell{
+.item-cell{
     text-align: center;
     border-top: 1px solid rgba(123, 123, 123, .3);
 }
-
-.body-points .point-title{
+.table-head .cell-field{    
+    font-size: 1.7em;
+    color: black;
+}
+.table-body .cell-field{
     position: relative;
     font-size: 1.2em;
-    width: 10%;
     min-width: 100px;
     color: rgba(0, 0, 105, .7);
 }
 
-.body-points .point-title:hover .point-title-delete{
+.table-body .item-title:hover .item-title-delete{
     opacity: 1;
 }
 
@@ -190,7 +201,7 @@ body{
     border-right: 1px solid rgba(123, 123, 123, .3);
 }
 
-.body-points .cell-field:hover{
+.table-body .cell-field:hover{
     cursor: pointer;
     background-color: rgba(0, 0, 155, .05);
 }
