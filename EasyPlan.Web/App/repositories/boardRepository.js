@@ -2,8 +2,8 @@
     function (constants, storage, boardMapper, storageHttpWrapper) {
 
     return {
-        getCollection: getCollection,
-        getFirstBoard: getFirstBoard
+        getCollection,
+        getOpenedBoard
     }
 
     function getCollection()
@@ -11,9 +11,12 @@
         return storage.boards;
     }
 
-    function getFirstBoard()
+    function getOpenedBoard()
     {
         var boardInfo = storage.boards[0];
+
+        storage.openedBoardId = boardInfo.id;
+
         if (!boardInfo)
             throw "Failed to load board";
 

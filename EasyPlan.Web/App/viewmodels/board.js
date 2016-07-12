@@ -1,7 +1,6 @@
 ﻿define(['repositories/boardRepository', 'repositories/itemRepository','repositories/markRepository',
     'durandal/app', 'mappers/boardMapper', 'mappers/itemMapper', 'constants'],
     function (boardRepository, itemRepository, markRepository, app, boardMapper, itemMapper, constants) {
-
         var board;
 
     return {
@@ -11,7 +10,7 @@
         activate: function () {
             var self = this;
 
-            return boardRepository.getFirstBoard().then(function (data) {
+            return boardRepository.getOpenedBoard().then(function (data) {
                 board = boardMapper.mapToObservable(data);
 
                 self.title = board.title;

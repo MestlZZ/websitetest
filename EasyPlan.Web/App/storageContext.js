@@ -3,6 +3,7 @@ function (storageHttpWrapper, constants, boardMapper) {
 
     var storage = {
         boards: [],
+        openedBoardId: '',
         initialize: initialize
     };
 
