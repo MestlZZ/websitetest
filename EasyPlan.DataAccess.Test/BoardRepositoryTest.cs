@@ -1,55 +1,53 @@
 ﻿using System;
-using EasyPlan.DomainModel.Repositories;
-using EasyPlan.DataAccess.Repositories;
-using EasyPlan.DomainModel.Entities;
-using EasyPlan.Infrastructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using EasyPlan.DomainModel.Repositories;
+using EasyPlan.DomainModel.Entities;
+using EasyPlan.DataAccess.Repositories;
+using EasyPlan.Infrastructure;
 
 namespace EasyPlan.DataAccess.Test
 {
     [TestClass]
     public class BoardRepositoryTest
     {
-        private const string DefaultTitle = "Board";
         private IBoardRepository _boardRepository;
         private IUnitOfWork _unitOfWork;
-        private Guid id;
-        
+        private Board DefaultBoard = new Board() { Title = "BoardTest" };
+
         [TestInitialize]
-        public void testInit()
+        public void SetupContext()
         {
-            _boardRepository = new BoardRepository(new DatabaseContext());
-            _unitOfWork = unitOfWork;
-        }
+            var context = new DatabaseContext();
 
-        [TestMethod]
-        public void AddBoard()
-        {
-            var b = new Board() { Title = DefaultTitle };
-            _boardRepository.Add(b);
-            _unitOfWork.Save();
-
-            var board = _boardRepository.Get(b.Id);
-
-            id = b.Id;
-
-            Assert.AreEqual(b.Title, board.Title);
+            _unitOfWork = context;
+            _boardRepository = new BoardRepository(context);
         }
 
         [TestMethod]
         public void GetCollection()
         {
             var boards = _boardRepository.GetCollection();
-            var board = _boardRepository.Get(id);
 
-            Assert.IsTrue(boards.Contains(board));
+            Assert.IsNotNull(boards);
+        }
+
+        [TestMethod]
+        public void AddRemoveBoard()
+        {
+            _boardRepository.Add(DefaultBoard);
+            _unitOfWork.Save();
+
+            var board = _boardRepository.Get(DefaultBoard.Id);
+
+            Assert.IsNotNull(board, "board is't added to database");
+            Assert.AreEqual(board.Title, DefaultBoard.Title, "board is invalid");
 
             _boardRepository.Remove(board);
             _unitOfWork.Save();
 
-            boards = _boardRepository.GetCollection();
+            board = _boardRepository.Get(DefaultBoard.Id);
 
-            Assert.IsFalse(boards.Contains(board));
-        }
+            Assert.IsNull(board, "board don't removed from database");
+        }        
     }
 }

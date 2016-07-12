@@ -218,10 +218,6 @@
     <Compile Include="Components\DependencyResolverWrapper.cs" />
     <Compile Include="Components\Mapper\BoardMapper.cs" />
     <Compile Include="Components\Mapper\CriterionMapper.cs" />
-    <Compile Include="Components\Mapper\EntityMapper.cs" />
-    <Compile Include="Components\Mapper\EntityModelMapper.cs" />
-    <Compile Include="Components\Mapper\IEntityMapper.cs" />
-    <Compile Include="Components\Mapper\IEntityModelMapper.cs" />
     <Compile Include="Components\Mapper\MarkMapper.cs" />
     <Compile Include="Components\Mapper\ItemMapper.cs" />
     <Compile Include="Controllers\HomeController.cs" />

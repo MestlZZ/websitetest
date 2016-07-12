@@ -6,22 +6,15 @@ using EasyPlan.DomainModel.Entities;
 
 namespace EasyPlan.Web.Components.Mapper
 {
-    public class ItemMapper : EntityModelMapper<Item>
+    public class ItemMapper
     {
-        private readonly IEntityMapper _mapper;
-
-        public ItemMapper(IEntityMapper mapper)
-        {
-            _mapper = mapper;
-        }
-
-        public override dynamic Map(Item entity)
+        public static dynamic Map(Item entity)
         {
             return new
             {
                 Id = entity.Id,
                 Title = entity.Title,
-                Marks = entity.Marks.Select(e => _mapper.Map(e))
+                Marks = entity.Marks.Select(e => MarkMapper.Map(e))
             };
         }
     }

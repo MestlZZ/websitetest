@@ -7,23 +7,16 @@ using EasyPlan.DomainModel.Entities;
 
 namespace EasyPlan.Web.Components.Mapper
 {
-    public class BoardMapper : EntityModelMapper<Board>
+    public class BoardMapper
     {
-        private readonly IEntityMapper _mapper;
-
-        public BoardMapper(IEntityMapper mapper)
-        {
-            _mapper = mapper;
-        }
-
-        public override dynamic Map(Board entity)
+        public static dynamic Map(Board entity)
         {
             return new
             {
                 Id = entity.Id,
                 Title = entity.Title,
-                Items = entity.Items.Select(e => _mapper.Map(e)),
-                Criterions = entity.Criterions.Select(e => _mapper.Map(e))
+                Items = entity.Items.Select(e => ItemMapper.Map(e)),
+                Criterions = entity.Criterions.Select(e => CriterionMapper.Map(e))
             };
         }
 

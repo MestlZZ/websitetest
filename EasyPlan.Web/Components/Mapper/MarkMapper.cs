@@ -6,9 +6,9 @@ using EasyPlan.DomainModel.Entities;
 
 namespace EasyPlan.Web.Components.Mapper
 {
-    public class MarkMapper : EntityModelMapper<Mark>
+    public class MarkMapper
     {
-        public override dynamic Map(Mark entity)
+        public static dynamic Map(Mark entity)
         {
             return new
             {

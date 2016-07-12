@@ -6,16 +6,9 @@ using EasyPlan.DomainModel.Entities;
 
 namespace EasyPlan.Web.Components.Mapper
 {
-    public class CriterionMapper : EntityModelMapper<Criterion>
+    public class CriterionMapper
     {
-        private readonly IEntityMapper _mapper;
-
-        public CriterionMapper(IEntityMapper mapper)
-        {
-            _mapper = mapper;
-        }
-
-        public override dynamic Map(Criterion entity)
+        public static dynamic Map(Criterion entity)
         {
             return new
             {
@@ -23,7 +16,7 @@ namespace EasyPlan.Web.Components.Mapper
                 Title = entity.Title,
                 Weight = entity.Weight,
                 IsBenefit = entity.IsBenefit,
-                Marks = entity.Marks.Select(e => _mapper.Map(e))
+                Marks = entity.Marks.Select(e => MarkMapper.Map(e))
             };
         }
     }

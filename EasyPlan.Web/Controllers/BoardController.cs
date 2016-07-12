@@ -15,18 +15,16 @@ namespace EasyPlan.Web.Controllers
     {
         private readonly IBoardRepository _boardRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IEntityMapper _mapper;
         private readonly IItemRepository _itemRepository;
         private readonly IMarkRepository _markRepository;
         private readonly ICriterionRepository _criterionRepository;
 
         public BoardController(IBoardRepository boardRepository, IUnitOfWork unitOfWork,
-            IEntityMapper mapper, IItemRepository itemRepository, IMarkRepository markRepository,
+            IItemRepository itemRepository, IMarkRepository markRepository,
             ICriterionRepository criterionRepository)
         {
             _boardRepository = boardRepository;
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _itemRepository = itemRepository;
             _markRepository = markRepository;
             _criterionRepository = criterionRepository;
@@ -37,7 +35,7 @@ namespace EasyPlan.Web.Controllers
         public JsonResult GetBoardData(string id)
         {            
             var tmp = _boardRepository.Get(Guid.Parse(id));
-            var boards = _mapper.Map(tmp);
+            var boards = BoardMapper.Map(tmp);
 
             return Json(boards, JsonRequestBehavior.AllowGet);
         }
@@ -86,7 +84,7 @@ namespace EasyPlan.Web.Controllers
 
             _unitOfWork.Save();
 
-            return Json(_mapper.Map(_itemRepository.Get(item.Id)), JsonRequestBehavior.AllowGet);
+            return Json(ItemMapper.Map(_itemRepository.Get(item.Id)), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

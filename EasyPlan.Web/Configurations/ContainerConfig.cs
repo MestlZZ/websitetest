@@ -18,16 +18,6 @@ namespace EasyPlan.Web
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             
             builder.RegisterModule(new DataAccessModule());
-
-            builder.RegisterType<DependencyResolverWrapper>().As<IDependencyResolverWrapper>();
-
-            builder.RegisterType<BoardMapper>().As<IEntityModelMapper<Board>>();
-            builder.RegisterType<MarkMapper>().As<IEntityModelMapper<Mark>>();
-            builder.RegisterType<CriterionMapper>().As<IEntityModelMapper<Criterion>>();
-            builder.RegisterType<ItemMapper>().As<IEntityModelMapper<Item>>();
-
-            builder.RegisterType<EntityMapper>().As<IEntityMapper>();
-
             var container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
