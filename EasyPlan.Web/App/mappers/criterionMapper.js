@@ -8,7 +8,6 @@
         return new Criterion({
             id: src.Id,
             title: src.Title,
-            marks: _.map(src.Marks, markMapper.map),
             isBenefit: src.IsBenefit,
             weight: src.Weight
         })
@@ -20,7 +19,6 @@
         return new Criterion({
             id: src.id,
             title: ko.observable(src.title),
-            marks: ko.observableArray(_.map(src.marks, markMapper.mapToObservable)),
             isBenefit: src.isBenefit,
             weight: ko.observable(src.weight)
         });

@@ -7,6 +7,7 @@
         title: ko.observable(),
         items: ko.observableArray(),
         criterions: ko.observableArray(),
+        marks: ko.observable(),
         activate: function () {
             var self = this;
 
@@ -17,6 +18,7 @@
 
                 self.items = board.items;
                 self.criterions = board.criterions;
+                self.marks = board.marks;
 
                 boardService.itemsChanged(board.items);
             });
@@ -47,6 +49,7 @@
             });
         },
         setMark: function (mark) {
+            console.log(mark);
             markRepository.setValue(+mark.value(), mark.id);
 
             boardService.itemsChanged(board.items);

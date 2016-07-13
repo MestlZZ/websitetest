@@ -22,10 +22,10 @@
                         <i class="item-title-delete" data-bind="click: $root.deleteItem">✗</i>
                         <span class="item-title-validation-message validation-message" data-bind="css: {'visible':title.hasError}, text: title.validationMessage"></span>
                     </td>                    
-                    <!--ko foreach: marks-->
-                    <td class="cell-field item-criterion">
+                    <!--ko foreach: $root.criterions-->
+                    <td class="cell-field item-criterion" data-bind="with: $root.marks()[$parent.id]()[id]">
                         <div class="item-mark-input" data-bind="editableText: {function: $root.setMark, value: value}, click: $root.selectValue"></div>
-                        <span class="item-mark-validation-message validation-message" data-bind="css: {'visible':value.hasError}, text: value.validationMessage"></span>
+                        <span class="item-mark-validation-message validation-message" data-bind="css: {'visible': value.hasError}, text: value.validationMessage"></span>
                     </td>
                     <!--/ko-->
                     <td class="cell-field item-score" data-bind="text: score">0</td>

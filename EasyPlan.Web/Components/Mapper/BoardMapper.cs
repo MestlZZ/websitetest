@@ -15,8 +15,7 @@ namespace EasyPlan.Web.Components.Mapper
             {
                 Id = entity.Id,
                 Title = entity.Title,
-                Items = entity.Items.Select(e => ItemMapper.Map(e)),
-                Criterions = entity.Criterions.Select(e => CriterionMapper.Map(e))
+                Items = entity.Items.Select(e => ItemMapper.Map(e))
             };
         }
 

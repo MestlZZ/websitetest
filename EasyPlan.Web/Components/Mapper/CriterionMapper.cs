@@ -15,8 +15,7 @@ namespace EasyPlan.Web.Components.Mapper
                 Id = entity.Id,
                 Title = entity.Title,
                 Weight = entity.Weight,
-                IsBenefit = entity.IsBenefit,
-                Marks = entity.Marks.Select(e => MarkMapper.Map(e))
+                IsBenefit = entity.IsBenefit
             };
         }
     }
