@@ -7,8 +7,8 @@
     <ProjectGuid>{EEF1121F-5A4A-40CB-8C20-01BD17BF4A1D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EasyPlan.Infrastucture</RootNamespace>
-    <AssemblyName>EasyPlan.Infrastucture</AssemblyName>
+    <RootNamespace>EasyPlan.Infrastructure</RootNamespace>
+    <AssemblyName>EasyPlan.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArgumentValidation.cs" />
     <Compile Include="IDependencyResolverWrapper.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

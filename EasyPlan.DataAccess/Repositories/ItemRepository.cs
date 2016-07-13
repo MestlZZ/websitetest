@@ -14,11 +14,6 @@ namespace EasyPlan.DataAccess.Repositories
         {
             var item = Get(Guid.Parse(id));
 
-            if(title == null || !(title is string) || title.Length > 254 || title.Length == 0)
-            {
-                throw new ArgumentException("title is invalid");
-            }
-
             item.Title = title;
         }
     }

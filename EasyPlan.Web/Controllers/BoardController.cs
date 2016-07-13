@@ -33,7 +33,9 @@ namespace EasyPlan.Web.Controllers
         [HttpPost]
         [Route("get-data")]
         public JsonResult GetBoardData(string id)
-        {            
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(id, "board id");
+
             var tmp = _boardRepository.Get(Guid.Parse(id));
             var boards = BoardMapper.Map(tmp);
 
@@ -54,6 +56,9 @@ namespace EasyPlan.Web.Controllers
         [Route("item/set-title")]
         public void SetItemTitle(string title, string id)
         {
+            ArgumentValidation.ThrowIfNullOrEmpty(title, "item title");
+            ArgumentValidation.ThrowIfNullOrEmpty(id, "item id");
+
             _itemRepository.SetTitle(title, id);
             _unitOfWork.Save();
         }
@@ -62,6 +67,8 @@ namespace EasyPlan.Web.Controllers
         [Route("item/remove")]
         public void RemoveItem(string id)
         {
+            ArgumentValidation.ThrowIfNullOrEmpty(id, "item id");
+
             _itemRepository.Remove(_itemRepository.Get(Guid.Parse(id)));
             _unitOfWork.Save();
         }
@@ -70,6 +77,8 @@ namespace EasyPlan.Web.Controllers
         [Route("item/create")]
         public JsonResult CreateItem(string id)
         {
+            ArgumentValidation.ThrowIfNullOrEmpty(id, "board id");
+
             var board = _boardRepository.Get(Guid.Parse(id));
             var criterions = board.Criterions;
             var marks = new List<Mark>();
@@ -91,8 +100,15 @@ namespace EasyPlan.Web.Controllers
         [Route("mark/set-value")]
         public void SetMarkValue(string value, string id)
         {
+            ArgumentValidation.ThrowIfNullOrEmpty(value, "mark value");
+            ArgumentValidation.ThrowIfNullOrEmpty(id, "mark id");
+
             var mark = _markRepository.Get(Guid.Parse(id));
-            mark.Value = Convert.ToInt16(value);
+            var convertedValue = Convert.ToInt16(value);
+
+            ArgumentValidation.ThrowIfOutOfRange(convertedValue, 0, 5, "mark value");
+
+            mark.Value = convertedValue;
 
             _unitOfWork.Save();
         }

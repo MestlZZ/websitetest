@@ -30,7 +30,6 @@
                 if (s) {
                     itemRepository.remove(item.id, board.id);
                     board.items.remove(item);
-                    console.log(s);
                 }
             });            
         },
