@@ -30,6 +30,8 @@
     }
 
     function setRanks(items) {
+        var items = sortItemsByScore(items);
+
         for(var i = 0; i < items.length; i++)
         {
             if (i == 0 || items[i - 1].score() != items[i].score())
