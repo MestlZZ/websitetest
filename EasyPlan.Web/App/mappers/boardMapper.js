@@ -15,21 +15,21 @@
     }
 
     function mapInfo(src) {
-        return {
+        return new Board({
             id: src.Id,
             title: src.Title,
-        };
+        });
     }
 
     function mapToObservable(src) {
         if (src.id === undefined)
             src = map(src);
 
-        return {
+        return new Board({
             id: src.id,
             title: ko.observable(src.title),
             items: ko.observableArray(_.map(src.items, itemMapper.mapToObservable)),
             criterions: ko.observableArray(_.map(src.criterions, criterionMapper.mapToObservable))
-        }
+        });
     }
 });

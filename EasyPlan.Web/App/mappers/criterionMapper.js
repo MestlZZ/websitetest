@@ -17,12 +17,12 @@
         if (src.id === undefined)
             src = Map(src);
 
-        return {
+        return new Criterion({
             id: src.id,
             title: ko.observable(src.title),
             marks: ko.observableArray(_.map(src.marks, markMapper.mapToObservable)),
             isBenefit: src.isBenefit,
             weight: ko.observable(src.weight)
-        }
+        });
     }
 });

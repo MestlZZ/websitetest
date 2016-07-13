@@ -13,7 +13,8 @@ namespace EasyPlan.Web.Components.Mapper
             return new
             {
                 Id = entity.Id,
-                Value = entity.Value
+                Value = entity.Value,
+                IsBenefit = entity.Criterion.IsBenefit
             };
         }
     }

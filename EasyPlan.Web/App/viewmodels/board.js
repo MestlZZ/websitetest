@@ -22,13 +22,13 @@
         updateItemTitle: function (item) {
             item.title(item.title().trim());
 
-            itemRepository.setTitle(item.title(), item.id, board.id);
+            itemRepository.setTitle(item.title(), item.id);
         },
         deleteItem: function (item, event) {
             $(constants.popupTemplatesId.confirmation).popup({ title: item.title(), body: 'You realy want remove this item?' })
             .then(function (s) { 
                 if (s) {
-                    itemRepository.remove(item.id, board.id);
+                    itemRepository.remove(item.id);
                     board.items.remove(item);
                 }
             });            
@@ -41,7 +41,7 @@
             });
         },
         setMark: function (mark) {
-            markRepository.setValue(+mark.value(), mark.id, board.id);
+            markRepository.setValue(+mark.value(), mark.id);
         },
         selectValue: function () {
             document.execCommand('selectAll', false, null);

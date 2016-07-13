@@ -7,7 +7,8 @@
     function map(src) {
         return new Mark({
             id: src.Id,
-            value: src.Value
+            value: src.Value,
+            isBenefit: src.IsBenefit
         })
     }
 
@@ -15,11 +16,12 @@
         if (src.id === undefined)
             src = Map(src);
 
-        return {
+        return new Mark({
             id: src.id,
             value: ko.observable(src.value).extend({
                 validMarkValue: 'Mark'
-            })
-        }
+            }),
+            isBenefit: src.isBenefit
+        })
     }
 });

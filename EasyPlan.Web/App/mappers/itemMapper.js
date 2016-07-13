@@ -16,12 +16,14 @@
         if (src.id === undefined)
             src = Map(src);
 
-        return {
+        return new Item({
             id: src.id,
-            marks: ko.observableArray(_.map(src.marks, markMapper.mapToObservable)),
+            marks: ko.observableArray(_.map(src.marks, markMapper.mapToObservable)).extend({
+                marksScore: '123'
+            }),
             title: ko.observable(src.title).extend({
                 validItemTitle: 'Title'
             })
-        }
+        });
     }
 });
