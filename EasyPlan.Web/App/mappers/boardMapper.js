@@ -8,32 +8,12 @@
     }
 
     function map(src) {
-        var board = new Board({
+        return new Board({
             id: src.Id,
             title: src.Title,
             items: _.map(src.Items, itemMapper.map),
-            criterions: [],
-            marks: {}
+            criterions: _.map(src.Criterions, criterionMapper.map)
         });
-
-        var marks = board.items[0].marks;
-
-        for (var i = 0; i < marks.length; i++)
-            board.criterions.push(marks[i].criterion);
-
-        for (var i = 0; i < board.items.length; i++) {
-            board.marks[board.items[i].id] = {};
-
-            for (var j = 0; j < board.criterions.length; j++) {
-                var mark = (board.items[i].marks).find(function(elem){
-                    return elem.criterion.id == board.criterions[j].id;
-                });
-
-                board.marks[board.items[i].id][board.criterions[j].id] = mark;
-            }
-        }
-
-        return board;
     }
 
     function mapInfo(src) {
@@ -51,27 +31,8 @@
             id: src.id,
             title: ko.observable(src.title),
             items: ko.observableArray(_.map(src.items, itemMapper.mapToObservable)),
-            criterions: ko.observableArray(),
-            marks: ko.observable({})
+            criterions: ko.observableArray(_.map(src.criterions, criterionMapper.mapToObservable))
         });
-
-        var marks = board.items()[0].marks;
-
-        for (var i = 0; i < marks().length; i++)
-            board.criterions.push(marks()[i].criterion);
-
-        for (var i = 0; i < board.items().length; i++) {
-            console.log(board.marks());
-            board.marks()[board.items()[i].id] = ko.observable({});
-
-            for (var j = 0; j < board.criterions().length; j++) {
-                var mark = (board.items()[i].marks()).find(function (elem) {
-                    return elem.criterion.id == board.criterions()[j].id;
-                });
-
-                board.marks()[board.items()[i].id]()[board.criterions()[j].id] = mark;
-            }
-        }
 
         return board;
     }

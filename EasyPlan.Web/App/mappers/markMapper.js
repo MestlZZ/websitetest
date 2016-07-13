@@ -1,4 +1,4 @@
-﻿define(['models/mark', 'mappers/criterionMapper'],function (Mark, criterionMapper) {
+﻿define(['models/mark'],function (Mark) {
     return {
         map: map,
         mapToObservable: mapToObservable
@@ -8,7 +8,7 @@
         return new Mark({
             id: src.Id,
             value: src.Value,
-            criterion: criterionMapper.map(src.Criterion)
+            isBenefit: src.IsBenefit
         })
     }
 
@@ -21,7 +21,7 @@
             value: ko.observable(src.value).extend({
                 validMarkValue: 'Mark'
             }),
-            criterion: criterionMapper.mapToObservable(src.criterion)
+            isBenefit: src.isBenefit
         })
     }
 });

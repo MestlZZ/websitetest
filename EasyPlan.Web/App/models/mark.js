@@ -2,7 +2,7 @@
     function Mark(opt){
         this.id = opt.id,
         this.value = opt.value
-        this.criterion = opt.criterion
+        this.isBenefit = opt.isBenefit
     }
 
     return Mark;

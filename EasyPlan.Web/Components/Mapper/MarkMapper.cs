@@ -14,7 +14,7 @@ namespace EasyPlan.Web.Components.Mapper
             {
                 Id = entity.Id,
                 Value = entity.Value,
-                Criterion = CriterionMapper.Map(entity.Criterion)
+                IsBenefit = entity.Criterion.IsBenefit
             };
         }
     }

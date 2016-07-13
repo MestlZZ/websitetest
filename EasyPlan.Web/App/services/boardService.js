@@ -10,7 +10,7 @@
         return _.reduce(marks, function (memo, num) {
             var value = ko.utils.unwrapObservable(num.value);
 
-            if (num.criterion.isBenefit)
+            if (num.isBenefit)
                 return memo + value;
             else
                 return memo - value;
