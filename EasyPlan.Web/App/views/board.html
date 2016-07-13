@@ -24,7 +24,7 @@
                     </td>                    
                     <!--ko foreach: marks-->
                     <td class="cell-field item-criterion">
-                        <div class="item-mark-input" data-bind="editableText: {function: $root.setMark, value: value}"></div>
+                        <div class="item-mark-input" data-bind="editableText: {function: $root.setMark, value: value}, click: $root.selectValue"></div>
                         <span class="item-mark-validation-message validation-message" data-bind="css: {'visible':value.hasError}, text: value.validationMessage"></span>
                     </td>
                     <!--/ko-->

@@ -43,6 +43,9 @@
         },
         setMark: function (mark) {
             markRepository.setValue(+mark.value(), mark.id, board.id);
+        },
+        selectValue: function () {
+            document.execCommand('selectAll', false, null);
         }
     }
 });
