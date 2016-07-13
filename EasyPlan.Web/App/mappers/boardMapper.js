@@ -1,4 +1,6 @@
-﻿define(['models/board', 'mappers/itemMapper', 'mappers/criterionMapper'], function (Board, itemMapper, criterionMapper) {
+﻿define(['models/board', 'mappers/itemMapper', 'mappers/criterionMapper', 'services/boardService'],
+    function (Board, itemMapper, criterionMapper, boardService) {
+
     return {
         map,
         mapToObservable,
@@ -25,11 +27,13 @@
         if (src.id === undefined)
             src = map(src);
 
-        return new Board({
+        var board = new Board({
             id: src.id,
             title: ko.observable(src.title),
             items: ko.observableArray(_.map(src.items, itemMapper.mapToObservable)),
             criterions: ko.observableArray(_.map(src.criterions, criterionMapper.mapToObservable))
         });
+
+        return board;
     }
 });

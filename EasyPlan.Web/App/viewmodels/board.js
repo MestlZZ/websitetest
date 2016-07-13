@@ -1,6 +1,6 @@
 ﻿define(['repositories/boardRepository', 'repositories/itemRepository','repositories/markRepository',
-    'durandal/app', 'mappers/boardMapper', 'mappers/itemMapper', 'constants'],
-    function (boardRepository, itemRepository, markRepository, app, boardMapper, itemMapper, constants) {
+    'durandal/app', 'mappers/boardMapper', 'mappers/itemMapper', 'constants', 'services/boardService'],
+    function (boardRepository, itemRepository, markRepository, app, boardMapper, itemMapper, constants, boardService) {
         var board;
 
     return {
@@ -17,7 +17,10 @@
 
                 self.items = board.items;
                 self.criterions = board.criterions;
-            });            
+
+                self.items(boardService.sortItemsByScore(self.items()));
+                boardService.callTriggerScoreChanged(board.items());
+            });
         },
         updateItemTitle: function (item) {
             item.title(item.title().trim());
@@ -42,6 +45,9 @@
         },
         setMark: function (mark) {
             markRepository.setValue(+mark.value(), mark.id);
+
+            board.items(boardService.sortItemsByScore(board.items()));
+            boardService.callTriggerScoreChanged(board.items());
         },
         selectValue: function () {
             document.execCommand('selectAll', false, null);

@@ -1,4 +1,5 @@
-﻿define(['models/item', 'mappers/markMapper'], function (Item, markMapper) {
+﻿define(['models/item', 'mappers/markMapper', 'services/boardService'],
+    function (Item, markMapper, boardService) {
     return {
         map: map,
         mapToObservable: mapToObservable
@@ -16,14 +17,20 @@
         if (src.id === undefined)
             src = Map(src);
 
-        return new Item({
+        var item =  new Item({
             id: src.id,
-            marks: ko.observableArray(_.map(src.marks, markMapper.mapToObservable)).extend({
-                marksScore: '123'
-            }),
+            marks: ko.observableArray(_.map(src.marks, markMapper.mapToObservable)),
             title: ko.observable(src.title).extend({
                 validItemTitle: 'Title'
             })
         });
+
+        item.rank = ko.observable();
+
+        item.score = ko.computed(function () {
+            return boardService.computeScore(item.marks());
+        });
+
+        return item;
     }
 });
