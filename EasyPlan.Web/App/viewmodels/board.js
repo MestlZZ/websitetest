@@ -18,8 +18,7 @@
                 self.items = board.items;
                 self.criterions = board.criterions;
 
-                self.items(boardService.sortItemsByScore(self.items()));
-                boardService.callTriggerScoreChanged(board.items());
+                boardService.itemsChanged(board.items);
             });
         },
         updateItemTitle: function (item) {
@@ -33,6 +32,8 @@
                 if (s) {
                     itemRepository.remove(item.id);
                     board.items.remove(item);
+                    
+                    boardService.itemsChanged(board.items);
                 }
             });            
         },
@@ -41,13 +42,14 @@
                 item = itemMapper.mapToObservable(item);
 
                 board.items.unshift(item);
+                
+                boardService.itemsChanged(board.items);
             });
         },
         setMark: function (mark) {
             markRepository.setValue(+mark.value(), mark.id);
 
-            board.items(boardService.sortItemsByScore(board.items()));
-            boardService.callTriggerScoreChanged(board.items());
+            boardService.itemsChanged(board.items);
         },
         selectValue: function () {
             document.execCommand('selectAll', false, null);

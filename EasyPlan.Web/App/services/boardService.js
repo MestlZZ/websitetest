@@ -1,12 +1,9 @@
 ﻿define(['durandal/app'], function (app) {
-    
-    app.on('items:score-changed', setRanks);
-
     return {
         computeScore,
         sortItemsByScore,
         setRanks,
-        callTriggerScoreChanged
+        itemsChanged
     }
 
     function computeScore(marks) {
@@ -26,8 +23,10 @@
         }).reverse();
     }
 
-    function callTriggerScoreChanged(items) {
-        app.trigger('items:score-changed', items);
+    function itemsChanged(items) {
+        items(sortItemsByScore(items()));
+
+        setRanks(items());
     }
 
     function setRanks(items) {
