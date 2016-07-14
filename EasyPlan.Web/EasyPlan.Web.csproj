@@ -204,6 +204,7 @@
     <Content Include="Scripts\knockoutBindings\editableInputBinding.js" />
     <Content Include="Scripts\knockoutBindings\editableTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextOnFocusBinding.js" />
+    <Content Include="Scripts\knockoutBindings\sortBinding.js" />
     <Content Include="Scripts\knockoutExtenders\validItemTitleExtender.js" />
     <Content Include="Scripts\knockoutExtenders\validMarkValueExtender.js" />
     <Content Include="Scripts\jquery.popup.js" />

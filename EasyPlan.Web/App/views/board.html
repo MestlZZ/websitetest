@@ -12,7 +12,7 @@
                     <td class="cell-field item-criterion" data-bind="text: title"></td>
                     <!--/ko-->
                     <td class="cell-field item-score">Score</td>
-                    <td class="cell-field item-rank">Rank</td>
+                    <td class="cell-field item-rank" data-bind="sort: { order, function: sortByRank }">Rank</td>
                 </tr>                
             </thead>
             <tbody class="table-body">  

@@ -7,7 +7,8 @@
             title: ko.observable(),
             items: ko.observableArray(),
             columnCount: ko.observable(),
-            criterions: ko.observableArray(),   
+            criterions: ko.observableArray(),
+            order: ko.observable(),
             activate: function () {
                 var self = this;
 
@@ -19,14 +20,26 @@
                     self.items = board.items;
                     self.criterions = board.criterions;
 
-                    boardService.itemsChanged(board.items);
-
                     self.columnCount = ko.computed(function () {
                         return self.criterions().length + 3;
                     })
 
-                    self.items(boardService.sortItemsByScore(self.items()));
+                    self.sortByRank();
+
+                    app.on('board:item-changed', function () {
+                        self.order('');
+                    });
+
+                    boardService.itemsChanged(board.items);
                 });
+            },
+            sortByRank: function(isReverse){
+                board.items(_.sortBy(board.items(), function (item) {
+                    return item.score();
+                }));
+
+                if (!isReverse)
+                    board.items.reverse();
             },
         updateItemTitle: function (item) {
             item.title(item.title().trim());

@@ -132,6 +132,18 @@ body{
     border-collapse: collapse;
 }
 
+.sorted-ascending::after{
+    content: "⇓";
+    font-size: 20px;
+    margin-left: 2px;
+}
+
+.sorted-descending::after{
+    content: "⇑";
+    font-size: 20px;
+    margin-left: 2px;
+}
+
 .item-title-input{
     margin-left: 14px;
     transition: all .3s ease;
@@ -201,6 +213,12 @@ body{
     max-width: 0;
     padding: 5px;
     transition: background-color 0.3s ease;
+        -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .cell-field:not(:last-child){

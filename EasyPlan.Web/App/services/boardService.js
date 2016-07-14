@@ -1,7 +1,6 @@
 ﻿define(['durandal/app'], function (app) {
     return {
         computeScore,
-        sortItemsByScore,
         setRanks,
         itemsChanged
     }
@@ -25,6 +24,8 @@
 
     function itemsChanged(items) {
         setRanks(items());
+
+        app.trigger('board:item-changed', items());
     }
 
     function setRanks(items) {
