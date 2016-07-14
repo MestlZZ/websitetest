@@ -3,10 +3,21 @@
     text-align: center;
     box-shadow: rgba(0,0,0,.3) 0 0 15px 5px;
     border-radius: 20px;
+    padding-bottom: 30px;
 }
+.ui-dialog-titlebar{
+    display: none;
+}
+
 .ui-dialog-titlebar-close{
     display: none;
 }
+.ui-dialog-buttonpane{
+    position: absolute;
+    width: 100%;
+    bottom: 5px;
+}
+
 .ui-dialog-buttonset{
     display: flex;
     justify-content: space-around;

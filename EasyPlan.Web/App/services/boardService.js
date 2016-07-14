@@ -14,7 +14,7 @@
                 return memo + value;
             else
                 return memo - value;
-        }, 0);
+        }, 0) + 5;
     }
 
     function sortItemsByScore(items) {

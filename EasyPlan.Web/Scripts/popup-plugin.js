@@ -20,7 +20,7 @@
               {
                   text: "OK",
                   click: function () {
-                      $(this).dialog("option", "hide", { effect: "explode", duration: 1000 });
+                      $(this).dialog("option", "hide", { effect: "explode", duration: 5000 });
                       $(this).dialog("close");
                       deferred.resolve(true);
                   }
