@@ -19,6 +19,8 @@
                 self.criterions = board.criterions;
 
                 boardService.itemsChanged(board.items);
+
+                self.items(boardService.sortItemsByScore(self.items()));
             });
         },
         updateItemTitle: function (item) {

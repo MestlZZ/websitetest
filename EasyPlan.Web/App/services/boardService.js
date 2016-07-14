@@ -24,8 +24,6 @@
     }
 
     function itemsChanged(items) {
-        items(sortItemsByScore(items()));
-
         setRanks(items());
     }
 
