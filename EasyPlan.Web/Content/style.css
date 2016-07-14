@@ -145,6 +145,7 @@ body{
 .item-title-value{    
     font-size: 1em;
     text-align: center;
+    text-align: left;
     overflow: hidden;
     resize: inherit;
     font-family: time;
