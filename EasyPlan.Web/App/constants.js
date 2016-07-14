@@ -10,7 +10,7 @@
             setMarkValueUrl: 'boards/mark/set-value'
         },
         popupTemplatesId: {
-            confirmation: "#confirmation-popup-template"
+            confirmation: "#confirmation-popup-body-template"
         }
     }
 });

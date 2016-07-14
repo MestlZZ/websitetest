@@ -11,26 +11,35 @@
 
         $('body').append(popup);
 
+        var title = "";
+
         popup.dialog({
-            dialogClass: "no-close",
+            title: context.title,
+            draggable: true,
+            closeText: '✖',
+            resizable: true,
+            width: 400,
+            height: 'auto',
             modal: true,
             hide: { effect: "fade", duration: 200 },
             show: { effect: "fade", duration: 200 },
             buttons: [
               {
-                  text: "OK",
+                  text: "Confirm",
                   click: function () {
-                      $(this).dialog("option", "hide", { effect: "explode", duration: 5000 });
+                      $(this).dialog("option", "hide", { effect: "explode", duration: 600 });
                       $(this).dialog("close");
                       deferred.resolve(true);
-                  }
+                  },
+                  'class': 'confirm-button'
               },
               {
                   text: "Cancel",
                   click: function () {
                       $(this).dialog("close");
                       deferred.resolve(false);
-                  }
+                  },
+                  'class': 'cancel-button'
               }
             ]
         });

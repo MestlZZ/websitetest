@@ -3,33 +3,44 @@
     function (boardRepository, itemRepository, markRepository, app, boardMapper, itemMapper, constants, boardService) {
         var board;
 
-    return {
-        title: ko.observable(),
-        items: ko.observableArray(),
-        criterions: ko.observableArray(),
-        activate: function () {
-            var self = this;
+        return {
+            title: ko.observable(),
+            items: ko.observableArray(),
+            columnCount: ko.observable(),
+            criterions: ko.observableArray(),   
+            activate: function () {
+                var self = this;
 
-            return boardRepository.getOpenedBoard().then(function (data) {
-                board = boardMapper.mapToObservable(data);
+                return boardRepository.getOpenedBoard().then(function (data) {
+                    board = boardMapper.mapToObservable(data);
 
-                self.title = board.title;
+                    self.title = board.title;
 
-                self.items = board.items;
-                self.criterions = board.criterions;
+                    self.items = board.items;
+                    self.criterions = board.criterions;
 
-                boardService.itemsChanged(board.items);
+                    boardService.itemsChanged(board.items);
 
-                self.items(boardService.sortItemsByScore(self.items()));
-            });
-        },
+                    self.columnCount = ko.computed(function () {
+                        return self.criterions().length + 3;
+                    })
+
+                    self.items(boardService.sortItemsByScore(self.items()));
+                });
+            },
         updateItemTitle: function (item) {
             item.title(item.title().trim());
 
             itemRepository.setTitle(item.title(), item.id);
         },
         deleteItem: function (item, event) {
-            $(constants.popupTemplatesId.confirmation).popup({ title: item.title(), body: 'You realy want remove this item?' })
+            var title = item.title();
+
+            if (title.length > 50)
+                title = title.slice(0, 50) + "...";
+
+
+            $(constants.popupTemplatesId.confirmation).popup({ title: "Delete", body: 'delete "' + title + '"' })
             .then(function (s) { 
                 if (s) {
                     itemRepository.remove(item.id);

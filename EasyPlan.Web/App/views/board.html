@@ -18,8 +18,8 @@
             <tbody class="table-body">  
                 <!--ko if: _.isEmpty(items()) -->
                 <tr class="item-cell">
-                    <td data-bind="attr: {'colspan' : criterions().length + 3}">
-                        <span class="items-noitems-message">Empty state!</span>
+                    <td data-bind="attr: {'colspan' : columnCount}">
+                        <span class="items-noitems-message">No items!</span>
                     </td>
                 </tr>
                 <!--/ko-->
