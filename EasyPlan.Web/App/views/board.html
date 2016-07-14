@@ -19,7 +19,7 @@
                 <tr class="item-cell">
                     <td class="cell-field item-title noselect"> 
                         <div class="item-title-input item-title-value" data-bind="editableText: {function: $root.updateItemTitle, value: title}"></div>
-                        <i class="item-title-delete" data-bind="click: $root.deleteItem">✗</i>
+                        <i class="item-title-delete" title="Delete item" data-bind="click: $root.deleteItem">✗</i>
                         <span class="item-title-validation-message validation-message" data-bind="css: {'visible':title.hasError}, text: title.validationMessage"></span>
                     </td>                    
                     <!--ko foreach: marks-->
