@@ -31,7 +31,6 @@ namespace EasyPlan.DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Properties<Guid>().Where(p => p.Name == "Id").Configure(p => p.IsKey());
-            modelBuilder.Properties<Guid>().Where(p => p.Name == "Title").Configure(p => p.HasMaxLength(254).IsRequired());
 
             modelBuilder.Entity<Mark>().HasRequired(e => e.Criterion).WithMany(e => e.Marks);
             modelBuilder.Entity<Mark>().HasRequired(e => e.Item).WithMany(e => e.Marks);
@@ -48,9 +47,9 @@ namespace EasyPlan.DataAccess
 
             modelBuilder.Entity<Board>().Property(e => e.Title).HasMaxLength(50).IsRequired();
 
-            modelBuilder.Entity<Item>().Property(e => e.Title).HasMaxLength(254).IsRequired();
+            modelBuilder.Entity<Item>().Property(e => e.Title).HasMaxLength(255).IsRequired();
 
-            modelBuilder.Entity<Criterion>().Property(e => e.Title).HasMaxLength(254).IsRequired();
+            modelBuilder.Entity<Criterion>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Criterion>().Property(e => e.IsBenefit).IsRequired();
             modelBuilder.Entity<Criterion>().Property(e => e.Weight).IsRequired();
 
