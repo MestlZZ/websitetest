@@ -15,7 +15,15 @@
                     <td class="cell-field item-rank">Rank</td>
                 </tr>                
             </thead>
-            <tbody class="table-body" data-bind="foreach: items">
+            <tbody class="table-body">  
+                <!--ko if: _.isEmpty(items()) -->
+                <tr class="item-cell">
+                    <td data-bind="attr: {'colspan' : criterions().length + 3}">
+                        <span class="items-noitems-message">Empty state!</span>
+                    </td>
+                </tr>
+                <!--/ko-->
+                <!--ko foreach: items-->
                 <tr class="item-cell">
                     <td class="cell-field item-title noselect"> 
                         <div class="item-title-input item-title-value" data-bind="editableText: {function: $root.updateItemTitle, value: title}, selectTextOnFocus: true, hasFocus: true"></div>
@@ -30,7 +38,9 @@
                     <!--/ko-->
                     <td class="cell-field item-score" data-bind="text: score">0</td>
                     <td class="cell-field item-rank" data-bind="text: rank">0</td>
-                </tr>
+
+                </tr>  
+                <!--/ko-->
             </tbody>
         </table>
     </div>
