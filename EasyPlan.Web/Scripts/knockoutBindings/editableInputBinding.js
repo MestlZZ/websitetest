@@ -1,7 +1,7 @@
 ﻿ko.bindingHandlers.editableInput = {
     init: function (element, valueAccessor, allBindings, viewModel, context) {
         var data = ko.utils.unwrapObservable(valueAccessor());
-        var setTitle = data.function;
+        var handler = data.handler;
         var observValue = data.value;
         var input = $(element);
         var value = '';
@@ -19,7 +19,7 @@
 
                 if (!observValue.hasError()) {
                     if (observValue() != value)
-                        setTitle(viewModel);
+                        handler(viewModel);
                 } else {
                     observValue(value);
                 }
