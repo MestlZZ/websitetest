@@ -6,7 +6,7 @@ namespace EasyPlan.DomainModel.Entities
     {
         public string Title { get; set; }
 
-        public virtual ICollection<Criterion> Criterions { get; set; }
-        public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<Criterion> Criterions { get; private set; }
+        public virtual ICollection<Item> Items { get; private set; }
     }
 }

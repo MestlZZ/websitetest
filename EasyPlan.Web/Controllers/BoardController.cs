@@ -56,10 +56,11 @@ namespace EasyPlan.Web.Controllers
         [Route("item/set-title")]
         public void SetItemTitle(string title, string id)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(title, "item title");
             ArgumentValidation.ThrowIfNullOrEmpty(id, "item id");
 
-            _itemRepository.SetTitle(title, id);
+            var item = _itemRepository.Get(Guid.Parse(id));
+
+            item.SetTitle(title);
             _unitOfWork.Save();
         }
 
@@ -80,35 +81,23 @@ namespace EasyPlan.Web.Controllers
             ArgumentValidation.ThrowIfNullOrEmpty(id, "board id");
 
             var board = _boardRepository.Get(Guid.Parse(id));
-            var criterions = board.Criterions;
-            var marks = new List<Mark>();
-            var item = new Item() { Title = "New item" };
 
-            foreach(var criteria in criterions)
-            {
-                _markRepository.Add(new Mark() { Item = item, Criterion = criteria, Value = 0 });
-            }
-
-            board.Items.Add(item);
+            var itemId = _itemRepository.CreateItem("New item", board);
 
             _unitOfWork.Save();
 
-            return Json(ItemMapper.Map(_itemRepository.Get(item.Id)), JsonRequestBehavior.AllowGet);
+            return Json(ItemMapper.Map(_itemRepository.Get(itemId)), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [Route("mark/set-value")]
-        public void SetMarkValue(string value, string id)
+        public void SetMarkValue(int value, string id)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(value, "mark value");
             ArgumentValidation.ThrowIfNullOrEmpty(id, "mark id");
 
             var mark = _markRepository.Get(Guid.Parse(id));
-            var convertedValue = Convert.ToInt16(value);
 
-            ArgumentValidation.ThrowIfOutOfRange(convertedValue, 0, 5, "mark value");
-
-            mark.Value = convertedValue;
+            mark.SetValue(value);
 
             _unitOfWork.Save();
         }

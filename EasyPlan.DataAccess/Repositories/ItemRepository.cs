@@ -10,11 +10,13 @@ namespace EasyPlan.DataAccess.Repositories
         public ItemRepository(IDataContext dataContext)
             : base(dataContext) { }
 
-        public void SetTitle(string title, string id)
+        public Guid CreateItem(string title, Board board)
         {
-            var item = Get(Guid.Parse(id));
+            var item = new Item(title, board);
 
-            item.Title = title;
+            Add(item);
+
+            return item.Id;
         }
     }
 }

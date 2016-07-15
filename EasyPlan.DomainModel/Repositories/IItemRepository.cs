@@ -9,6 +9,6 @@ namespace EasyPlan.DomainModel.Repositories
 {
     public interface IItemRepository : IRepository<Item>
     {
-        void SetTitle(string title, string id);
+        Guid CreateItem(string title, Board board);
     }
 }
