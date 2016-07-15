@@ -3,28 +3,28 @@
     var spinner = $('.spinner');
     
     return {
-        start,
-        stop,
+        show,
+        hide,
         initialize
     }
 
-    function start() {
+    function show() {
         spinner.removeClass('spinner-off');
         spinner.addClass('spinner-on');
     }
 
-    function stop() {
+    function hide() {
         spinner.removeClass('spinner-on');
         spinner.addClass('spinner-off');
     }
 
     function initialize() {
         app.on('storageHttpWrapper:post-begin', function () {
-            start();
+            show();
         })
 
         app.on('storageHttpWrapper:post-end', function () {
-            stop();
+            hide();
         })
     }
 

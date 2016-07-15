@@ -30,7 +30,7 @@ define(['durandal/system', 'durandal/app',
 
         storage.initialize().then(function () {
             spinner.initialize();
-            spinner.stop();
+            spinner.hide();
 
             app.setRoot('viewmodels/shell', 'entrance', 'application');
         });
