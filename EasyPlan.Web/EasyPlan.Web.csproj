@@ -169,8 +169,7 @@
     <Content Include="App\views\board.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="Content\durandal.css" />
-    <Content Include="Content\images\arrow1.png" />
-    <Content Include="Content\images\arrow2.png" />
+    <Content Include="Content\images\arrow.png" />
     <Content Include="Content\popup.css" />
     <Content Include="Content\spinner.css" />
     <Content Include="Content\splash.css" />
