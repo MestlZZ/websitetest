@@ -7,6 +7,8 @@ namespace EasyPlan.Web {
 		new ScriptBundle("~/Scripts/vendor")
             .Include("~/Scripts/jquery-{version}.js")
             .Include("~/Scripts/jquery-ui.js")
+            .Include("~/Scripts/underscore.js")
+            .Include("~/Scripts/q.js")
             .Include("~/Scripts/handlebars-{version}.js")
             .Include("~/Scripts/jquery.selectText.js")
             .Include("~/Scripts/jquery.popup.js")
