@@ -13,31 +13,31 @@ namespace EasyPlan.Infrastructure
             ThrowIfNull(value, argumentName);
 
             if (value.Trim() == String.Empty)
-                throw new ArgumentException(String.Format("The value {0} can't be empty", argumentName));
+                throw new ArgumentException($"The value {argumentName} can't be empty");
         }
 
         public static void ThrowIfNull(object value, string argumentName = "")
         {
             if (value == null)
-                throw new ArgumentNullException(String.Format("The value {0} can't be null", argumentName));
+                throw new ArgumentNullException($"The value {argumentName} can't be null");
         }
 
         public static void ThrowIfLongerThan(string value, uint length, string argumentName = "")
         {
             if (value.Length > length)
-                throw new ArgumentException(String.Format("The value {0} can't be longer than {1}", argumentName, length));
+                throw new ArgumentException($"The value {argumentName} can't be longer than {length}");
         }
 
         public static void ThrowIfGreaterThan(int value, int max, string argumentName = "")
         {
             if (value > max)
-                throw new ArgumentOutOfRangeException(String.Format("The value {0} can't be greater than {1}", argumentName, max));
+                throw new ArgumentOutOfRangeException($"The value {argumentName} can't be greater than {max}");
         }
 
         public static void ThrowIfLessThan(int value, int min, string argumentName = "")
         {
             if (value < min)
-                throw new ArgumentOutOfRangeException(String.Format("The value {0} can't be less than {1}", argumentName, min));
+                throw new ArgumentOutOfRangeException($"The value {argumentName} can't be less than {min}");
         }
 
         public static void ThrowIfOutOfRange(int value, int min, int max, string argumentName = "")
