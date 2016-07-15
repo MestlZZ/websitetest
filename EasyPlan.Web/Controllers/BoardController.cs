@@ -61,7 +61,6 @@ namespace EasyPlan.Web.Controllers
             var item = _itemRepository.Get(Guid.Parse(id));
 
             item.SetTitle(title);
-            _unitOfWork.Save();
         }
 
         [HttpPost]
@@ -71,7 +70,6 @@ namespace EasyPlan.Web.Controllers
             ArgumentValidation.ThrowIfNullOrEmpty(id, "item id");
 
             _itemRepository.Remove(_itemRepository.Get(Guid.Parse(id)));
-            _unitOfWork.Save();
         }
 
         [HttpPost]
@@ -98,8 +96,6 @@ namespace EasyPlan.Web.Controllers
             var mark = _markRepository.Get(Guid.Parse(id));
 
             mark.SetValue(value);
-
-            _unitOfWork.Save();
         }
     }
 }

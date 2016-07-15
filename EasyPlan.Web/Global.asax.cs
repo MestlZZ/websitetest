@@ -5,6 +5,7 @@ using System.Web.Optimization;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using EasyPlan.Infrastructure;
 
 namespace EasyPlan.Web
 {
@@ -17,6 +18,13 @@ namespace EasyPlan.Web
             ContainerConfig.Configure();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+        }
+
+        protected void Application_ReleaseRequestState()
+        {
+            IUnitOfWork unitOfwork = DependencyResolver.Current.GetService<IUnitOfWork>();
+
+            unitOfwork.Save();
         }
     }
 }
