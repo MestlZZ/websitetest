@@ -3,7 +3,7 @@
 
     return {
         getCollection,
-        getOpenedBoard
+        getBoard
     }
 
     function getCollection()
@@ -11,15 +11,8 @@
         return storage.boards;
     }
 
-    function getOpenedBoard()
-    {
-        var boardInfo = storage.boards[0];
-
-        storage.openedBoardId = boardInfo.id;
-
-        if (_.isUndefined(boardInfo))
-            throw "Failed to load board";
-
-        return storageHttpWrapper.post(constants.storage.host + constants.storage.boardDataUrl, { id: boardInfo.id });
+    function getBoard(boardId)
+    {        
+        return storageHttpWrapper.post(constants.storage.host + constants.storage.boardDataUrl, { id: boardId });
     }
 });

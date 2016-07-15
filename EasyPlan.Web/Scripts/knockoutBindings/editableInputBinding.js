@@ -24,6 +24,7 @@
                     observValue(value);
                 }
 
+                window.getSelection().empty();
                 input.unbind('focusout', fout);
             });
         });

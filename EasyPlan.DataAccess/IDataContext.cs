@@ -5,7 +5,7 @@ namespace EasyPlan.DataAccess
 {
     public interface IDataContext
     {
-        IDbSet<T> GetSet<T>() where T : Identifiable;
+        IDbSet<T> GetSet<T>() where T : Entity;
 
         void Save();
     }

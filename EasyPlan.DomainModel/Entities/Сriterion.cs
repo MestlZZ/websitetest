@@ -13,6 +13,6 @@ namespace EasyPlan.DomainModel.Entities
 
         public virtual Board Board { get; set; }
 
-        public virtual List<Mark> Marks { get; set; }
+        public virtual ICollection<Mark> Marks { get; set; }
     }
 }

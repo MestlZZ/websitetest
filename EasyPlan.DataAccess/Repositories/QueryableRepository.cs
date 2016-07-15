@@ -7,7 +7,7 @@ using EasyPlan.DomainModel.Repositories;
 
 namespace EasyPlan.DataAccess.Repositories
 {
-    public class QueryableRepository<T> : IQueryableRepository<T> where T : Identifiable
+    public class QueryableRepository<T> : IQueryableRepository<T> where T : Entity
     {
         protected readonly IDataContext _dataContext;
 

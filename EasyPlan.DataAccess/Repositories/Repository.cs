@@ -3,7 +3,7 @@ using EasyPlan.DomainModel.Repositories;
 
 namespace EasyPlan.DataAccess.Repositories
 {
-    public class Repository<T> : QueryableRepository<T>, IRepository<T> where T : Identifiable
+    public class Repository<T> : QueryableRepository<T>, IRepository<T> where T : Entity
     {
         public Repository(IDataContext dataContext)
             : base(dataContext)

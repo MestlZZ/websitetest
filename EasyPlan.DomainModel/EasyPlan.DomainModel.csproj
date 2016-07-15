@@ -44,7 +44,6 @@
     <Compile Include="Entities\Board.cs" />
     <Compile Include="Entities\Mark.cs" />
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Identifiable.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Сriterion.cs" />

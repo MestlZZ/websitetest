@@ -4,6 +4,6 @@ namespace EasyPlan.DomainModel.Entities
 {
     public class User : Entity
     {
-        public List<Board> Boards { get; set; }
+        public ICollection<Board> Boards { get; set; }
     }
 }

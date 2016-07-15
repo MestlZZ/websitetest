@@ -28,6 +28,7 @@
                     input.text(value);
                 }
 
+                window.getSelection().empty();
                 input.unbind('focusout', fout);
             });
         });

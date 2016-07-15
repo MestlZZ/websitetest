@@ -9,10 +9,12 @@
             columnCount: ko.observable(),
             criterions: ko.observableArray(),
             order: ko.observable(),
-            activate: function () {
+            activate: function (boardId) {
                 var self = this;
+                boardId = boardId || "ccef5cf6-5184-4a5a-8234-c2df683cbfba";
 
-                return boardRepository.getOpenedBoard().then(function (data) {
+                return boardRepository.getBoard(boardId).then(function (data) {
+
                     board = boardMapper.mapToObservable(data);
 
                     self.title = board.title;

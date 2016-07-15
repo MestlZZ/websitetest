@@ -5,7 +5,7 @@ using EasyPlan.DomainModel.Entities;
 
 namespace EasyPlan.DomainModel.Repositories
 {
-    public interface IQueryableRepository<T> where T : Identifiable
+    public interface IQueryableRepository<T> where T : Entity
     {
         T Get(Guid id);
         

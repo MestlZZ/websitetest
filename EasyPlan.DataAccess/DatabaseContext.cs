@@ -18,7 +18,7 @@ namespace EasyPlan.DataAccess
         public DbSet<Criterion> Criterions { get; set; }
         public DbSet<Mark> Marks { get; set; }
 
-        public IDbSet<T> GetSet<T>() where T : Identifiable
+        public IDbSet<T> GetSet<T>() where T : Entity
         {
             return Set<T>();
         }
