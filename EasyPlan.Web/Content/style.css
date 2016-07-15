@@ -44,6 +44,18 @@ body{
     box-shadow: red;
 }
 
+.validation-message-arrow{
+    position: absolute;
+    width: 10px;
+    height: 15px;
+    top: 5px;
+    background-image: url("images/arrow1.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    left: -10px;
+}
+
 .visible{
     opacity: 1;    
     transform: scale(1);

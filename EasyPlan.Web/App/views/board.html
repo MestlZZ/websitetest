@@ -28,12 +28,18 @@
                     <td class="cell-field item-title noselect"> 
                         <div class="item-title-input item-title-value" data-bind="editableText: {function: $root.updateItemTitle, value: title}, selectTextOnFocus: true, hasFocus: true"></div>
                         <i class="item-title-delete" title="Delete item" data-bind="click: $root.deleteItem">✗</i>
-                        <span class="item-title-validation-message validation-message" data-bind="css: {'visible':title.hasError}, text: title.validationMessage"></span>
+                        <span class="item-title-validation-message validation-message" data-bind="css: {'visible':title.hasError}">
+                            <span class="validation-message-error" data-bind="text: title.validationMessage"></span>
+                            <i class="validation-message-arrow"></i>
+                        </span>
                     </td>                    
                     <!--ko foreach: marks-->
                     <td class="cell-field item-criterion">
                         <input type="number" min="0" max="5" class="item-mark-input" data-bind="value: value, valueUpdate: 'afterkeydown', editableInput: {function: $root.setMark, value: value}, selectTextOnFocus: true" />
-                        <span class="item-mark-validation-message validation-message" data-bind="css: {'visible':value.hasError}, text: value.validationMessage"></span>
+                        <span class="item-mark-validation-message validation-message" data-bind="css: {'visible':value.hasError}">
+                            <span class="validation-message-error" data-bind="text: value.validationMessage"></span>
+                            <i class="validation-message-arrow"></i>
+                        </span>
                     </td>
                     <!--/ko-->
                     <td class="cell-field item-score" data-bind="text: score">0</td>
