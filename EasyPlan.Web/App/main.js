@@ -3,7 +3,11 @@
         'text': '../Scripts/text',
         'durandal': 'core',
         'plugins': 'core/plugins',
-        'transitions': 'core/transitions'
+        'transitions': 'core/transitions',
+        'packages': 'core/packages',
+        'bindings': 'core/packages/knockoutBindings',
+        'extenders': 'core/packages/knockoutExtenders'
+
     }
 });
 
@@ -12,8 +16,8 @@ define('knockout', ko);
 
 define(['durandal/system', 'durandal/app',
     'durandal/viewLocator', 'storageContext',
-    'spinner'],
-    function (system, app, viewLocator, storage, spinner) {
+    'spinner', 'bootstrapper'],
+    function (system, app, viewLocator, storage, spinner, bootstrapper) {
     //>>excludeStart("build", true);
     system.debug(true);
     //>>excludeEnd("build");
@@ -25,7 +29,10 @@ define(['durandal/system', 'durandal/app',
         dialog: true
     });
 
-    app.start().then(function() {
+    bootstrapper.initialize().then(function () {
+        return app.start();
+    })
+    .then(function () {
         viewLocator.useConvention();
 
         storage.initialize().then(function () {

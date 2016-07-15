@@ -145,7 +145,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\bootstrapper.tasks.js" />
     <Content Include="App\bootstrapper.js" />
+    <Content Include="App\bootstrapping\jqueryPluginsTask.js" />
+    <Content Include="App\bootstrapping\knockoutBindingTask.js" />
+    <Content Include="App\bootstrapping\knockoutExtendersTask.js" />
+    <Content Include="App\bootstrapping\popupTemplatesTask.js" />
     <Content Include="App\constants.js" />
     <Content Include="App\http\httpRequestSender.js" />
     <Content Include="App\http\storageHttpWrapper.js" />
@@ -164,6 +169,7 @@
     <Content Include="App\services\boardService.js" />
     <Content Include="App\spinner.js" />
     <Content Include="App\storageContext.js" />
+    <Content Include="App\templates\confirmation-popup-template.html" />
     <Content Include="App\viewmodels\board.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\views\board.html" />
@@ -197,20 +203,19 @@
     <Content Include="Scripts\handlebars-4.0.5.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="App\core\packages\jqueryPlugins\jquery-ui.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
-    <Content Include="Scripts\jquery.selectText.js" />
+    <Content Include="App\core\packages\jqueryPlugins\jquery.selectText.js" />
     <Content Include="Scripts\knockout-3.1.0.debug.js" />
     <Content Include="Scripts\knockout-3.1.0.js" />
-    <Content Include="Scripts\knockoutBindings\editableInputBinding.js" />
-    <Content Include="Scripts\knockoutBindings\editableTextBinding.js" />
-    <Content Include="Scripts\knockoutBindings\selectTextOnFocusBinding.js" />
-    <Content Include="Scripts\knockoutBindings\sortBinding.js" />
-    <Content Include="Scripts\knockoutExtenders\validItemTitleExtender.js" />
-    <Content Include="Scripts\knockoutExtenders\validMarkValueExtender.js" />
-    <Content Include="Scripts\jquery.popup.js" />
+    <Content Include="App\core\packages\knockoutBindings\editableInputBinding.js" />
+    <Content Include="App\core\packages\knockoutBindings\editableTextBinding.js" />
+    <Content Include="App\core\packages\knockoutBindings\selectTextOnFocusBinding.js" />
+    <Content Include="App\core\packages\knockoutBindings\sortBinding.js" />
+    <Content Include="App\core\packages\knockoutExtenders\validItemTitleExtender.js" />
+    <Content Include="App\core\packages\knockoutExtenders\validMarkValueExtender.js" />
+    <Content Include="App\core\packages\jqueryPlugins\jquery.popup.js" />
     <Content Include="Scripts\q.js" />
-    <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\text.js" />

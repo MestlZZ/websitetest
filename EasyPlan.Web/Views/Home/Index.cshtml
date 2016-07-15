@@ -14,18 +14,16 @@
 
 </head>
 <body>
+
     <div class="spinner spinner-on">
         @Html.Partial("_splash")
     </div>
+
     <div id="application">
     </div>
 
     @Scripts.Render("~/Scripts/vendor")
+
     <script type="text/javascript" src="~/Scripts/require.js" data-main="/App/main"></script>
-    <script id="confirmation-popup-body-template" type="text/x-handlebars-template">
-        <div class="confirmation-popup-body">
-            <span class="confirmation-popup-message">Are you sure you want to {{body}}?</span>
-        </div>
-    </script>
 </body>
 </html>

@@ -5,17 +5,13 @@ namespace EasyPlan.Web {
     public static void RegisterBundles(BundleCollection bundles) {
 	  bundles.Add(
 		new ScriptBundle("~/Scripts/vendor")
-            .Include("~/Scripts/jquery-{version}.js")
-            .Include("~/Scripts/jquery-ui.js")
+            .Include("~/Scripts/handlebars-4.0.5.js")
             .Include("~/Scripts/underscore.js")
+            .Include("~/Scripts/jquery-{version}.js")
             .Include("~/Scripts/q.js")
-            .Include("~/Scripts/handlebars-{version}.js")
-            .Include("~/Scripts/jquery.selectText.js")
-            .Include("~/Scripts/jquery.popup.js")
+            .Include("~/Scripts/jquery-ui.js")
             .Include("~/Scripts/knockout-{version}.js")
             .Include("~/Scripts/knockout.mapping.js")
-            .IncludeDirectory("~/Scripts/knockoutBindings/", "*Binding.js")
-            .IncludeDirectory("~/Scripts/knockoutExtenders/", "*Extender.js")
         );
 
       bundles.Add(
