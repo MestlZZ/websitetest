@@ -5,8 +5,7 @@
 
     function initialize() {
         return Q.all([
-            require('extenders/validItemTitleExtender'),
-            require('extenders/validMarkValueExtender'),
+            require('extenders/validateExtender'),
         ]);
     }
 })

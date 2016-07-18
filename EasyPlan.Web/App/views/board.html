@@ -6,7 +6,9 @@
                 <tr>
                     <td rowspan="2" class="cell-field item-title">
                         <span>Title </span>
-                        <button class="board-body-item-add" data-bind="click: $root.addItem">⛨</button>
+                        <button class="board-body-item-add" data-bind="click: $root.addItem">⛨<!--ko if: _.isEmpty(board.items()) -->
+                        <span class="help-message">Click to add new item<i class="help-message-arrow">↝</i></span>
+                        <!--/ko--></button>                        
                     </td>
                     <td class="cell-field item-criterion-type" data-bind="attr: {'colspan': benefitCriterions().length}">
                         <span>Benefit</span>
@@ -30,10 +32,22 @@
                 <tr>
                     <td class="cell-field item-criterion-weight-title"><span class="weight-title">Weight</span></td>
                     <!--ko foreach: benefitCriterions-->
-                    <td class="cell-field item-criterion-benefit-value weight" data-bind="text: weight"></td>
+                    <td class="cell-field item-criterion-benefit-value weight">
+                        <input type="number" min="0" max="20" class="criterion-weight-input" data-bind="value: weight, valueUpdate: 'afterkeydown', editableInput: {handler: $root.setWeight, value: weight}, selectTextOnFocus: true" />
+                        <span class="criterion-weight-validation-message validation-message" data-bind="css: {'visible': weight.hasError}">
+                            <span class="validation-message-error" data-bind="text: weight.validationMessage"></span>
+                            <i class="validation-message-arrow"></i>
+                        </span>
+                    </td>
                     <!--/ko-->
                     <!--ko foreach: costCriterions-->
-                    <td class="cell-field item-criterion-cost-value weight" data-bind="text: weight"></td>
+                    <td class="cell-field item-criterion-cost-value weight">
+                        <input type="number" min="0" max="20" class="criterion-weight-input" data-bind="value: weight, valueUpdate: 'afterkeydown', editableInput: {handler: $root.setWeight, value: weight}, selectTextOnFocus: true" />
+                        <span class="criterion-weight-validation-message validation-message" data-bind="css: {'visible': weight.hasError}">
+                            <span class="validation-message-error" data-bind="text: weight.validationMessage"></span>
+                            <i class="validation-message-arrow"></i>
+                        </span>
+                    </td>
                     <!--/ko-->
                 </tr>                
             </thead>

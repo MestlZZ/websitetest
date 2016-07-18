@@ -90,5 +90,12 @@ namespace EasyPlan.Web.Controllers
 
             return JsonSuccess(MarkMapper.Map(mark));
         }
+
+        [HttpPost]
+        [Route("criterion/set-weight")]
+        public void SetCriterionWeight(int weight, Criterion criterion)
+        {
+            criterion.SetWeight(weight);
+        }
     }
 }

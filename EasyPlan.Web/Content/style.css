@@ -16,6 +16,20 @@ body{
     height: 100%;
 }
 
+.help-message{
+    position: absolute;
+    top: 2px;
+    right: -216px;
+    width: 200px;
+    padding: 4px;
+    background-color: rgb(100, 200, 255);
+    box-shadow: rgba(50, 160, 205, .7) 0px 0px 8px 2px;
+    transition: all .2s ease-in;
+    color: black;
+    font-size: 16px;
+    z-index: 1;
+}
+
 #application{
     height: 100%;
 }
@@ -110,7 +124,9 @@ body{
     flex-direction: column;
     height: 100%;
 }
-
+.cell-field.item-title{
+    width: 200px;
+}
 .board-title{
     text-align: center;
     font-size: 30px;
@@ -143,6 +159,7 @@ body{
 
 .board-body-item-add{
     border: none;
+    position: relative;
     background-color: transparent;
     font-size: 20px;
     transition: all .2s;
@@ -282,4 +299,12 @@ body{
 .cell-field.weight{
     font-size: 18px;
     border: 1px solid rgba(123, 123, 123, .3);
+    position: relative;
+}
+
+.criterion-weight-input{
+    background: transparent;
+    border: 0;
+    text-align: center;
+    font-size: 17px;
 }

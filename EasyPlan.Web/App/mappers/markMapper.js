@@ -1,4 +1,4 @@
-﻿define(['models/mark', 'repositories/boardRepository'], function (Mark, boardRepository) {
+﻿define(['models/mark', 'repositories/boardRepository', 'services/validateService'], function (Mark, boardRepository, validateService) {
     return {
         map,
         mapToViewModel
@@ -36,7 +36,7 @@
         return new Mark({
             id: src.id,
             value: ko.observable(src.value).extend({
-                validMarkValue: 'Mark'
+                validate: validateService.validateObservableMarkValue
             }),
             criterionId: src.criterionId,
             isBenefit: src.isBenefit,

@@ -1,6 +1,8 @@
 ﻿define(['repositories/boardRepository', 'repositories/itemRepository','repositories/markRepository',
-    'durandal/app', 'mappers/boardMapper', 'mappers/itemMapper', 'constants', 'services/boardService'],
-    function (boardRepository, itemRepository, markRepository, app, boardMapper, itemMapper, constants, boardService) {
+    'durandal/app', 'mappers/boardMapper', 'mappers/itemMapper', 'constants', 'services/boardService',
+    'repositories/criterionRepository'],
+    function (boardRepository, itemRepository, markRepository, app, boardMapper, itemMapper, constants, boardService,
+        criterionRepository) {
         var board;
 
         return {
@@ -96,6 +98,9 @@
             }
 
             boardService.itemsChanged(board.items);
+        },
+        setWeight: function (criterion) {
+            criterionRepository.setWeight(criterion.weight(), criterion.id);
         }
     }
 });

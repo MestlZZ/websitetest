@@ -1,5 +1,5 @@
-﻿define(['models/item', 'models/Mark', 'mappers/markMapper', 'services/boardService', 'repositories/boardRepository'],
-    function (Item, Mark, markMapper, boardService, boardRepository) {
+﻿define(['models/item', 'models/Mark', 'mappers/markMapper', 'services/boardService', 'repositories/boardRepository', 'services/validateService'],
+    function (Item, Mark, markMapper, boardService, boardRepository, validateService) {
     return {
         map,
         mapToViewModel
@@ -54,7 +54,7 @@
             id: src.id,
             marks: mappedMarks,
             title: ko.observable(src.title).extend({
-                validItemTitle: 'Title'
+                validate: validateService.validateObservableItemTitle
             })
         });
 

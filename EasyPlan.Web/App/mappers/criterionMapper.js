@@ -1,4 +1,4 @@
-﻿define(['models/criterion', 'mappers/markMapper'], function (Criterion, markMapper) {
+﻿define(['models/criterion', 'mappers/markMapper', 'services/validateService'], function (Criterion, markMapper, validateService) {
     return {
         map,
         mapToViewModel
@@ -20,7 +20,9 @@
             id: src.id,
             title: ko.observable(src.title),
             isBenefit: src.isBenefit,
-            weight: ko.observable(src.weight)
+            weight: ko.observable(src.weight).extend({
+                validate: validateService.validateObservableWeightValue
+            })
         });
     }
 });

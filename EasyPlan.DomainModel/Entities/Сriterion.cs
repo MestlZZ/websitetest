@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using EasyPlan.Infrastructure;
 
 namespace EasyPlan.DomainModel.Entities
 {
@@ -14,5 +15,13 @@ namespace EasyPlan.DomainModel.Entities
         public virtual Board Board { get; private set; }
 
         public virtual ICollection<Mark> Marks { get; private set; }
+
+        public void SetWeight(int weight)
+        {
+            ArgumentValidation.ThrowIfNull(weight);
+            ArgumentValidation.ThrowIfOutOfRange(weight, 0, 20, "criterion weight");
+
+            Weight = weight;
+        }
     }
 }
