@@ -6,6 +6,7 @@ using EasyPlan.Infrastructure;
 using EasyPlan.Web.Components;
 using EasyPlan.DomainModel.Entities;
 using EasyPlan.Web.Components.Mapper;
+using EasyPlan.Web.Components.ModelBinding;
 
 namespace EasyPlan.Web
 {
@@ -16,7 +17,9 @@ namespace EasyPlan.Web
             var builder = new ContainerBuilder();
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            
+
+            builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
+
             builder.RegisterModule(new DataAccessModule());
             var container = builder.Build();
 

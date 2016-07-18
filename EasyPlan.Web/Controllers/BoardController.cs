@@ -6,12 +6,13 @@ using EasyPlan.DomainModel.Entities;
 using EasyPlan.DomainModel.Repositories;
 using EasyPlan.Infrastructure;
 using EasyPlan.Web.Components.Mapper;
+using EasyPlan.Web.Components;
 
 namespace EasyPlan.Web.Controllers
 {
 
     [RoutePrefix("boards")]
-    public class BoardController : Controller
+    public class BoardController : DefaultController
     {
         private readonly IBoardRepository _boardRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -32,86 +33,62 @@ namespace EasyPlan.Web.Controllers
 
         [HttpPost]
         [Route("get-data")]
-        public JsonResult GetBoardData(string id)
+        public ActionResult GetBoardData(Board board)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(id, "board id");
-
-            var tmp = _boardRepository.Get(Guid.Parse(id));
-            var boards = BoardMapper.Map(tmp);
-
-            return Json(boards, JsonRequestBehavior.AllowGet);
+            return JsonSuccess(BoardMapper.Map(board));
         }
 
         [HttpPost]
         [Route("get-info")]
-        public JsonResult GetBoardsInfo()
+        public ActionResult GetBoardsInfo()
         {
             var tmp = _boardRepository.GetCollection();
             var boards = tmp.Select(e => BoardMapper.MapToShortInfo(e));
 
-            return Json(boards, JsonRequestBehavior.AllowGet);
+            return JsonSuccess(boards);
         }
 
         [HttpPost]
         [Route("item/set-title")]
-        public void SetItemTitle(string title, string id)
+        public void SetItemTitle(string title, Item item)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(id, "item id");
-
-            var item = _itemRepository.Get(Guid.Parse(id));
-
             item.SetTitle(title);
         }
 
         [HttpPost]
         [Route("item/remove")]
-        public void RemoveItem(string id)
+        public void RemoveItem(Item item)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(id, "item id");
-
-            _itemRepository.Remove(_itemRepository.Get(Guid.Parse(id)));
+            _itemRepository.Remove(item);
         }
 
         [HttpPost]
         [Route("item/create")]
-        public JsonResult CreateItem(string boardId)
+        public ActionResult CreateItem(Board board)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(boardId, "board id");
-
-            var board = _boardRepository.Get(Guid.Parse(boardId));
-
             var item = new Item("New item", board);
 
             _itemRepository.Add(item);
 
-            return Json(ItemMapper.Map(item), JsonRequestBehavior.AllowGet);
+            return JsonSuccess(ItemMapper.Map(item));
         }
 
         [HttpPost]
         [Route("mark/set-value")]
-        public void SetMarkValue(int value, string id)
+        public void SetMarkValue(int value, Mark mark)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(id, "mark id");
-
-            var mark = _markRepository.Get(Guid.Parse(id));
-
             mark.SetValue(value);
         }
 
         [HttpPost]
         [Route("mark/create")]
-        public JsonResult CreateMark(string itemId, string criterionId)
+        public ActionResult CreateMark(Item item, Criterion criterion)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(itemId, "item id");
-            ArgumentValidation.ThrowIfNullOrEmpty(criterionId, "criterion id");
-
-            var item = _itemRepository.Get(Guid.Parse(itemId));
-            var criterion = _criterionRepository.Get(Guid.Parse(criterionId));
             var mark = new Mark(item, criterion, 0);
 
             _markRepository.Add(mark);
 
-            return Json(MarkMapper.Map(mark), JsonRequestBehavior.AllowGet);
+            return JsonSuccess(MarkMapper.Map(mark));
         }
     }
 }

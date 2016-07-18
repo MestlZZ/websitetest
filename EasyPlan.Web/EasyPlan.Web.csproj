@@ -227,6 +227,9 @@
     <Content Include="Views\Home\_splash.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\DefaultController.cs" />
+    <Compile Include="Components\ModelBinder\EntityModelBinder.cs" />
+    <Compile Include="Components\ModelBinder\EntityModelBinderProvider.cs" />
     <Compile Include="Configurations\ContainerConfig.cs" />
     <Compile Include="Configurations\BundleConfig.cs" />
     <Compile Include="Configurations\RouteConfig.cs" />

@@ -13,7 +13,7 @@
     }
 
     function getBoard(boardId) {        
-        return storageHttpWrapper.post(constants.storage.boardDataUrl, { id: boardId }).then(function (board) {
+        return storageHttpWrapper.post(constants.storage.boardDataUrl, { boardId: boardId }).then(function (board) {
             storage.openedBoard = board;
 
             return board;

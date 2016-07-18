@@ -15,7 +15,7 @@
                 throw "Invalid item id"
 
 
-            return storageHttpWrapper.post(constants.storage.setItemTitleUrl, { title: title, id: itemId }).then(function () {
+            return storageHttpWrapper.post(constants.storage.setItemTitleUrl, { title: title, itemId: itemId }).then(function () {
                 var items = storage.openedBoard.items;
                 var item = items.find(function (item) {
                     return item.id == itemId;
@@ -29,7 +29,7 @@
             if (_.isNull(itemId) || _.isUndefined(itemId) || _.isEmpty(itemId))
                 throw "Invalid item id"
 
-            return storageHttpWrapper.post(constants.storage.removeItemUrl, { id: itemId }).then(function () {
+            return storageHttpWrapper.post(constants.storage.removeItemUrl, { itemId: itemId }).then(function () {
                 var items = storage.openedBoard.items;
                 var item = items.find(function (item) {
                     return item.id == itemId;

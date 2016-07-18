@@ -15,7 +15,7 @@
                 throw "Invalid mark id"
             }
 
-            return storageHttpWrapper.post(constants.storage.setMarkValueUrl, { value: value, id: markId }).then(function () {
+            return storageHttpWrapper.post(constants.storage.setMarkValueUrl, { value: value, markId: markId }).then(function () {
                 var items = storage.openedBoard.items;
                 var item = items.find(function (item) { return item.id == itemId });
                 var mark = item.marks[criterionId];
