@@ -101,6 +101,8 @@
         },
         setWeight: function (criterion) {
             criterionRepository.setWeight(criterion.weight(), criterion.id);
+
+            boardService.criterionChanged(criterion);
         }
     }
 });

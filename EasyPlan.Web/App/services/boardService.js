@@ -2,7 +2,8 @@
     return {
         computeScore,
         setRanks,
-        itemsChanged
+        itemsChanged,
+        criterionChanged
     }
 
     function computeScore(marks) {
@@ -12,9 +13,9 @@
             var mark = marks[key];
 
             if(mark.isBenefit){
-                result += +ko.unwrap(mark.value);
+                result += +ko.unwrap(mark.value) * mark.weight;
             } else {
-                result -= +ko.unwrap(mark.value) - 5;
+                result -= (+ko.unwrap(mark.value) - 5) * mark.weight;
             }
         });
 
@@ -31,6 +32,10 @@
         setRanks(items());
 
         app.trigger('board:item-changed', items());
+    }
+
+    function criterionChanged(criterion) {
+        app.trigger('board:criterion-changed', criterion);
     }
 
     function setRanks(items) {

@@ -1,4 +1,4 @@
-﻿define(['models/mark', 'repositories/boardRepository', 'services/validateService'], function (Mark, boardRepository, validateService) {
+﻿define(['models/mark', 'repositories/boardRepository', 'services/validateService', 'durandal/app'], function (Mark, boardRepository, validateService, app) {
     return {
         map,
         mapToViewModel
@@ -33,7 +33,7 @@
         if (src.value === undefined)
             src = map(src);
 
-        return new Mark({
+        var res = new Mark({
             id: src.id,
             value: ko.observable(src.value).extend({
                 validate: validateService.validateObservableMarkValue
@@ -43,5 +43,12 @@
             weight: src.weight,
             itemId: src.itemId
         })
+
+        app.on('board:criterion-changed', function (criterion) {
+            if(res.criterionId == criterion.id)
+                res.weight = criterion.weight;
+        });
+
+        return res;
     }
 });
