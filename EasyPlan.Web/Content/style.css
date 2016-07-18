@@ -223,7 +223,7 @@ body{
     color: rgb(200, 0, 0);
     font-weight: bold;
     font-size: 21px;
-    opacity: 0;
+    transform: scale(0);
     transition: all .3s ease;
 }
 
@@ -248,7 +248,7 @@ body{
 }
 
 .table-body .item-title:hover .item-title-delete{
-    opacity: 1;
+    transform: scale(1);
 }
 
 .cell-field{
@@ -271,9 +271,31 @@ body{
     background-color: rgba(0, 0, 155, .05);
 }
 
-.cell-field.item-criterion-benefit,
-.cell-field.item-criterion-cost{
+.cell-field.board-criterion{
     font-size: 19px;
+    width: 150px;
+    position: relative;
+}
+
+.criterion-title-delete{
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    transition: all .2s;
+    cursor: pointer;
+    transform: scale(0);
+}
+
+.cell-field.board-criterion:hover .criterion-title-delete{
+    transform: scale(1);
+}
+
+.criterion-title-delete:hover{
+    transform: scale(1.2);
+}
+
+.criterion-title-input{
+    margin-left: 20px;
 }
 
 .item-mark-input{

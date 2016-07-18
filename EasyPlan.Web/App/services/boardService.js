@@ -2,7 +2,7 @@
     return {
         computeScore,
         setRanks,
-        itemsChanged,
+        boardChanged,
         criterionChanged
     }
 
@@ -28,10 +28,9 @@
         }).reverse();
     }
 
-    function itemsChanged(items) {
-        setRanks(items());
-
-        app.trigger('board:item-changed', items());
+    function boardChanged(board) {
+        app.trigger('board:item-changed', board.items());
+        setRanks(board.items());
     }
 
     function criterionChanged(criterion) {

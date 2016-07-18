@@ -18,7 +18,9 @@
 
         return new Criterion({
             id: src.id,
-            title: ko.observable(src.title),
+            title: ko.observable(src.title).extend({
+                validate: validateService.validateObservableTitle
+            }),
             isBenefit: src.isBenefit,
             weight: ko.observable(src.weight).extend({
                 validate: validateService.validateObservableWeightValue

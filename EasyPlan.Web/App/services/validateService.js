@@ -1,11 +1,11 @@
 ﻿define(['constants'], function (constants) {
     return {
-        validateObservableItemTitle,
+        validateObservableTitle,
         validateObservableMarkValue,
         validateObservableWeightValue
     }
 
-    function validateObservableItemTitle(target) {
+    function validateObservableTitle(target) {
         var text = target().trim();
 
         if (!text) {

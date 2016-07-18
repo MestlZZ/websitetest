@@ -44,7 +44,7 @@
                         self.order('');
                     });
 
-                    boardService.itemsChanged(board.items);
+                    boardService.boardChanged(board);
                 });
             },
             sortByRank: function(isReverse){
@@ -72,8 +72,8 @@
                 if (s) {
                     itemRepository.remove(item.id);
                     board.items.remove(item);
-                    
-                    boardService.itemsChanged(board.items);
+
+                    boardService.boardChanged(board);
                 }
             });            
         },
@@ -82,8 +82,8 @@
                 item = itemMapper.mapToViewModel(item);
 
                 board.items.unshift(item);
-                
-                boardService.itemsChanged(board.items);
+
+                boardService.boardChanged(board);
             });
         },
         setMark: function (mark) {
@@ -97,12 +97,21 @@
                 markRepository.setValue(+mark.value(), mark.id, mark.itemId, mark.criterionId);
             }
 
-            boardService.itemsChanged(board.items);
+            boardService.boardChanged(board);
         },
         setWeight: function (criterion) {
             criterionRepository.setWeight(criterion.weight(), criterion.id);
 
             boardService.criterionChanged(criterion);
+
+            boardService.boardChanged(board);
+        },
+        updateCriterionTitle: function (criterion) {
+            criterionRepository.setTitle(criterion.title, criterion.id);
+
+            boardService.criterionChanged(criterion);
+
+            boardService.boardChanged(board);
         }
     }
 });

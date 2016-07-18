@@ -23,5 +23,13 @@ namespace EasyPlan.DomainModel.Entities
 
             Weight = weight;
         }
+
+        public void SetTitle(string title)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(title, "criterion title");
+            ArgumentValidation.ThrowIfLongerThan(title, 255, "criterion title");
+
+            Title = title;
+        }
     }
 }

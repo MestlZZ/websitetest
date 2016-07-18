@@ -8,7 +8,8 @@
             createNewItemUrl: 'boards/item/create',
             setMarkValueUrl: 'boards/mark/set-value',
             createMarkUrl: 'boards/mark/create',
-            setCriterionWeightUrl: 'boards/criterion/set-weight'
+            setCriterionWeightUrl: 'boards/criterion/set-weight',
+            setCriterionTitleUrl: 'boards/criterion/set-title'
         },
         popupTemplatesId: {
             confirmation: "#confirmation-popup-body-template"

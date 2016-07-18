@@ -1,5 +1,5 @@
-﻿define(['models/item', 'models/Mark', 'mappers/markMapper', 'services/boardService', 'repositories/boardRepository', 'services/validateService'],
-    function (Item, Mark, markMapper, boardService, boardRepository, validateService) {
+﻿define(['models/item', 'models/Mark', 'mappers/markMapper', 'services/boardService', 'repositories/boardRepository', 'services/validateService', 'durandal/app'],
+    function (Item, Mark, markMapper, boardService, boardRepository, validateService, app) {
     return {
         map,
         mapToViewModel
@@ -54,15 +54,18 @@
             id: src.id,
             marks: mappedMarks,
             title: ko.observable(src.title).extend({
-                validate: validateService.validateObservableItemTitle
+                validate: validateService.validateObservableTitle
             })
         });
 
         item.rank = ko.observable();
+        item.score = ko.observable(boardService.computeScore(item.marks));
 
-        item.score = ko.computed(function () {
-            return boardService.computeScore(item.marks);
-        });
+
+        app.on('board:item-changed', function () {
+            item.score(boardService.computeScore(item.marks));
+        })
+        
 
         return item;
     }

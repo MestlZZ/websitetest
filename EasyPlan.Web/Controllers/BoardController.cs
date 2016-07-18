@@ -97,5 +97,12 @@ namespace EasyPlan.Web.Controllers
         {
             criterion.SetWeight(weight);
         }
+
+        [HttpPost]
+        [Route("criterion/set-title")]
+        public void SetCriterionTitle(string title, Criterion criterion)
+        {
+            criterion.SetTitle(title);
+        }
     }
 }

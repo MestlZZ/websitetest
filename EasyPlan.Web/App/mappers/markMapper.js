@@ -46,7 +46,7 @@
 
         app.on('board:criterion-changed', function (criterion) {
             if(res.criterionId == criterion.id)
-                res.weight = criterion.weight;
+                res.weight = criterion.weight();
         });
 
         return res;
