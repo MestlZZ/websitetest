@@ -12,9 +12,9 @@
             var mark = marks[key];
 
             if(mark.isBenefit){
-                result += ko.unwrap(mark.value);
+                result += +ko.unwrap(mark.value);
             } else {
-                result -= ko.unwrap(mark.value) - 5;
+                result -= +ko.unwrap(mark.value) - 5;
             }
         });
 

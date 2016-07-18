@@ -1,29 +1,51 @@
 ﻿<div class="board">
-    <h2 class="board-title" data-bind="text: title"></h2>
-    <div class="board-body">
-        <button class="board-body-item-add" data-bind="click: $root.addItem">Add item</button>
+    <h2 class="board-title" data-bind="text: board.title"></h2>
+    <div class="board-body">        
         <table class="board-body-table">
             <thead class="table-head">
                 <tr>
-                    <td class="cell-field item-title">
-                        <span>Title</span>
+                    <td rowspan="2" class="cell-field item-title">
+                        <span>Title </span>
+                        <button class="board-body-item-add" data-bind="click: $root.addItem">⛨</button>
                     </td>
-                    <!--ko foreach: criterions-->
-                    <td class="cell-field item-criterion" data-bind="text: title"></td>
+                    <td class="cell-field item-criterion-type" data-bind="attr: {'colspan': benefitCriterions().length}">
+                        <span>Benefit</span>
+                        <button class="board-body-criterion-add" data-bind="click: $root.addBenefitCriterion">⛨</button>
+                    </td>
+                    <td class="cell-field item-criterion-type" data-bind="attr: {'colspan': costCriterions().length}">
+                        <span>Cost</span>
+                        <button class="board-body-criterion-add" data-bind="click: $root.addCostCriterion">⛨</button>
+                    </td>
+                    <td rowspan="3" class="cell-field item-score">Score</td>
+                    <td rowspan="3" class="cell-field item-rank"><span class="item-rank-title" data-bind="sort: { order, function: sortByRank }">Rank</span></td>
+                </tr>
+                <tr>
+                    <!--ko foreach: benefitCriterions-->
+                    <td class="cell-field item-criterion-benefit" data-bind="text: title"></td>
                     <!--/ko-->
-                    <td class="cell-field item-score">Score</td>
-                    <td class="cell-field item-rank" data-bind="sort: { order, function: sortByRank }">Rank</td>
+                    <!--ko foreach: costCriterions-->
+                    <td class="cell-field item-criterion-cost" data-bind="text: title"></td>
+                    <!--/ko-->
+                </tr>
+                <tr>
+                    <td class="cell-field item-criterion-weight-title"><span class="weight-title">Weight</span></td>
+                    <!--ko foreach: benefitCriterions-->
+                    <td class="cell-field item-criterion-benefit-value weight" data-bind="text: weight"></td>
+                    <!--/ko-->
+                    <!--ko foreach: costCriterions-->
+                    <td class="cell-field item-criterion-cost-value weight" data-bind="text: weight"></td>
+                    <!--/ko-->
                 </tr>                
             </thead>
             <tbody class="table-body">  
-                <!--ko if: _.isEmpty(items()) -->
+                <!--ko if: _.isEmpty(board.items()) -->
                 <tr class="item-cell">
                     <td data-bind="attr: {'colspan' : columnCount}">
                         <span class="items-noitems-message">No items!</span>
                     </td>
                 </tr>
                 <!--/ko-->
-                <!--ko foreach: items-->
+                <!--ko foreach: board.items-->
                 <tr class="item-cell">
                     <td class="cell-field item-title noselect"> 
                         <div class="item-title-input item-title-value" data-bind="editableText: {handler: $root.updateItemTitle, value: title}, selectTextOnFocus: true, hasFocus: true"></div>
@@ -33,7 +55,7 @@
                             <i class="validation-message-arrow"></i>
                         </span>
                     </td>                                        
-                    <!--ko foreach: $root.criterions-->
+                    <!--ko foreach: $root.board.criterions-->
                     <td class="cell-field item-criterion" data-bind="with: $parent.marks[id]">
                         <input type="number" min="0" max="5" class="item-mark-input" data-bind="value: value, valueUpdate: 'afterkeydown', editableInput: {handler: $root.setMark, value: value}, selectTextOnFocus: true" />
                         <span class="item-mark-validation-message validation-message" data-bind="css: {'visible':value.hasError}">

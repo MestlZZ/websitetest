@@ -4,11 +4,11 @@
         var board;
 
         return {
-            title: ko.observable(),
-            items: ko.observableArray(),
+            board: {},
             columnCount: ko.observable(),
-            criterions: ko.observableArray(),
             order: ko.observable(),
+            benefitCriterions: ko.observableArray([]),
+            costCriterions: ko.observableArray([]),
             activate: function (boardId) {
                 var self = this;
                 boardId = boardId || "ccef5cf6-5184-4a5a-8234-c2df683cbfba";
@@ -20,13 +20,20 @@
 
                     board = boardMapper.mapToViewModel(b);
 
-                    self.title = board.title;
+                    self.board = board;
 
-                    self.items = board.items;
-                    self.criterions = board.criterions;
+                    ko.computed(function () {
+                        _.each(board.criterions(), function (criterion) {
+                            if (criterion.isBenefit) {
+                                self.benefitCriterions.push(criterion);
+                            } else {
+                                self.costCriterions.push(criterion);
+                            }
+                        })
+                    });
 
                     self.columnCount = ko.computed(function () {
-                        return self.criterions().length + 3;
+                        return self.board.criterions().length + 3;
                     })
 
                     self.sortByRank();
@@ -89,9 +96,6 @@
             }
 
             boardService.itemsChanged(board.items);
-        },
-        selectValue: function () {
-            document.execCommand('selectAll', false, null);
         }
     }
 });

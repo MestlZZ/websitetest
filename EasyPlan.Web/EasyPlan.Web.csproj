@@ -258,9 +258,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\EasyPlan.DataAccess\EasyPlan.DataAccess.csproj">
       <Project>{deb5c4dc-72f8-4f95-8819-2e0a16feca2f}</Project>
