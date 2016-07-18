@@ -32,9 +32,9 @@
                             <span class="validation-message-error" data-bind="text: title.validationMessage"></span>
                             <i class="validation-message-arrow"></i>
                         </span>
-                    </td>                    
-                    <!--ko foreach: marks-->
-                    <td class="cell-field item-criterion">
+                    </td>                                        
+                    <!--ko foreach: $root.criterions-->
+                    <td class="cell-field item-criterion" data-bind="with: $parent.marks[id]">
                         <input type="number" min="0" max="5" class="item-mark-input" data-bind="value: value, valueUpdate: 'afterkeydown', editableInput: {handler: $root.setMark, value: value}, selectTextOnFocus: true" />
                         <span class="item-mark-validation-message validation-message" data-bind="css: {'visible':value.hasError}">
                             <span class="validation-message-error" data-bind="text: value.validationMessage"></span>

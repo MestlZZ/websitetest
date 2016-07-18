@@ -6,14 +6,19 @@
     }
 
     function computeScore(marks) {
-        return _.reduce(marks, function (memo, num) {
-            var value = ko.utils.unwrapObservable(num.value);
+        var result = 0;
 
-            if (num.isBenefit)
-                return memo + value;
-            else
-                return memo - value;
-        }, 0) + 5;
+        _.each(_.keys(marks), function (key) {
+            var mark = marks[key];
+
+            if(mark.isBenefit){
+                result += ko.unwrap(mark.value);
+            } else {
+                result -= ko.unwrap(mark.value) - 5;
+            }
+        });
+
+        return result;
     }
 
     function sortItemsByScore(items) {

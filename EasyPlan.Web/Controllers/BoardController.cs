@@ -47,7 +47,7 @@ namespace EasyPlan.Web.Controllers
         public JsonResult GetBoardsInfo()
         {
             var tmp = _boardRepository.GetCollection();
-            var boards = tmp.Select(e => BoardMapper.MapToView(e));
+            var boards = tmp.Select(e => BoardMapper.MapToShortInfo(e));
 
             return Json(boards, JsonRequestBehavior.AllowGet);
         }
@@ -74,17 +74,17 @@ namespace EasyPlan.Web.Controllers
 
         [HttpPost]
         [Route("item/create")]
-        public JsonResult CreateItem(string id)
+        public JsonResult CreateItem(string boardId)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(id, "board id");
+            ArgumentValidation.ThrowIfNullOrEmpty(boardId, "board id");
 
-            var board = _boardRepository.Get(Guid.Parse(id));
+            var board = _boardRepository.Get(Guid.Parse(boardId));
 
-            var itemId = _itemRepository.CreateItem("New item", board);
+            var item = new Item("New item", board);
 
-            _unitOfWork.Save();
+            _itemRepository.Add(item);
 
-            return Json(ItemMapper.Map(_itemRepository.Get(itemId)), JsonRequestBehavior.AllowGet);
+            return Json(ItemMapper.Map(item), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -96,6 +96,22 @@ namespace EasyPlan.Web.Controllers
             var mark = _markRepository.Get(Guid.Parse(id));
 
             mark.SetValue(value);
+        }
+
+        [HttpPost]
+        [Route("mark/create")]
+        public JsonResult CreateMark(string itemId, string criterionId)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(itemId, "item id");
+            ArgumentValidation.ThrowIfNullOrEmpty(criterionId, "criterion id");
+
+            var item = _itemRepository.Get(Guid.Parse(itemId));
+            var criterion = _criterionRepository.Get(Guid.Parse(criterionId));
+            var mark = new Mark(item, criterion, 0);
+
+            _markRepository.Add(mark);
+
+            return Json(MarkMapper.Map(mark), JsonRequestBehavior.AllowGet);
         }
     }
 }

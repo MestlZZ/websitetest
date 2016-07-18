@@ -8,13 +8,14 @@ namespace EasyPlan.Web.Components.Mapper
 {
     public class MarkMapper
     {
-        public static dynamic Map(Mark entity)
+        public static object Map(Mark entity)
         {
             return new
             {
                 Id = entity.Id,
-                Value = entity.Value,
-                IsBenefit = entity.Criterion.IsBenefit
+                CriterionId = entity.CriterionId,
+                ItemId = entity.ItemId,
+                Value = entity.Value
             };
         }
     }

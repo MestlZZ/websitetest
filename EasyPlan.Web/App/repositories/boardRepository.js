@@ -1,18 +1,30 @@
-﻿define(['constants', 'storageContext', 'mappers/boardMapper', 'http/storageHttpWrapper'],
-    function (constants, storage, boardMapper, storageHttpWrapper) {
+﻿define(['constants', 'storageContext', 'http/storageHttpWrapper'],
+    function (constants, storage, storageHttpWrapper) {
 
     return {
         getCollection,
-        getBoard
+        getBoard,
+        getOpenedBoard,
+        updateOpenedBoard
     }
 
-    function getCollection()
-    {
+    function getCollection() {
         return storage.boards;
     }
 
-    function getBoard(boardId)
-    {        
-        return storageHttpWrapper.post(constants.storage.host + constants.storage.boardDataUrl, { id: boardId });
+    function getBoard(boardId) {        
+        return storageHttpWrapper.post(constants.storage.boardDataUrl, { id: boardId }).then(function (board) {
+            storage.openedBoard = board;
+
+            return board;
+        });
+    }
+
+    function getOpenedBoard() {
+        return storage.openedBoard;
+    }
+
+    function updateOpenedBoard(board) {
+        storage.openedBoard = board;
     }
 });

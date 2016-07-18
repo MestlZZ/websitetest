@@ -15,26 +15,48 @@
                 throw "Invalid item id"
 
 
-            return storageHttpWrapper.post(constants.storage.host + constants.storage.setItemTitleUrl, {title: title, id: itemId});
+            return storageHttpWrapper.post(constants.storage.setItemTitleUrl, { title: title, id: itemId }).then(function () {
+                var items = storage.openedBoard.items;
+                var item = items.find(function (item) {
+                    return item.id == itemId;
+                });
+
+                item.title = title;
+            });
         }
 
         function remove(itemId) {
             if (_.isNull(itemId) || _.isUndefined(itemId) || _.isEmpty(itemId))
                 throw "Invalid item id"
 
-            return storageHttpWrapper.post(constants.storage.host + constants.storage.removeItemUrl, { id: itemId });
+            return storageHttpWrapper.post(constants.storage.removeItemUrl, { id: itemId }).then(function () {
+                var items = storage.openedBoard.items;
+                var item = items.find(function (item) {
+                    return item.id == itemId;
+                });
+
+                var index = items.indexOf(item);
+
+                items.splice(index, 1);
+            });
         }
 
-        function getNewItem(boardId) {
-            if (_.isNull(boardId) || _.isUndefined(boardId) || _.isEmpty(boardId))
-                throw "Invalid board id"
+        function getNewItem() {
 
-            return storageHttpWrapper.post(constants.storage.host + constants.storage.createNewItemUrl, { id: boardId }).then(function (item) {
+            var board = storage.openedBoard;
+
+            return storageHttpWrapper.post(constants.storage.createNewItemUrl, { boardId: board.id }).then(function (item) {
 
                 if (_.isNull(item) || _.isUndefined(item))
                     throw "Failed to load item"
+                
+                var item = itemMapper.map(item);
 
-                return itemMapper.map(item);
+                var items = board.items;
+
+                items.unshift(item);
+
+                return item;
             });
         }
     });

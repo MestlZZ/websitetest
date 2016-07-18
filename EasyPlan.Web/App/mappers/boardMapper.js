@@ -3,35 +3,35 @@
 
     return {
         map,
-        mapToObservable,
-        mapInfo
+        mapToViewModel,
+        mapToShortInfo
     }
 
     function map(src) {
         return new Board({
             id: src.Id,
             title: src.Title,
-            items: _.map(src.Items, itemMapper.map),
-            criterions: _.map(src.Criterions, criterionMapper.map)
+            criterions: _.map(src.Criterions, criterionMapper.map),
+            items: _.map(src.Items, itemMapper.map)
         });
     }
 
-    function mapInfo(src) {
+    function mapToShortInfo(src) {
         return new Board({
             id: src.Id,
             title: src.Title,
         });
     }
 
-    function mapToObservable(src) {
+    function mapToViewModel(src) {
         if (src.id === undefined)
             src = map(src);
 
         var board = new Board({
             id: src.id,
             title: ko.observable(src.title),
-            items: ko.observableArray(_.map(src.items, itemMapper.mapToObservable)),
-            criterions: ko.observableArray(_.map(src.criterions, criterionMapper.mapToObservable))
+            criterions: ko.observableArray(_.map(src.criterions, criterionMapper.mapToViewModel)),
+            items: ko.observableArray(_.map(src.items, itemMapper.mapToViewModel)),
         });
 
         return board;

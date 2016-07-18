@@ -9,14 +9,5 @@ namespace EasyPlan.DataAccess.Repositories
     {
         public ItemRepository(IDataContext dataContext)
             : base(dataContext) { }
-
-        public Guid CreateItem(string title, Board board)
-        {
-            var item = new Item(title, board);
-
-            Add(item);
-
-            return item.Id;
-        }
     }
 }

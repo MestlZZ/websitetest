@@ -6,20 +6,16 @@ namespace EasyPlan.DomainModel.Entities
 {
     public class Item : Entity
     {
-        public Item() { }
+        protected internal Item() { }
 
-        protected internal Item(string title, Board board)
+        public Item(string title, Board board)
         {
             ArgumentValidation.ThrowIfNull(board, "board");
 
             SetTitle(title);
             Board = board;
-            Marks = new List<Mark>();
 
-            foreach(var criterion in board.Criterions)
-            {
-                Marks.Add(new Mark(criterion, 0));
-            }
+            Marks = new List<Mark>();
         }
 
         public string Title { get; private set; }

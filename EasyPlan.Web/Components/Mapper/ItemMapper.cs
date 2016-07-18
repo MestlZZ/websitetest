@@ -8,7 +8,7 @@ namespace EasyPlan.Web.Components.Mapper
 {
     public class ItemMapper
     {
-        public static dynamic Map(Item entity)
+        public static object Map(Item entity)
         {
             return new
             {

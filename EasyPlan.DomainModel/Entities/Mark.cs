@@ -5,35 +5,28 @@ namespace EasyPlan.DomainModel.Entities
 {
     public class Mark : Entity
     {
-        public Mark() { }
+        protected internal Mark() { }
 
-        private Mark(int value)
+        public Mark(Item item, Criterion criterion, int value)
         {
             SetValue(value);
-        }
 
-        protected internal Mark(Item item, int value)
-            :this(value)
-        {
+            ArgumentValidation.ThrowIfNull(criterion, "criterion");
             ArgumentValidation.ThrowIfNull(item, "item");
 
+            Criterion = criterion;
             Item = item;
         }
 
-        protected internal Mark(Criterion criterion, int value)
-            :this(value)
+        public Mark(Guid itemId, Guid criterionId, int value)
         {
-            ArgumentValidation.ThrowIfNull(criterion, "criterion");
+            SetValue(value);
 
-            Criterion = criterion;
-        }
+            ArgumentValidation.ThrowIfNull(criterionId, "criterion id");
+            ArgumentValidation.ThrowIfNull(itemId, "item id");
 
-        protected internal Mark(Item item, Criterion criterion, int value)
-            :this(item, value)
-        {
-            ArgumentValidation.ThrowIfNull(criterion, "criterion");
-
-            Criterion = criterion;
+            CriterionId = criterionId;
+            ItemId = itemId;
         }
 
         public virtual Criterion Criterion { get; private set; }

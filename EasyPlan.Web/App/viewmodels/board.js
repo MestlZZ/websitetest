@@ -14,8 +14,11 @@
                 boardId = boardId || "ccef5cf6-5184-4a5a-8234-c2df683cbfba";
 
                 return boardRepository.getBoard(boardId).then(function (data) {
+                    var b = boardMapper.map(data);
 
-                    board = boardMapper.mapToObservable(data);
+                    boardRepository.updateOpenedBoard(b);
+
+                    board = boardMapper.mapToViewModel(b);
 
                     self.title = board.title;
 
@@ -66,8 +69,8 @@
             });            
         },
         addItem: function () {
-            itemRepository.getNewItem(board.id).then(function(item){
-                item = itemMapper.mapToObservable(item);
+            itemRepository.getNewItem().then(function(item){
+                item = itemMapper.mapToViewModel(item);
 
                 board.items.unshift(item);
                 
@@ -75,7 +78,15 @@
             });
         },
         setMark: function (mark) {
-            markRepository.setValue(+mark.value(), mark.id);
+            if (_.isUndefined(mark.id)) {
+                markRepository.createMark(mark.itemId, mark.criterionId).then(function (newMark) {
+                    mark.id = newMark.id;
+
+                   return markRepository.setValue(+mark.value(), mark.id, mark.itemId, mark.criterionId);
+                });
+            } else {
+                markRepository.setValue(+mark.value(), mark.id, mark.itemId, mark.criterionId);
+            }
 
             boardService.itemsChanged(board.items);
         },

@@ -9,7 +9,7 @@ namespace EasyPlan.Web.Components.Mapper
 {
     public class BoardMapper
     {
-        public static dynamic Map(Board entity)
+        public static object Map(Board entity)
         {
             return new
             {
@@ -20,7 +20,7 @@ namespace EasyPlan.Web.Components.Mapper
             };
         }
 
-        public static dynamic MapToView(Board entity)
+        public static object MapToShortInfo(Board entity)
         {
             return new
             {

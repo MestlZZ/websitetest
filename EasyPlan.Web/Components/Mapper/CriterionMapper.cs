@@ -8,15 +8,14 @@ namespace EasyPlan.Web.Components.Mapper
 {
     public class CriterionMapper
     {
-        public static dynamic Map(Criterion entity)
+        public static object Map(Criterion entity)
         {
             return new
             {
                 Id = entity.Id,
                 Title = entity.Title,
                 Weight = entity.Weight,
-                IsBenefit = entity.IsBenefit,
-                Marks = entity.Marks.Select(e => MarkMapper.Map(e))
+                IsBenefit = entity.IsBenefit
             };
         }
     }
