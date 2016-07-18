@@ -183,6 +183,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="readme.md" />
+    <None Include=".bin\bower.cmd" />
+    <None Include=".bin\git.cmd" />
+    <None Include=".bin\node.cmd" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="App\core\activator.js" />
     <Content Include="App\core\app.js" />
