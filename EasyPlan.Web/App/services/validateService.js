@@ -53,9 +53,9 @@
         } else if (value > 20) {
             target.hasError(true);
             target.validationMessage('Number in weight field can\'t be greater than 20.');
-        } else if (value < 0) {
+        } else if (value < 1) {
             target.hasError(true);
-            target.validationMessage("Number in weight field can't be negative.");
+            target.validationMessage("Number in weight field can't be negative or equal to zero.");
         } else {
             target.hasError(false);
         }
