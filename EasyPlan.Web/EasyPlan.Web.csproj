@@ -184,7 +184,6 @@
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="readme.md" />
     <None Include=".bin\bower.cmd" />
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
