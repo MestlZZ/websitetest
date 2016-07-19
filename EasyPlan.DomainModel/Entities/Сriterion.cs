@@ -43,7 +43,7 @@ namespace EasyPlan.DomainModel.Entities
 
         public void SetTitle(string title)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(title, "criterion title");
+            ArgumentValidation.ThrowIfNullOrWhiteSpace(title, "criterion title");
             ArgumentValidation.ThrowIfLongerThan(title, 255, "criterion title");
 
             Title = title;

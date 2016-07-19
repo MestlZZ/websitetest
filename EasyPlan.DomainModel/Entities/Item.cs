@@ -27,7 +27,7 @@ namespace EasyPlan.DomainModel.Entities
 
         public void SetTitle(string title)
         {
-            ArgumentValidation.ThrowIfNullOrEmpty(title, "item title");
+            ArgumentValidation.ThrowIfNullOrWhiteSpace(title, "item title");
             ArgumentValidation.ThrowIfLongerThan(title, 255, "item title");
 
             Title = title;

@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyPlan.DomainModel", "Eas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyPlan.Infrastructure", "EasyPlan.Infrastucture\EasyPlan.Infrastructure.csproj", "{EEF1121F-5A4A-40CB-8C20-01BD17BF4A1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyPlan.Infrastructure.Test", "EasyPlan.Infrastructure.Test\EasyPlan.Infrastructure.Test.csproj", "{2AD1AE4D-3B3E-41B2-A083-10B982DE43F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyPlan.DomainModel.Test", "EasyPlan.DomainModel.Test\EasyPlan.DomainModel.Test.csproj", "{F5BFD105-66D5-40E4-A830-ACAE8F7E5FE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +36,14 @@ Global
 		{EEF1121F-5A4A-40CB-8C20-01BD17BF4A1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEF1121F-5A4A-40CB-8C20-01BD17BF4A1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEF1121F-5A4A-40CB-8C20-01BD17BF4A1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AD1AE4D-3B3E-41B2-A083-10B982DE43F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AD1AE4D-3B3E-41B2-A083-10B982DE43F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AD1AE4D-3B3E-41B2-A083-10B982DE43F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AD1AE4D-3B3E-41B2-A083-10B982DE43F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5BFD105-66D5-40E4-A830-ACAE8F7E5FE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5BFD105-66D5-40E4-A830-ACAE8F7E5FE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5BFD105-66D5-40E4-A830-ACAE8F7E5FE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5BFD105-66D5-40E4-A830-ACAE8F7E5FE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

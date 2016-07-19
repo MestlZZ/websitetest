@@ -8,11 +8,9 @@ namespace EasyPlan.Infrastructure
 {
     public static class ArgumentValidation
     {
-        public static void ThrowIfNullOrEmpty(string value, string argumentName = "")
+        public static void ThrowIfNullOrWhiteSpace(string value, string argumentName = "")
         {
-            ThrowIfNull(value, argumentName);
-
-            if (value.Trim() == String.Empty)
+            if (String.IsNullOrWhiteSpace(value))
                 throw new ArgumentValidationException($"{argumentName} can't be empty");
         }
 
