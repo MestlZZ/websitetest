@@ -1,8 +1,8 @@
 ﻿define(['repositories/boardRepository', 'repositories/itemRepository','mappers/markMapper','repositories/markRepository',
     'durandal/app', 'mappers/boardMapper', 'mappers/itemMapper', 'constants', 'services/boardService',
-    'repositories/criterionRepository', 'mappers/criterionMapper'],
+    'repositories/criterionRepository', 'mappers/criterionMapper', 'spinner'],
     function (boardRepository, itemRepository,markMapper, markRepository, app, boardMapper, itemMapper, constants, boardService,
-        criterionRepository, criterionMapper) {
+        criterionRepository, criterionMapper, spinner) {
         var board;
 
         return viewModel = {
@@ -28,6 +28,7 @@
             var self = this;
             boardId = boardId || "ccef5cf6-5184-4a5a-8234-c2df683cbfba";
 
+            spinner.show();
             return boardRepository.getBoard(boardId).then(function (data) {
                 var b = boardMapper.map(data);
 
@@ -56,6 +57,8 @@
                 });
 
                 boardService.boardChanged(board);
+
+                spinner.hide();
             });
         };
 
@@ -74,7 +77,7 @@
             itemRepository.setTitle(item.title(), item.id);
         };
 
-        function deleteItem (item, event) {
+        function deleteItem(item, event) {
             var title = item.title();
 
             if (title.length > 50)
@@ -92,13 +95,17 @@
             });            
         };
 
-        function addItem () {
+        function addItem() {
+            spinner.show();
+
             itemRepository.getNewItem().then(function(item){
                 item = itemMapper.mapToViewModel(item);
 
                 board.items.unshift(item);
 
                 boardService.boardChanged(board);
+
+                spinner.hide();
             });
         };
 
@@ -163,13 +170,13 @@
                     boardService.criterionChanged(criterion);
 
                     boardService.boardChanged(board);
-
-
                 }
             });
         };
 
         function addCriterion(isBenefit) {
+            spinner.show();
+
             criterionRepository.getNewCriterion(isBenefit).then(function (criterion) {
                 criterion = criterionMapper.mapToViewModel(criterion);
 
@@ -191,6 +198,8 @@
                 boardService.criterionChanged(criterion);
 
                 boardService.boardChanged(board);
+
+                spinner.hide();
             });
         };
 

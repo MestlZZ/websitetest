@@ -124,9 +124,11 @@ body{
     flex-direction: column;
     height: 100%;
 }
+
 .cell-field.item-title{
     width: 200px;
 }
+
 .board-title{
     text-align: center;
     font-size: 30px;
@@ -192,28 +194,27 @@ body{
 .item-title-input{
     margin-left: 14px;
     transition: all .3s ease;
+    color: rgba(0, 0, 105, .7);
     background: transparent;
     width: auto;
     overflow: auto;
     border: none;
     cursor: text;
 }
+
 .items-noitems-message{    
     font-size: 2.2em;
     min-width: 100px;
     color: rgba(105, 0, 0, .7);
 }
-.item-title-value{    
+
+.title-value{    
     font-size: 1em;
-    text-align: center;
     text-align: left;
     overflow: hidden;
     resize: inherit;
     font-family: time;
-    color: rgba(0, 0, 105, .7);
 }
-
-
 
 .item-title-delete{
     position: absolute;
@@ -318,6 +319,7 @@ body{
     padding: 5px;
     background-color: rgba(0,0,0,.03);
 }
+
 .cell-field.weight{
     font-size: 18px;
     border: 1px solid rgba(123, 123, 123, .3);

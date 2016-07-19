@@ -36,7 +36,6 @@ define(['durandal/system', 'durandal/app',
         viewLocator.useConvention();
 
         storage.initialize().then(function () {
-            spinner.initialize();
             spinner.hide();
 
             app.setRoot('viewmodels/shell', 'entrance', 'application');

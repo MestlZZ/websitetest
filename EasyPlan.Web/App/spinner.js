@@ -4,8 +4,7 @@
     
     return {
         show,
-        hide,
-        initialize
+        hide
     }
 
     function show() {
@@ -17,15 +16,4 @@
         spinner.removeClass('spinner-on');
         spinner.addClass('spinner-off');
     }
-
-    function initialize() {
-        app.on('storageHttpWrapper:post-begin', function () {
-            show();
-        })
-
-        app.on('storageHttpWrapper:post-end', function () {
-            hide();
-        })
-    }
-
 })
