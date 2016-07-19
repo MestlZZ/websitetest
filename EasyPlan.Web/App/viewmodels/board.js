@@ -132,7 +132,13 @@
             boardService.boardChanged(board);
         };
 
-        function deleteCriterion (criterion) {
+        function deleteCriterion(criterion) {
+            if (criterion.isBenefit){                
+                if (viewModel.benefitCriterions().length <= 1)
+                    return;
+            } else if (viewModel.costCriterions().length <= 1) {
+                return;
+            }
             var title = criterion.title();
 
             if (criterion.length > 50)
@@ -188,7 +194,7 @@
             });
         };
 
-        function addBenefitCriterion () {
+        function addBenefitCriterion() {
             addCriterion(true);
         };
 

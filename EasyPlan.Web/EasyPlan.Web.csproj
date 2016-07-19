@@ -239,8 +239,11 @@
     <Compile Include="Components\Mapper\CriterionMapper.cs" />
     <Compile Include="Components\Mapper\MarkMapper.cs" />
     <Compile Include="Components\Mapper\ItemMapper.cs" />
+    <Compile Include="Controllers\CriterionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BoardController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\MarkController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

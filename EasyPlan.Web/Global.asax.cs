@@ -29,5 +29,21 @@ namespace EasyPlan.Web
 
             unitOfwork.Save();
         }
+
+        protected void Application_Error()
+        {
+            Exception exc = Server.GetLastError();
+
+            if (exc is ArgumentValidationException)
+            {
+                Server.ClearError();
+                Response.TrySkipIisCustomErrors = true;
+
+                var exception = (exc as ArgumentValidationException);
+
+                Response.StatusCode = exception.StatusCode;
+                Response.StatusDescription = exception.Message;
+            }
+        }
     }
 }

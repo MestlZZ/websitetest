@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentValidation.cs" />
+    <Compile Include="ArgumentValidationException.cs" />
     <Compile Include="IDependencyResolverWrapper.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,17 +1,17 @@
 ﻿define([], function(){
     return {
         storage: {
-            boardsInfoUrl: 'boards/get-info',
-            boardDataUrl: 'boards/get-data',
-            setItemTitleUrl: 'boards/item/set-title',
-            removeItemUrl: 'boards/item/remove',
-            createNewItemUrl: 'boards/item/create',
-            setMarkValueUrl: 'boards/mark/set-value',
-            createMarkUrl: 'boards/mark/create',
-            setCriterionWeightUrl: 'boards/criterion/set-weight',
-            setCriterionTitleUrl: 'boards/criterion/set-title',
-            removeCriterionUrl: 'boards/criterion/remove',
-            createNewCriterionUrl: 'boards/criterion/create'
+            boardsInfoUrl: 'board/GetBoardsInfo',
+            boardDataUrl: 'board/GetBoardData',
+            setItemTitleUrl: 'board/item/SetItemTitle',
+            removeItemUrl: 'board/item/RemoveItem',
+            createNewItemUrl: 'board/item/CreateItem',
+            setMarkValueUrl: 'board/mark/SetMarkValue',
+            createMarkUrl: 'board/mark/CreateMark',
+            setCriterionWeightUrl: 'board/criterion/SetCriterionWeight',
+            setCriterionTitleUrl: 'board/criterion/SetCriterionTitle',
+            removeCriterionUrl: 'board/criterion/RemoveCriterion',
+            createNewCriterionUrl: 'board/criterion/CreateCriterion'
         },
         popupTemplatesId: {
             confirmation: "#confirmation-popup-body-template"
