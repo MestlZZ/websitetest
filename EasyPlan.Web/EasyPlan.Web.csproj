@@ -216,7 +216,6 @@
     <Content Include="App\core\packages\knockoutBindings\editableInputBinding.js" />
     <Content Include="App\core\packages\knockoutBindings\editableTextBinding.js" />
     <Content Include="App\core\packages\knockoutBindings\selectTextOnFocusBinding.js" />
-    <Content Include="App\core\packages\knockoutBindings\sortBinding.js" />
     <Content Include="App\core\packages\knockoutExtenders\validateExtender.js" />
     <Content Include="App\core\packages\jqueryPlugins\jquery.popup.js" />
     <Content Include="Scripts\q.js" />

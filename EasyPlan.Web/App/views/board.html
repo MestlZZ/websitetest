@@ -6,7 +6,7 @@
                 <tr>
                     <td rowspan="2" class="cell-field item-title">
                         <span>Title </span>
-                        <button class="board-body-item-add" data-bind="click: $root.addItem">⛨
+                        <button class="board-body-item-add" data-bind="click: addItem">⛨
                             <!--ko if: _.isEmpty(board.items()) -->
                             <span class="help-message">Click to add new item</span>
                             <!--/ko-->
@@ -14,14 +14,14 @@
                     </td>
                     <td class="cell-field item-criterion-type" data-bind="attr: {'colspan': benefitCriterions().length}">
                         <span>Benefit</span>
-                        <button class="board-body-criterion-add" data-bind="click: $root.addBenefitCriterion">⛨</button>
+                        <button class="board-body-criterion-add" data-bind="click: addBenefitCriterion">⛨</button>
                     </td>
                     <td class="cell-field item-criterion-type" data-bind="attr: {'colspan': costCriterions().length}">
                         <span>Cost</span>
-                        <button class="board-body-criterion-add" data-bind="click: $root.addCostCriterion">⛨</button>
+                        <button class="board-body-criterion-add" data-bind="click: addCostCriterion">⛨</button>
                     </td>
                     <td rowspan="3" class="cell-field item-score">Score</td>
-                    <td rowspan="3" class="cell-field item-rank"><span class="item-rank-title" data-bind="sort: { order, function: sortByRank }">Rank</span></td>
+                    <td rowspan="3" class="cell-field item-rank"><span class="item-rank-title" data-bind="click: sortByRank, css: {'sorted-ascending' : sortAscending && sorted, 'sorted-descending' : !sortAscending() && sorted}">Rank</span></td>
                 </tr>
                 <tr>
                     <!--ko foreach: benefitCriterions-->

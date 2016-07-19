@@ -8,7 +8,8 @@
         return viewModel = {
             board: {},
             columnCount: ko.observable(),
-            order: ko.observable(),
+            sorted: ko.observable(),
+            sortAscending: ko.observable(),
             benefitCriterions: ko.observableArray([]),
             costCriterions: ko.observableArray([]),
             activate,
@@ -53,22 +54,30 @@
                 self.sortByRank();
 
                 app.on('board:item-changed', function () {
-                    self.order('');
+                    self.sorted(false);
                 });
+
+                self.sortAscending(true);
+                self.sorted(true);
 
                 boardService.boardChanged(board);
 
+                self.sortAscending(true);
+                self.sorted(true);
                 spinner.hide();
             });
         };
 
-        function sortByRank(isReverse){
+        function sortByRank(){
             board.items(_.sortBy(board.items(), function (item) {
                 return item.score();
             }));
 
-            if (!isReverse)
+            if (!viewModel.sortAscending())
                 board.items.reverse();
+
+            viewModel.sorted(true);
+            viewModel.sortAscending(!viewModel.sortAscending());
         };
 
         function updateItemTitle (item) {

@@ -7,8 +7,7 @@
         return Q.all([
             require('bindings/editableInputBinding'),
             require('bindings/editableTextBinding'),
-            require('bindings/selectTextOnFocusBinding'),
-            require('bindings/sortBinding'),
+            require('bindings/selectTextOnFocusBinding')
         ]);
     }
 })
