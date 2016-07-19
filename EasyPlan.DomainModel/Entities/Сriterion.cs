@@ -1,11 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using EasyPlan.Infrastructure;
 
 namespace EasyPlan.DomainModel.Entities
 {
     public class Criterion : Entity
     {
+        protected internal Criterion() { }
+
+        public Criterion(Board board, bool isBenefit, string title = "New criteria", int? weight = null)
+        {
+            ArgumentValidation.ThrowIfNull(board, "board");
+            ArgumentValidation.ThrowIfNull(isBenefit, "isBenefit criterion");
+
+            Board = board;
+            IsBenefit = isBenefit;
+
+            SetTitle(title);
+            SetWeight(weight ?? 20);
+
+            Marks = new Collection<Mark>();
+        }
+
         public string Title { get; private set; }
 
         public int Weight { get; private set; }

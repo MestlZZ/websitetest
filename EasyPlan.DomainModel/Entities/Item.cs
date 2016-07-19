@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using EasyPlan.Infrastructure;
 
 namespace EasyPlan.DomainModel.Entities
@@ -15,7 +16,7 @@ namespace EasyPlan.DomainModel.Entities
             SetTitle(title);
             Board = board;
 
-            Marks = new List<Mark>();
+            Marks = new Collection<Mark>();
         }
 
         public string Title { get; private set; }

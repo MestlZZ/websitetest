@@ -1,66 +1,80 @@
-﻿define(['repositories/boardRepository', 'repositories/itemRepository','repositories/markRepository',
+﻿define(['repositories/boardRepository', 'repositories/itemRepository','mappers/markMapper','repositories/markRepository',
     'durandal/app', 'mappers/boardMapper', 'mappers/itemMapper', 'constants', 'services/boardService',
-    'repositories/criterionRepository'],
-    function (boardRepository, itemRepository, markRepository, app, boardMapper, itemMapper, constants, boardService,
-        criterionRepository) {
+    'repositories/criterionRepository', 'mappers/criterionMapper'],
+    function (boardRepository, itemRepository,markMapper, markRepository, app, boardMapper, itemMapper, constants, boardService,
+        criterionRepository, criterionMapper) {
         var board;
 
-        return {
+        return viewModel = {
             board: {},
             columnCount: ko.observable(),
             order: ko.observable(),
             benefitCriterions: ko.observableArray([]),
             costCriterions: ko.observableArray([]),
-            activate: function (boardId) {
-                var self = this;
-                boardId = boardId || "ccef5cf6-5184-4a5a-8234-c2df683cbfba";
+            activate,
+            sortByRank,
+            updateItemTitle,
+            deleteItem,
+            addItem,
+            setMark,
+            setWeight,
+            updateCriterionTitle,
+            deleteCriterion,
+            addCostCriterion,
+            addBenefitCriterion
+        }
 
-                return boardRepository.getBoard(boardId).then(function (data) {
-                    var b = boardMapper.map(data);
+        function activate(boardId) {
+            var self = this;
+            boardId = boardId || "ccef5cf6-5184-4a5a-8234-c2df683cbfba";
 
-                    boardRepository.updateOpenedBoard(b);
+            return boardRepository.getBoard(boardId).then(function (data) {
+                var b = boardMapper.map(data);
 
-                    board = boardMapper.mapToViewModel(b);
+                boardRepository.updateOpenedBoard(b);
 
-                    self.board = board;
+                board = boardMapper.mapToViewModel(b);
 
-                    ko.computed(function () {
-                        _.each(board.criterions(), function (criterion) {
-                            if (criterion.isBenefit) {
-                                self.benefitCriterions.push(criterion);
-                            } else {
-                                self.costCriterions.push(criterion);
-                            }
-                        })
-                    });
+                self.board = board;
 
-                    self.columnCount = ko.computed(function () {
-                        return self.board.criterions().length + 3;
-                    })
+                _.each(board.criterions(), function (criterion) {
+                    if (criterion.isBenefit) {
+                        self.benefitCriterions.push(criterion);
+                    } else {
+                        self.costCriterions.push(criterion);
+                    }
+                })
 
-                    self.sortByRank();
+                self.columnCount = ko.computed(function () {
+                    return self.board.criterions().length + 3;
+                })
 
-                    app.on('board:item-changed', function () {
-                        self.order('');
-                    });
+                self.sortByRank();
 
-                    boardService.boardChanged(board);
+                app.on('board:item-changed', function () {
+                    self.order('');
                 });
-            },
-            sortByRank: function(isReverse){
-                board.items(_.sortBy(board.items(), function (item) {
-                    return item.score();
-                }));
 
-                if (!isReverse)
-                    board.items.reverse();
-            },
-        updateItemTitle: function (item) {
+                boardService.boardChanged(board);
+            });
+        };
+
+        function sortByRank(isReverse){
+            board.items(_.sortBy(board.items(), function (item) {
+                return item.score();
+            }));
+
+            if (!isReverse)
+                board.items.reverse();
+        };
+
+        function updateItemTitle (item) {
             item.title(item.title().trim());
 
             itemRepository.setTitle(item.title(), item.id);
-        },
-        deleteItem: function (item, event) {
+        };
+
+        function deleteItem (item, event) {
             var title = item.title();
 
             if (title.length > 50)
@@ -76,8 +90,9 @@
                     boardService.boardChanged(board);
                 }
             });            
-        },
-        addItem: function () {
+        };
+
+        function addItem () {
             itemRepository.getNewItem().then(function(item){
                 item = itemMapper.mapToViewModel(item);
 
@@ -85,33 +100,99 @@
 
                 boardService.boardChanged(board);
             });
-        },
-        setMark: function (mark) {
+        };
+
+        function setMark (mark) {
             if (_.isUndefined(mark.id)) {
                 markRepository.createMark(mark.itemId, mark.criterionId).then(function (newMark) {
                     mark.id = newMark.id;
 
-                   return markRepository.setValue(+mark.value(), mark.id, mark.itemId, mark.criterionId);
+                    return markRepository.setValue(+mark.value(), mark.id, mark.itemId, mark.criterionId);
                 });
             } else {
                 markRepository.setValue(+mark.value(), mark.id, mark.itemId, mark.criterionId);
             }
 
             boardService.boardChanged(board);
-        },
-        setWeight: function (criterion) {
+        };
+
+        function setWeight (criterion) {
             criterionRepository.setWeight(criterion.weight(), criterion.id);
 
             boardService.criterionChanged(criterion);
 
             boardService.boardChanged(board);
-        },
-        updateCriterionTitle: function (criterion) {
+        };
+
+        function updateCriterionTitle (criterion) {
             criterionRepository.setTitle(criterion.title, criterion.id);
 
             boardService.criterionChanged(criterion);
 
             boardService.boardChanged(board);
-        }
-    }
+        };
+
+        function deleteCriterion (criterion) {
+            var title = criterion.title();
+
+            if (criterion.length > 50)
+                criterion = criterion.slice(0, 50) + "...";
+
+
+            $(constants.popupTemplatesId.confirmation).popup({ title: "Delete", body: 'delete "' + title + '"' })
+            .then(function (s) {
+                if (s) {
+                    criterionRepository.remove(criterion.id);
+                    board.criterions.remove(criterion);
+                    
+                    _.each(board.items(), function (item) {
+                        delete item.marks[criterion.id];
+                    });
+                    
+                    if (criterion.isBenefit)
+                        viewModel.benefitCriterions.remove(criterion);
+                    else
+                        viewModel.costCriterions.remove(criterion);
+
+                    boardService.criterionChanged(criterion);
+
+                    boardService.boardChanged(board);
+
+
+                }
+            });
+        };
+
+        function addCriterion(isBenefit) {
+            criterionRepository.getNewCriterion(isBenefit).then(function (criterion) {
+                criterion = criterionMapper.mapToViewModel(criterion);
+
+                _.each(board.items(), function (item) {
+                    item.marks[criterion.id] = markMapper.mapToViewModel({
+                        Value: 0,
+                        CriterionId: criterion.id,
+                        ItemId: item.id
+                    });
+                });
+
+                board.criterions.unshift(criterion);
+
+                if (isBenefit)
+                    viewModel.benefitCriterions.push(criterion);
+                else
+                    viewModel.costCriterions.push(criterion);                
+
+                boardService.criterionChanged(criterion);
+
+                boardService.boardChanged(board);
+            });
+        };
+
+        function addBenefitCriterion () {
+            addCriterion(true);
+        };
+
+        function addCostCriterion () {
+            addCriterion(false);
+        };
 });

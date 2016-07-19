@@ -104,5 +104,23 @@ namespace EasyPlan.Web.Controllers
         {
             criterion.SetTitle(title);
         }
+
+        [HttpPost]
+        [Route("criterion/remove")]
+        public void RemoveCriterion(Criterion criterion)
+        {
+            _criterionRepository.Remove(criterion);
+        }
+
+        [HttpPost]
+        [Route("criterion/create")]
+        public ActionResult CreateCriterion(bool isBenefit, Board board)
+        {
+            var criterion = new Criterion(board, isBenefit);
+
+            _criterionRepository.Add(criterion);
+
+            return JsonSuccess(CriterionMapper.Map(criterion));
+        }
     }
 }

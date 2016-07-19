@@ -9,12 +9,10 @@ namespace EasyPlan.DataAccess.Migrations
         {
             AddColumn("dbo.Criteria", "Weight", c => c.Int(nullable: false));
             DropColumn("dbo.Criteria", "Width");
-            /*RenameTable("dbo.Criteria", "Criterions");*/
         }
         
         public override void Down()
         {
-            /*RenameTable("dbo.Criterions", "Criteria");*/
             AddColumn("dbo.Criteria", "Width", c => c.Int(nullable: false));
             DropColumn("dbo.Criteria", "Weight");
         }
