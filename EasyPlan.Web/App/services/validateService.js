@@ -2,7 +2,8 @@
     return {
         validateObservableTitle,
         validateObservableMarkValue,
-        validateObservableWeightValue
+        validateObservableWeightValue,
+        validateObservableFilterValue
     }
 
     function validateObservableTitle(target) {
@@ -56,6 +57,17 @@
         } else if (value < 1) {
             target.hasError(true);
             target.validationMessage("Number in weight field can't be negative or equal to zero.");
+        } else {
+            target.hasError(false);
+        }
+    }
+
+    function validateObservableFilterValue(target) {
+        var text = target().trim();
+
+        if (text.length > 255) {
+            target.hasError(true);
+            target.validationMessage("text in filter field can't be longer than 255 symbols.");
         } else {
             target.hasError(false);
         }

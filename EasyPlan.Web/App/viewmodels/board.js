@@ -1,8 +1,8 @@
 ﻿define(['repositories/boardRepository', 'repositories/itemRepository','mappers/markMapper','repositories/markRepository',
     'durandal/app', 'mappers/boardMapper', 'mappers/itemMapper', 'constants', 'services/boardService',
-    'repositories/criterionRepository', 'mappers/criterionMapper', 'spinner'],
+    'repositories/criterionRepository', 'mappers/criterionMapper', 'spinner', 'services/validateService'],
     function (boardRepository, itemRepository,markMapper, markRepository, app, boardMapper, itemMapper, constants, boardService,
-        criterionRepository, criterionMapper, spinner) {
+        criterionRepository, criterionMapper, spinner, validateService) {
         var board;
 
         return viewModel = {
@@ -12,6 +12,11 @@
             sortAscending: ko.observable(),
             benefitCriterions: ko.observableArray([]),
             costCriterions: ko.observableArray([]),
+
+            filterValue: ko.observable("").extend({
+                validate: validateService.validateObservableFilterValue
+            }),
+
             activate,
             sortByRank,
             updateItemTitle,
@@ -22,7 +27,8 @@
             updateCriterionTitle,
             deleteCriterion,
             addCostCriterion,
-            addBenefitCriterion
+            addBenefitCriterion,
+            applyFilter
         }
 
         function activate(boardId) {
@@ -219,4 +225,22 @@
         function addCostCriterion () {
             addCriterion(false);
         };
+
+        function applyFilter() {
+            var countVisible = 0;
+
+            _.each(board.items(), function (item) {
+                var itemLowerValue = item.title().toLowerCase();
+                var filterLowerValue = viewModel.filterValue().toLowerCase();
+
+                if (itemLowerValue.indexOf(filterLowerValue) + 1) {
+                    item.visible(true);
+                    countVisible++;
+                } else {
+                    item.visible(false);
+                }
+            });
+
+            board.items.countVisible(countVisible);
+        }
 });

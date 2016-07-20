@@ -34,6 +34,8 @@
             items: ko.observableArray(_.map(src.items, itemMapper.mapToViewModel)),
         });
 
+        board.items.countVisible = ko.observable(board.items().length);
+
         return board;
     }
 });

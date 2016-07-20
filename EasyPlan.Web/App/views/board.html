@@ -1,6 +1,14 @@
 ﻿<div class="board">
     <h2 class="board-title" data-bind="text: board.title"></h2>
     <div class="board-body">        
+        <div class="board-body-filter">
+            <label for="board-filter">Filter: </label>
+            <input id="board-filter" type="text" data-bind="value: filterValue, valueUpdate: 'afterkeydown', editableInput: {handler: applyFilter, value: filterValue}"/>
+            <span class="board-filter-validation-message validation-message" data-bind="css: {'visible':filterValue.hasError}">
+                <span class="validation-message-error" data-bind="text: filterValue.validationMessage"></span>
+                <i class="validation-message-arrow"></i>
+            </span>
+        </div>
         <table class="board-body-table">
             <thead class="table-head">
                 <tr>
@@ -72,15 +80,16 @@
                 </tr>                
             </thead>
             <tbody class="table-body">  
-                <!--ko if: _.isEmpty(board.items()) -->
+                <!--ko if: _.isEmpty(board.items()) || !board.items.countVisible() -->
                 <tr class="item-cell">
                     <td data-bind="attr: {'colspan' : columnCount}">
-                        <span class="items-noitems-message">No items!</span>
+                        <span class="items-noitems-message" data-bind="visible: _.isEmpty(board.items())">No items!</span>
+                        <span class="items-noitems-filter-message" data-bind="visible: !board.items.countVisible()">The appropriate result is not found for the value ​​in the filter!</span>
                     </td>
                 </tr>
                 <!--/ko-->
                 <!--ko foreach: board.items-->
-                <tr class="item-cell">
+                <tr class="item-cell" data-bind="visible: visible">
                     <td class="cell-field item-title noselect"> 
                         <div class="item-title-input title-value" data-bind="editableText: {handler: $root.updateItemTitle, value: title}, selectTextOnFocus: true, hasFocus: true"></div>
                         <i class="item-title-delete" title="Delete item" data-bind="click: $root.deleteItem">✗</i>
@@ -109,8 +118,7 @@
                     <!--/ko-->
                     <td class="cell-field item-score" data-bind="text: score">0</td>
                     <td class="cell-field item-rank" data-bind="text: rank">0</td>
-
-                </tr>  
+                </tr>         
                 <!--/ko-->
             </tbody>
         </table>

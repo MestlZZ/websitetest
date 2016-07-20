@@ -60,7 +60,7 @@
 
         item.rank = ko.observable();
         item.score = ko.observable(boardService.computeScore(item.marks));
-
+        item.visible = ko.observable(true);
 
         app.on('board:item-changed', function () {
             item.score(boardService.computeScore(item.marks));

@@ -9,6 +9,7 @@ namespace EasyPlan.DataAccess
     public class DatabaseContext : DbContext, IDataContext, IUnitOfWork
     {
         public DatabaseContext()
+            :base("DefaultConnection")
         {
            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, Configuration>());
         }
