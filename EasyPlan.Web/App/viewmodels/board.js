@@ -70,6 +70,9 @@
 
                 self.sortAscending(true);
                 self.sorted(true);
+
+                self.filterValue.subscribe(function () { applyFilter(); });
+
                 spinner.hide();
             });
         };

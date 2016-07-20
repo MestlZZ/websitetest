@@ -1,5 +1,5 @@
-﻿define(['models/board', 'mappers/itemMapper', 'mappers/criterionMapper', 'services/boardService'],
-    function (Board, itemMapper, criterionMapper, boardService) {
+﻿define(['models/board', 'mappers/itemMapper', 'mappers/criterionMapper'],
+    function (Board, itemMapper, criterionMapper) {
 
     return {
         map,

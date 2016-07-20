@@ -3,7 +3,7 @@
     <div class="board-body">        
         <div class="board-body-filter">
             <label for="board-filter">Filter: </label>
-            <input id="board-filter" type="text" data-bind="value: filterValue, valueUpdate: 'afterkeydown', editableInput: {handler: applyFilter, value: filterValue}"/>
+            <input id="board-filter" type="text" data-bind="value: filterValue, valueUpdate: 'afterkeydown'"/>
             <span class="board-filter-validation-message validation-message" data-bind="css: {'visible':filterValue.hasError}">
                 <span class="validation-message-error" data-bind="text: filterValue.validationMessage"></span>
                 <i class="validation-message-arrow"></i>

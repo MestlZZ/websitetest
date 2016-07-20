@@ -11,7 +11,7 @@ using EasyPlan.Web.Components.ModelBinding;
 
 namespace EasyPlan.Web
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {

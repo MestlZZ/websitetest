@@ -4,7 +4,7 @@
         validateObservableMarkValue,
         validateObservableWeightValue,
         validateObservableFilterValue
-    }
+    };
 
     function validateObservableTitle(target) {
         var text = target().trim();

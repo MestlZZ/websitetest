@@ -1,5 +1,5 @@
-﻿define(['models/item', 'models/Mark', 'mappers/markMapper', 'services/boardService', 'repositories/boardRepository', 'services/validateService', 'durandal/app'],
-    function (Item, Mark, markMapper, boardService, boardRepository, validateService, app) {
+﻿define(['models/item', 'mappers/markMapper', 'services/boardService', 'repositories/boardRepository', 'services/validateService', 'durandal/app'],
+    function (Item, markMapper, boardService, boardRepository, validateService, app) {
     return {
         map,
         mapToViewModel
