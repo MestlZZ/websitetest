@@ -19,8 +19,7 @@ namespace EasyPlan.DataAccess
         public DbSet<Criterion> Criterions { get; set; }
         public DbSet<Mark> Marks { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Role> UserRoles { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Entity
         {
@@ -51,23 +50,22 @@ namespace EasyPlan.DataAccess
             modelBuilder.Entity<Criterion>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Criterion>().Property(e => e.IsBenefit).IsRequired();
             modelBuilder.Entity<Criterion>().Property(e => e.Weight).IsRequired();
+            
+            modelBuilder.Entity<Role>().HasRequired(e => e.Board).WithMany(e => e.Roles);
+            modelBuilder.Entity<Role>().HasRequired(e => e.User).WithMany(e => e.Roles);
+            modelBuilder.Entity<Role>().Property(e => e.Name).IsRequired();
+            modelBuilder.Entity<Role>().HasKey(e => new { e.UserId, e.BoardId });
 
-            modelBuilder.Entity<UserRole>().HasRequired(e => e.Board).WithMany(e => e.UserRoles);
-            modelBuilder.Entity<UserRole>().HasRequired(e => e.User).WithMany(e => e.UserRoles);
-            modelBuilder.Entity<UserRole>().HasRequired(e => e.Role);
-            modelBuilder.Entity<UserRole>().HasKey(e => new { e.UserId, e.BoardId });
-
-            modelBuilder.Entity<Board>().HasMany(e => e.UserRoles).WithRequired(e => e.Board);
+            modelBuilder.Entity<Board>().HasMany(e => e.Roles).WithRequired(e => e.Board);
             modelBuilder.Entity<Board>().Property(e => e.Title).HasMaxLength(50).IsRequired();
             modelBuilder.Entity<Board>().HasMany(e => e.Items).WithRequired(e => e.Board);
             modelBuilder.Entity<Board>().HasMany(e => e.Criterions).WithRequired(e => e.Board);
 
-            modelBuilder.Entity<User>().HasMany(e => e.UserRoles).WithRequired(e => e.User);
+            modelBuilder.Entity<User>().HasMany(e => e.Roles).WithRequired(e => e.User);
+            modelBuilder.Entity<User>().HasKey(e => e.Email);
             modelBuilder.Entity<User>().Property(e => e.Email).HasMaxLength(255).IsRequired();
-            modelBuilder.Entity<User>().Property(e => e.HashPassword).HasMaxLength(255).IsRequired();
-            modelBuilder.Entity<User>().Property(e => e.LastLogIn).IsRequired();
-
-            modelBuilder.Entity<Role>().Property(e => e.Name).HasMaxLength(255).IsRequired();
+            modelBuilder.Entity<User>().Property(e => e.FullName).HasMaxLength(255).IsRequired();
+            modelBuilder.Entity<User>().Property(e => e.HashPassword).HasMaxLength(255).IsRequired();            
 
             base.OnModelCreating(modelBuilder);
         }

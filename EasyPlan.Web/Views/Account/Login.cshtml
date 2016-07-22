@@ -31,8 +31,11 @@
             </div>
         </div>
         <div class="login-form-buttons">
-                <span class="login-form-need-account">Need an account? @Html.ActionLink("Sign Up", "Register",null, new { @class = "login-link" })</span>
+                <span class="login-form-need-account">Need an account? @Html.ActionLink("Sign Up", "Register",null, new { @class = "link" })</span>
                 <input class="login-form-submit button" type="submit" value="Sign In" />
         </div>
     </div>
 }
+<div class="form-extra-message">
+    <span class="have-account"><a href="#" class="link">Forgot password?</a></span>
+</div>

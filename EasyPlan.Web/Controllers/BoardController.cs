@@ -32,7 +32,7 @@ namespace EasyPlan.Web.Controllers
             var role = _roleProvider.GetRoleForUser(board, user);
 
             if (role == null)
-                HttpNotFound();
+                return HttpNotFound();
 
             return JsonSuccess(BoardMapper.Map(board));
         }
@@ -47,9 +47,8 @@ namespace EasyPlan.Web.Controllers
         public ActionResult Create()
         {
             var user = _membershipProvider.FindUserByEmail(HttpContext.User.Identity.Name);
-            var role = _roleProvider.FindRoleByName("Admin");
 
-            var board = new Board(user, role);
+            var board = new Board(user);
 
             _boardRepository.Add(board);
 

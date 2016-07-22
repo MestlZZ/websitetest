@@ -1,13 +1,13 @@
-﻿<div>Hello <!--ko text: user.name--><!--/ko--></div>
-<nav>
-    <ul data-bind="foreach: user.boardsShortInfo">
-        <li>
-            <a data-bind="attr: {href: '#board/' + id}, text: title"></a>
-            <button data-bind="click: $root.removeBoard">Remove</button>
+﻿<nav>
+    <ul class="short-board-list">
+       <!--ko foreach: user.boardsShortInfo-->
+         <li class="short-board" data-bind="style: {'backgroundColor': '#' + $root.getBoardColor()}">
+            <i class="short-board-delete" title="Delete board" data-bind="click: $root.removeBoard">✗</i>
+            <a class="short-board-title" data-bind="attr: {href: '#board/' + id}, text: title"></a>
+        </li>
+        <!--/ko-->
+        <li class="short-board">
+            <button data-bind="click: createBoard">New board</button>
         </li>
     </ul>
 </nav>
-
-<div>
-    <button data-bind="click: createBoard">New board</button>
-</div>

@@ -3,42 +3,39 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Registration</h2>
-
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
     @Html.AntiForgeryToken()
 
-    <fieldset>
-        <legend>Please, fill the fields</legend>
-        
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
+    <div class="login-form register-form">
+        <div class="login-form-header">
+            <h2 class="login-form-title">Sign up</h2>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
+        <div class="login-form-body">
+            <div class="editor-field fied-input">
+                <i class="field-icon fullname-icon">👨</i>
+                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { placeholder = "Full Name" } })
+                @Html.ValidationMessageFor(model => model.FullName, null)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Password)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Password)
-            @Html.ValidationMessageFor(model => model.Password)
-        </div>
+            <div class="editor-field fied-input email-icon">
+                <i class="field-icon email-icon">@@</i>
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Email Address" } })
+                @Html.ValidationMessageFor(model => model.Email,null)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ConfirmPassword)
+            <div class="editor-field fied-input">
+                <i class="field-icon password-icon">🔒</i>
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { placeholder = "Password" } })
+                @Html.ValidationMessageFor(model => model.Password, null)
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ConfirmPassword)
-            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+        <div class="login-form-buttons">
+                <input class="button" type="submit" value="Sign Up" />
         </div>
-
-        <p>
-            <input type="submit" value="Continue" />
-        </p>
-    </fieldset>
+    </div>
 }
+<div class="form-extra-message">
+    <span class="have-account"><a href="#" class="link">Forgot password?</a> Already have an account? @Html.ActionLink("Sign In", "LogIn", null, new { @class = "link" })</span>
+</div>

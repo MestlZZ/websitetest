@@ -16,6 +16,27 @@
 <body>
     <header class="header">
         <h1 class="header-title">Easy Plan</h1>
+        
+        <ul class="user-menu">
+            <li class="user-menu-title">
+                @if (@Request.IsAuthenticated)
+                {
+                    <span class="title">Hello, @User.Identity.Name</span>
+                    <ul class="down-menu">
+                        <li class="down-menu-item">
+                            <a class="link" href="~/#">User Panel</a>
+                        </li>
+                        <li class="down-menu-item">
+                            @Html.ActionLink("Log Out", "LogOff", "Account", null, new { @class = "link" })
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <span class="title">@Html.ActionLink("Sign in now...", "LogIn", "Account", new { ReturnUrl = Request.Url.LocalPath }, new { @class = "link" })</span>
+                }
+            </li>
+        </ul>
     </header>
     @RenderBody()
 

@@ -16,13 +16,14 @@ namespace EasyPlan.Web.Tests
     {
         private CriterionController _controller;
         private ICriterionRepository _criterionRepository;
-
+        private IMarkRepository _markRepository;
         [TestInitialize]
         public void Initialize()
         {
             _criterionRepository = Substitute.For<ICriterionRepository>();
+            _markRepository = Substitute.For<IMarkRepository>();
 
-            _controller = new CriterionController(_criterionRepository);
+            _controller = new CriterionController(_criterionRepository, _markRepository);
         }
 
         [TestMethod]

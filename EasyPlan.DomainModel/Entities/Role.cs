@@ -11,19 +11,31 @@ namespace EasyPlan.DomainModel.Entities
     {
         protected internal Role() { }
 
-        public Role(string name)
+        public Role(Board board, User user, RoleName roleName)
         {
-            SetName(name);
+            ArgumentValidation.ThrowIfNull(board, argumentName: "board");
+            ArgumentValidation.ThrowIfNull(user, argumentName: "user");
+
+            SetRole(roleName);
+            Board = board;
+            User = user;
         }
 
-        public string Name { get; private set; }
+        public virtual Board Board { get; private set; }
 
-        public void SetName(string name)
+        public virtual User User { get; private set; }
+
+        public Guid BoardId { get; private set; }
+
+        public Guid UserId { get; private set; }
+
+        public RoleName Name { get; private set; }
+
+        public void SetRole(RoleName roleName)
         {
-            ArgumentValidation.ThrowIfNullOrWhiteSpace(name, argumentName: "role name");
-            ArgumentValidation.ThrowIfLongerThan(name, 255, argumentName: "role name");
+            ArgumentValidation.ThrowIfNull(roleName, argumentName: "role name");
 
-            Name = name;
+            Name = roleName;
         }
     }
 }

@@ -54,19 +54,19 @@
     font-size: 11px;
 }
 
-.login-link{
+.link{
     text-decoration: none;
     color: rgb(77, 136, 206);
 }
 
-.login-link:active{    
+.link:active{    
     text-decoration: none;
     color: rgb(77, 136, 206);
 }
 
 .login-form-body{
     text-align: left;
-    padding: 40px 50px;
+    padding: 40px 55px;
 }
 
 .text-box.single-line{
@@ -79,6 +79,7 @@
 }
 
 .field-icon{
+    cursor: default;
     font-style: normal;
     display: flex;
     width: 35px;
@@ -90,8 +91,8 @@
     justify-content: space-around;
     align-items: center;
     position: absolute;
-    top: 8px;
     color: rgb(85,85,85);
+    top: 8px;
     left: 1px;
     font-size: 13px;
 }
@@ -113,4 +114,91 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
     margin-left: 4px;
+}
+
+.email-icon{
+    font-family: Arial;
+}
+
+.register-form .login-form-buttons{
+    justify-content: space-around;
+}
+
+.register-form .login-form-body{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.form-extra-message{
+    width: 330px;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.have-account{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
+.user-menu{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    list-style: none;
+}
+
+.user-menu .link{
+    color: white;
+}
+
+.user-menu-title{
+    cursor: pointer;    
+    text-shadow: 1px 1px 5px black;
+    position: relative;
+}
+
+.user-menu-title .down-menu{
+    position: absolute;
+    background-color: white;
+    background: rgb(97,166,204); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(97,166,204,1) 0%, rgba(139,175,196,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgba(97,166,204,1) 0%,rgba(139,175,196,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgba(97,166,204, 1) 0%, rgba(139,175,196, .7) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#61a6cc', endColorstr='#8bafc4',GradientType=0 ); /* IE6-9 */
+    background-repeat: no-repeat;
+    width: 100%;
+    transform: scaleY(0) translateY(-50%);
+    list-style: none;
+    padding: 5px;
+    transition: all .2s;
+    border: 1px solid rgba(97,166,204, .8);
+    border-top: none;
+    border-radius: 0px 0px 5px 5px;
+    left: -2px;
+    top: 27px;
+}
+.user-menu{
+    height: 40px;
+    margin-top: 0px;
+    cursor: pointer;
+}
+
+.user-menu:hover .down-menu{    
+    transform: scaleY(1) translateY(0);
+}
+.down-menu:hover{    
+    transform: scaleY(1) translateY(0);
+}
+.down-menu-item{
+    padding: 3px;
+}
+.down-menu-item .link{
+    display: block;
+    width: 100%;
+    text-shadow: 1px 1px 1px black;
+    height: 100%;
+}
+.down-menu-item:hover{
+    background-color: rgba(0, 223, 254, .2);
 }

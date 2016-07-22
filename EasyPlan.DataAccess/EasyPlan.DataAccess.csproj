@@ -98,9 +98,24 @@
     <Compile Include="Migrations\201607220713117_user-email-auth.Designer.cs">
       <DependentUpon>201607220713117_user-email-auth.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607221013105_AddFullNameToUser.cs" />
+    <Compile Include="Migrations\201607221013105_AddFullNameToUser.Designer.cs">
+      <DependentUpon>201607221013105_AddFullNameToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607221407102_RoleRename.cs" />
+    <Compile Include="Migrations\201607221407102_RoleRename.Designer.cs">
+      <DependentUpon>201607221407102_RoleRename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607221411047_SetEmailAsId.cs" />
+    <Compile Include="Migrations\201607221411047_SetEmailAsId.Designer.cs">
+      <DependentUpon>201607221411047_SetEmailAsId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607221552068_BoardRoleRename.cs" />
+    <Compile Include="Migrations\201607221552068_BoardRoleRename.Designer.cs">
+      <DependentUpon>201607221552068_BoardRoleRename.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\UserRoleRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\MarkRepository.cs" />
@@ -154,6 +169,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607220713117_user-email-auth.resx">
       <DependentUpon>201607220713117_user-email-auth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607221013105_AddFullNameToUser.resx">
+      <DependentUpon>201607221013105_AddFullNameToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607221407102_RoleRename.resx">
+      <DependentUpon>201607221407102_RoleRename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607221411047_SetEmailAsId.resx">
+      <DependentUpon>201607221411047_SetEmailAsId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607221552068_BoardRoleRename.resx">
+      <DependentUpon>201607221552068_BoardRoleRename.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

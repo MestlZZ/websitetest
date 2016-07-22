@@ -34,14 +34,21 @@ namespace EasyPlan.Web.Components
             return false;
         }
 
-        public User CreateUser(string email, string password)
+        public User CreateUser(string email, string password, string fullName)
         {
-            var user = new User(email, password);
+            var existUser = FindUserByEmail(email);
 
-            _userRepository.Add(user);
-            _unitOfWork.Save();
+            if(existUser == null)
+            {
+                var user = new User(fullName, email, password);
 
-            return user;
+                _userRepository.Add(user);
+                _unitOfWork.Save();
+            
+                return user;
+            }
+
+            return null; 
         }
 
         public bool DeleteUser(Guid id)
@@ -63,7 +70,7 @@ namespace EasyPlan.Web.Components
 
             var users = _userRepository.GetCollection();
 
-            return users.First(e => e.Email.Equals(email));
+            return users.FirstOrDefault(e => e.Email.Equals(email));
         }
 
         public bool ValidateUser(Guid id, string password)

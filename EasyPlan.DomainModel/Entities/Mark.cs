@@ -18,17 +18,6 @@ namespace EasyPlan.DomainModel.Entities
             Item = item;
         }
 
-        public Mark(Guid itemId, Guid criterionId, int value)
-        {
-            SetValue(value);
-
-            ArgumentValidation.ThrowIfNull(criterionId, "criterion id");
-            ArgumentValidation.ThrowIfNull(itemId, "item id");
-
-            CriterionId = criterionId;
-            ItemId = itemId;
-        }
-
         public virtual Criterion Criterion { get; private set; }
 
         public virtual Item Item { get; private set; }

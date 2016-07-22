@@ -46,11 +46,9 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\Role.cs" />
-    <Compile Include="Entities\UserRole.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Сriterion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IUserRoleRepository.cs" />
     <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\IMarkRepository.cs" />

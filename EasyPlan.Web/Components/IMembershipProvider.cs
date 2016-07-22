@@ -11,7 +11,7 @@ namespace EasyPlan.Web.Components
     {
         bool ChangePassword(Guid id, string oldPassword, string newPassword);
 
-        User CreateUser(string email, string password);
+        User CreateUser(string fullName, string email, string password);
 
         bool DeleteUser(Guid id);
 

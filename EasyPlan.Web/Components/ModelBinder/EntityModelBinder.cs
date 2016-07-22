@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
+using System.Collections.Generic;
 using EasyPlan.DataAccess.Repositories;
 using EasyPlan.DomainModel.Entities;
 using EasyPlan.Infrastructure;
@@ -20,17 +22,28 @@ namespace EasyPlan.Web.Components.ModelBinding
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            var entityId = bindingContext.ValueProvider.GetValue(bindingContext.ModelName + "Id");
+            if(typeof(T) == typeof(User))
+            {
+                var userEmail = bindingContext.ValueProvider.GetValue("email");
 
-            var id = Guid.Parse(entityId.AttemptedValue);
-            
-            ArgumentValidation.ThrowIfNull(id, bindingContext.ModelName + " id");
+                var user = ((ICollection<User>)_repository.GetCollection()).FirstOrDefault(e => e.Email == userEmail.AttemptedValue);
 
-            var model = _repository.Get(id);
+                return user; 
+            }
+            else
+            {
+                var entityId = bindingContext.ValueProvider.GetValue(bindingContext.ModelName + "Id");
 
-            ArgumentValidation.ThrowIfNull(model, bindingContext.ModelName);
+                var id = Guid.Parse(entityId.AttemptedValue);
 
-            return model;
+                ArgumentValidation.ThrowIfNull(id, bindingContext.ModelName + " id");
+
+                var model = _repository.Get(id);
+
+                ArgumentValidation.ThrowIfNull(model, bindingContext.ModelName);
+
+                return model;
+            }            
         }
     }
 }

@@ -9,6 +9,11 @@ namespace EasyPlan.DomainModel.Test
     public class CriterionTests
     {
         private Board board = Substitute.For<Board>();
+
+        [TestInitialize]
+        public void Initialize()
+        {
+        }
         
         [TestMethod]
         public void Criterion_Create_Success_WithoutExtraValues()

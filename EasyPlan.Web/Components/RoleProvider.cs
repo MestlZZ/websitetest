@@ -12,122 +12,70 @@ namespace EasyPlan.Web.Components
     public class RoleProvider : IRoleProvider
     {
         private readonly IRoleRepository _roleRepository;
-        private readonly IUserRoleRepository _userRoleRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public RoleProvider(IRoleRepository roleRepository, IUserRoleRepository userRoleRepository, IUnitOfWork unitOfWork)
+        public RoleProvider(IRoleRepository roleRepository, IUnitOfWork unitOfWork)
         {
             _roleRepository = roleRepository;
-            _userRoleRepository = userRoleRepository;
             _unitOfWork = unitOfWork;
         }
 
-        public void SetUserRole(Board board, User user, string roleName)
+        public void SetUserRole(Board board, User user, RoleName roleName)
         {
-            var role = FindRoleByName(roleName);
-
             var currentRole = GetRoleForUser(board, user);
 
             if (currentRole == null)
             {
-                var userRole = new UserRole(board, user, role);
-                _userRoleRepository.Add(userRole);
+                var userRole = new Role(board, user, roleName);
+                _roleRepository.Add(userRole);
             }
             else
             {
-                currentRole.SetRole(role);
+                currentRole.SetRole(roleName);
             }
 
             _unitOfWork.Save();
         }
 
-        public void CreateRole(string roleName)
+        public IEnumerable<User> FindUsersInRole(Board board, RoleName roleName)
         {
-            var role = new Role(roleName);
-
-            _roleRepository.Add(role);
-
-            _unitOfWork.Save();   
+            var userRolesDependencesInBoard = _roleRepository.GetCollection().ToList().FindAll(e => e.Board == board);
+            var users = userRolesDependencesInBoard.FindAll(e => e.Name == roleName).Select(e => e.User);
+            return users;
         }
 
-        public bool DeleteRole(string roleName)
+        public IEnumerable<Role> GetRolesForUser(User user)
         {
-            var role = FindRoleByName(roleName);
+            var roles = _roleRepository.GetCollection().ToList().FindAll(e => e.User == user);
 
-            if(role != null)
-            {
-                _roleRepository.Remove(role);
-
-                return true;
-            }
-
-            return false;
+            return roles;
         }
 
-        public IEnumerable<User> FindUsersInRole(Board board, string roleName)
+        public Role GetRoleForUser(Board board, User user)
         {
-            var role = FindRoleByName(roleName);
-
-            var userRolesInBoard = _userRoleRepository.GetCollection().ToList().FindAll(e => e.Board == board);
-            var userRoles = userRolesInBoard.FindAll(e => e.Role == role);
-            return userRoles.Select(e => e.User);
-        }
-
-        public IEnumerable<string> GetAllRoles()
-        {
-            var roles = _roleRepository.GetCollection();
-
-            return roles.Select(e => e.Name);
-        }
-
-        public IEnumerable<UserRole> GetUserRolesForUser(User user)
-        {
-            var userRoles = _userRoleRepository.GetCollection().ToList().FindAll(e => e.User == user);
-
-            return userRoles;
-        }
-
-        public UserRole GetRoleForUser(Board board, User user)
-        {
-            var userRoles = _userRoleRepository.GetCollection().ToList().FindAll(e => e.User == user);
-            var role = userRoles.Find(e => e.Board == board);
+            var roles = _roleRepository.GetCollection().ToList().FindAll(e => e.User == user);
+            var role = roles.Find(e => e.Board == board);
 
             return role;
         }
 
-        public bool IsUserInRole(Board board, string email, string roleName)
+        public bool IsUserInRole(Board board, string email, RoleName roleName)
         {
             var users = FindUsersInRole(board, roleName);
 
             var user = users.First(e => e.Email.Equals(email));
 
-            return user == null ? false : true;
+            return user != null;
         }
 
-        public void RemoveUserFromRole(Board board, User user, string roleName)
+        public void RemoveUserFromRole(Board board, User user)
         {
             var role = GetRoleForUser(board, user);
 
             ArgumentValidation.ThrowIfNull(role, argumentName: "role for user in board");
 
-            _userRoleRepository.Remove(role);
+            _roleRepository.Remove(role);
             _unitOfWork.Save();
-        }
-
-        public bool RoleExists(string roleName)
-        {
-            var role = FindRoleByName(roleName);
-
-            return role == null ? false : true;
-        }
-
-        public Role FindRoleByName(string roleName)
-        {
-            ArgumentValidation.ThrowIfNullOrWhiteSpace(roleName);
-
-            var roles = _roleRepository.GetCollection();
-
-            return roles.First(e => e.Name.Equals(roleName));
         }
     }
 }

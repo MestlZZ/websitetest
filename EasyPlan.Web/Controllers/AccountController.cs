@@ -29,7 +29,7 @@ namespace EasyPlan.Web.Controllers
         [Authorize]
         public ActionResult GetUserData()
         {
-            var user = _membershipProvider.FindUserByEmail(HttpContext.User.Identity.Name);
+            var user = _membershipProvider.FindUserByEmail(User.Identity.Name);
 
             return JsonSuccess(UserMapper.Map(user));
         }
@@ -83,7 +83,7 @@ namespace EasyPlan.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _membershipProvider.CreateUser(model.Email, model.Password);
+                var user = _membershipProvider.CreateUser(model.Email, model.Password, model.FullName);
 
                 if (user != null)
                 {         

@@ -4,21 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EasyPlan.DomainModel.Entities;
+using EasyPlan.Infrastructure;
 
 namespace EasyPlan.Web.Components
 {
     public interface IRoleProvider
     {
-        void SetUserRole(Board board, User user, string roleName);
-        void CreateRole(string roleName);
-        bool DeleteRole(string roleName);
-        IEnumerable<User> FindUsersInRole(Board board, string roleName);
-        IEnumerable<string> GetAllRoles();
-        IEnumerable<UserRole> GetUserRolesForUser(User user);
-        UserRole GetRoleForUser(Board board, User user);
-        bool IsUserInRole(Board board, string username, string roleName);
-        void RemoveUserFromRole(Board board, User user, string roleName);
-        bool RoleExists(string roleName);
-        Role FindRoleByName(string roleName);
+        void SetUserRole(Board board, User user, RoleName roleName);
+        IEnumerable<User> FindUsersInRole(Board board, RoleName roleName);
+        IEnumerable<Role> GetRolesForUser(User user);
+        Role GetRoleForUser(Board board, User user);
+        bool IsUserInRole(Board board, string email, RoleName roleName);
+        void RemoveUserFromRole(Board board, User user);
     }
 }

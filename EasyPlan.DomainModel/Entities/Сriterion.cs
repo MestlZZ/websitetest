@@ -9,16 +9,15 @@ namespace EasyPlan.DomainModel.Entities
     {
         protected internal Criterion() { }
 
-        public Criterion(Board board, bool isBenefit, string title = "New criteria", int? weight = null)
+        public Criterion(Board board, bool isBenefit, string title = "New criteria", int weight = 20)
         {
-            ArgumentValidation.ThrowIfNull(board, "board");
-            ArgumentValidation.ThrowIfNull(isBenefit, "isBenefit criterion");
+            ArgumentValidation.ThrowIfNull(board, nameof(board));
 
             Board = board;
             IsBenefit = isBenefit;
 
             SetTitle(title);
-            SetWeight(weight ?? 20);
+            SetWeight(weight);
 
             Marks = new Collection<Mark>();
         }
@@ -35,7 +34,6 @@ namespace EasyPlan.DomainModel.Entities
 
         public void SetWeight(int weight)
         {
-            ArgumentValidation.ThrowIfNull(weight);
             ArgumentValidation.ThrowIfOutOfRange(weight, 1, 20, "criterion weight");
 
             Weight = weight;

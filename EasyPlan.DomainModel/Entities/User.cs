@@ -8,19 +8,18 @@ namespace EasyPlan.DomainModel.Entities
     {
         protected internal User() { }
 
-        public User(string email, string password)
+        public User(string fullName, string email, string password)
         {
             SetPassword(password);
             SetEmail(email);
-
-            LastLogIn = DateTime.UtcNow;
+            SetFullName(fullName);
         }
 
         public string HashPassword { get; private set; }
         public string Email { get; private set; }
-        public DateTime LastLogIn { get; private set; }
+        public string FullName { get; private set; }
 
-        public virtual ICollection<UserRole> UserRoles { get; private set; }
+        public virtual ICollection<Role> Roles { get; private set; }
 
         public void SetPassword(string password)
         {
@@ -36,6 +35,14 @@ namespace EasyPlan.DomainModel.Entities
             ArgumentValidation.ThrowIfLongerThan(email, 255, argumentName: "Email");
 
             Email = email;
+        }
+
+        public void SetFullName(string fullName)
+        {
+            ArgumentValidation.ThrowIfNullOrWhiteSpace(fullName, argumentName: "full Name");
+            ArgumentValidation.ThrowIfLongerThan(fullName, 255, argumentName: "full Name");
+
+            FullName = fullName;
         }
     }
 }

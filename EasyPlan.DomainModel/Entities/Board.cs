@@ -7,21 +7,20 @@ namespace EasyPlan.DomainModel.Entities
     {
         protected internal Board() { }
 
-        public Board(User user, Role role, string title = "New board")
+        public Board(User user, string title = "New board")
         {
             ArgumentValidation.ThrowIfNull(user, argumentName: "user");
-            ArgumentValidation.ThrowIfNull(role, argumentName: "role");
 
             SetTitle(title);
 
             Items = new List<Item>();
             Criterions = new List<Criterion>();
-            UserRoles = new List<UserRole>();
+            Roles = new List<Role>();
 
             Criterions.Add(new Criterion(this, true));
             Criterions.Add(new Criterion(this, false));
 
-            UserRoles.Add(new UserRole(this, user, role));
+            Roles.Add(new Role(this, user, RoleName.Admin));
         }
 
         public string Title { get; private set; }
@@ -30,7 +29,7 @@ namespace EasyPlan.DomainModel.Entities
 
         public virtual ICollection<Item> Items { get; private set; }
 
-        public virtual ICollection<UserRole> UserRoles { get; private set; }
+        public virtual ICollection<Role> Roles { get; private set; }
 
         public void SetTitle(string title)
         {
