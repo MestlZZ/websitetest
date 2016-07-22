@@ -1,5 +1,5 @@
-﻿define(['constants', 'storageContext', 'http/storageHttpWrapper', 'mappers/itemMapper'],
-    function (constants, storage, storageHttpWrapper, itemMapper) {
+﻿define(['constants', 'http/storageHttpWrapper'],
+    function (constants, storageHttpWrapper) {
 
         return {
             setTitle,
@@ -15,48 +15,17 @@
                 throw "Invalid item id"
 
 
-            return storageHttpWrapper.post(constants.storage.setItemTitleUrl, { title: title, itemId: itemId }).then(function () {
-                var items = storage.openedBoard.items;
-                var item = items.find(function (item) {
-                    return item.id == itemId;
-                });
-
-                item.title = title;
-            });
+            return storageHttpWrapper.post(constants.storage.setItemTitleUrl, { title: title, itemId: itemId })
         }
 
         function remove(itemId) {
             if (_.isNull(itemId) || _.isUndefined(itemId) || _.isEmpty(itemId))
                 throw "Invalid item id"
 
-            return storageHttpWrapper.post(constants.storage.removeItemUrl, { itemId: itemId }).then(function () {
-                var items = storage.openedBoard.items;
-                var item = items.find(function (item) {
-                    return item.id == itemId;
-                });
-
-                var index = items.indexOf(item);
-
-                items.splice(index, 1);
-            });
+            return storageHttpWrapper.post(constants.storage.removeItemUrl, { itemId: itemId })
         }
 
-        function getNewItem() {
-
-            var board = storage.openedBoard;
-
-            return storageHttpWrapper.post(constants.storage.createNewItemUrl, { boardId: board.id }).then(function (item) {
-
-                if (_.isNull(item) || _.isUndefined(item))
-                    throw "Failed to load item"
-                
-                var item = itemMapper.map(item);
-
-                var items = board.items;
-
-                items.unshift(item);
-
-                return item;
-            });
+        function getNewItem(boardId) {
+            return storageHttpWrapper.post(constants.storage.createNewItemUrl, { boardId: boardId })
         }
     });

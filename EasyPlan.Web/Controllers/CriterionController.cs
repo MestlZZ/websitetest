@@ -10,13 +10,16 @@ using EasyPlan.Web.Components;
 
 namespace EasyPlan.Web.Controllers
 {
+    [Authorize]
     public class CriterionController : DefaultController
     {
         private readonly ICriterionRepository _criterionRepository;
+        private readonly IMarkRepository _markRepository;
 
-        public CriterionController(ICriterionRepository criterionRepository)
+        public CriterionController(ICriterionRepository criterionRepository, IMarkRepository markRepository)
         {
             _criterionRepository = criterionRepository;
+            _markRepository = markRepository;
         }
 
         [HttpPost]
@@ -34,6 +37,8 @@ namespace EasyPlan.Web.Controllers
         [HttpPost]
         public void RemoveCriterion(Criterion criterion)
         {
+            criterion.Marks.Clear();
+
             _criterionRepository.Remove(criterion);
         }
 

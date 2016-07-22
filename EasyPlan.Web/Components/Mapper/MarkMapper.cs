@@ -12,10 +12,10 @@ namespace EasyPlan.Web.Components.Mapper
         {
             return new
             {
-                Id = entity.Id,
-                CriterionId = entity.CriterionId,
-                ItemId = entity.ItemId,
-                Value = entity.Value
+                id = entity.Id,
+                criterionId = entity.CriterionId,
+                itemId = entity.ItemId,
+                value = entity.Value
             };
         }
     }

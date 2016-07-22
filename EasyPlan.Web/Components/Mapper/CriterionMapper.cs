@@ -12,10 +12,10 @@ namespace EasyPlan.Web.Components.Mapper
         {
             return new
             {
-                Id = entity.Id,
-                Title = entity.Title,
-                Weight = entity.Weight,
-                IsBenefit = entity.IsBenefit
+                id = entity.Id,
+                title = entity.Title,
+                weight = entity.Weight,
+                isBenefit = entity.IsBenefit
             };
         }
     }

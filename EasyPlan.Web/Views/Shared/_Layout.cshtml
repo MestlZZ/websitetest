@@ -1,0 +1,26 @@
+﻿@using System.Web.Optimization
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EasyPlan</title>
+
+
+    <meta charset="utf-8" />
+
+    @Styles.Render("~/Content/css")
+
+</head>
+<body>
+    <header class="header">
+        <h1 class="header-title">Easy Plan</h1>
+    </header>
+    @RenderBody()
+
+    @Scripts.Render("~/Scripts/vendor")
+
+    <script type="text/javascript" src="~/Scripts/require.js" data-main="/App/main"></script>
+</body>
+</html>

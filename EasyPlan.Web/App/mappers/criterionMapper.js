@@ -1,18 +1,19 @@
-﻿define(['models/criterion', 'mappers/markMapper', 'services/validateService'], function (Criterion, markMapper, validateService) {
+﻿define(['models/criterion', 'mappers/markMapper'], function (Criterion, markMapper) {
     return {
         map,
-        mapToViewModel
+        //mapToViewModel
     }
 
     function map(src) {
         return new Criterion({
-            id: src.Id,
-            title: src.Title,
-            isBenefit: src.IsBenefit,
-            weight: src.Weight
+            id: src.id,
+            title: src.title,
+            isBenefit: src.isBenefit,
+            weight: src.weight
         })
     }
-    function mapToViewModel(src) {
+
+    /*function mapToViewModel(src) {
         if (src.id === undefined)
             src = Map(src);
 
@@ -26,5 +27,5 @@
                 validate: validateService.validateObservableWeightValue
             })
         });
-    }
+    }*/
 });

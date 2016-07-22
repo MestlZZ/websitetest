@@ -1,5 +1,5 @@
-﻿define(['constants', 'storageContext', 'http/storageHttpWrapper', 'mappers/itemMapper', 'mappers/markMapper'],
-    function (constants, storage, storageHttpWrapper, itemMapper, markMapper) {
+﻿define(['constants', 'http/storageHttpWrapper'],
+    function (constants, storageHttpWrapper) {
 
         return {
             setValue,
@@ -15,24 +15,10 @@
                 throw "Invalid mark id"
             }
 
-            return storageHttpWrapper.post(constants.storage.setMarkValueUrl, { value: value, markId: markId }).then(function () {
-                var items = storage.openedBoard.items;
-                var item = items.find(function (item) { return item.id == itemId });
-                var mark = item.marks[criterionId];
-
-                mark.value = value;
-            });
+            return storageHttpWrapper.post(constants.storage.setMarkValueUrl, { value: value, markId: markId })
         }
 
         function createMark(itemId, criterionId) {
-            return storageHttpWrapper.post(constants.storage.createMarkUrl, { itemId: itemId, criterionId: criterionId }).then(function (mark) {
-                var mark = markMapper.map(mark);
-                var items = storage.openedBoard.items;
-                var item = items.find(function (item) { return item.id == itemId });
-
-                item.marks[criterionId] = mark;
-
-                return mark;
-            })
+            return storageHttpWrapper.post(constants.storage.createMarkUrl, { itemId: itemId, criterionId: criterionId })
         }
     });

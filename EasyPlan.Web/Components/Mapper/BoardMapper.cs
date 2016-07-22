@@ -13,10 +13,10 @@ namespace EasyPlan.Web.Components.Mapper
         {
             return new
             {
-                Id = entity.Id,
-                Title = entity.Title,
-                Items = entity.Items.Select(e => ItemMapper.Map(e)),
-                Criterions = entity.Criterions.Select(e => CriterionMapper.Map(e))
+                id = entity.Id,
+                title = entity.Title,
+                items = entity.Items.Select(e => ItemMapper.Map(e)),
+                criterions = entity.Criterions.Select(e => CriterionMapper.Map(e))
             };
         }
 
@@ -24,8 +24,8 @@ namespace EasyPlan.Web.Components.Mapper
         {
             return new
             {
-                Id = entity.Id,
-                Title = entity.Title
+                id = entity.Id,
+                title = entity.Title
             };
         }
     }

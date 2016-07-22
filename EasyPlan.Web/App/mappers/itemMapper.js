@@ -1,46 +1,36 @@
-﻿define(['models/item', 'mappers/markMapper', 'services/boardService', 'repositories/boardRepository', 'services/validateService', 'durandal/app'],
-    function (Item, markMapper, boardService, boardRepository, validateService, app) {
+﻿define(['models/item', 'mappers/markMapper'],
+    function (Item, markMapper) {
     return {
         map,
-        mapToViewModel
+        //mapToViewModel
     }
 
     function map(src) {
-        var marks = _.map(src.Marks, markMapper.map);
+       /* var marks = _.map(src.marks, markMapper.map);
         var mappedMarks = {};
 
         var board = boardRepository.getOpenedBoard();
 
-        if (board.Criterions !== undefined) {
-            _.each(board.Criterions, function (criterion) {
-                mappedMarks[criterion.Id] = markMapper.map({
-                    Value: 0,
-                    CriterionId: criterion.Id,
-                    ItemId: src.Id
-                })
-            });
-        } else {
-            _.each(board.criterions, function (criterion) {
-                mappedMarks[criterion.id] = markMapper.map({
-                    Value: 0,
-                    CriterionId: criterion.id,
-                    ItemId: src.Id
-                })
-            });
-        }       
+        _.each(board.criterions, function (criterion) {
+            mappedMarks[criterion.id] = markMapper.map({
+                value: 0,
+                criterionId: criterion.id,
+                itemId: src.Id
+            })
+        });
 
         _.each(marks, function (mark) {
             mappedMarks[mark.criterionId] = mark;
         })
-
+        */
         return new Item({
-            id: src.Id,
-            title: src.Title,
-            marks: mappedMarks
+            id: src.id,
+            title: src.title,
+            marks: _.map(src.marks, markMapper.map)
         })
     }
 
-    function mapToViewModel(src) {
+   /* function mapToViewModel(src) {
         if (src.id === undefined)
             src = Map(src);
 
@@ -68,5 +58,5 @@
         
 
         return item;
-    }
+    }*/
 });

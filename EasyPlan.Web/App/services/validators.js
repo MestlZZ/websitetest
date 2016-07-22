@@ -3,7 +3,8 @@
         validateObservableTitle,
         validateObservableMarkValue,
         validateObservableWeightValue,
-        validateObservableFilterValue
+        validateObservableFilterValue,
+        validateObservableBoardTitle
     };
 
     function validateObservableTitle(target) {
@@ -15,6 +16,20 @@
         } else if (text.length > 255) {
             target.hasError(true);
             target.validationMessage("Text in title field can't be longer than 255 symbols.");
+        } else {
+            target.hasError(false);
+        }
+    }
+
+    function validateObservableBoardTitle(target) {
+        var text = target().trim();
+
+        if (!text) {
+            target.hasError(true);
+            target.validationMessage("Title field can't be clear.");
+        } else if (text.length > 50) {
+            target.hasError(true);
+            target.validationMessage("Text in title field can't be longer than 50 symbols.");
         } else {
             target.hasError(false);
         }

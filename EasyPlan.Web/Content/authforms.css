@@ -1,0 +1,116 @@
+﻿.button{
+    border-radius: 4px;
+    padding: 8px;
+    margin: 3px;
+    padding: 7px 13px;
+    background-color: rgb(0, 136, 204);
+    color: white;
+    border: 1px solid rgb(0, 119, 179);
+}
+
+.login-form{
+    background-color: white;
+    width: 350px;
+    margin: 0 auto;
+    border: 1px solid rgb(204, 204, 204);
+    margin-top: 10px;
+    box-shadow: rgb(204, 204, 204) 0px 0px 10px -1px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.login-form-header{
+    text-align: left;
+    padding: 1px 21px;
+    background-color: rgb(224, 224, 224);
+    border-radius: 5px 5px 0 0px;
+}
+
+.login-form-title{
+    font-size: 15px;
+    font-weight: normal;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-form-body{
+    padding: 40px;
+}
+
+.login-form-buttons{    
+    background-color: rgb(247, 247, 247);
+    padding: 0px;
+    margin: 0px;    
+    border-radius: 0px 0px 5px 5px;
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-form-need-account{
+    font-size: 11px;
+}
+
+.login-link{
+    text-decoration: none;
+    color: rgb(77, 136, 206);
+}
+
+.login-link:active{    
+    text-decoration: none;
+    color: rgb(77, 136, 206);
+}
+
+.login-form-body{
+    text-align: left;
+    padding: 40px 50px;
+}
+
+.text-box.single-line{
+    width: 185px;
+    height: 25px;
+    margin: 7px 0px;
+    border-radius: 3px;
+    border: 1px solid rgb(204, 204, 204);
+    padding-left: 50px;
+}
+
+.field-icon{
+    font-style: normal;
+    display: flex;
+    width: 35px;
+    height: 27px;
+    background-color: rgb(238,238,238);    
+    border-right: 1px solid rgb(204, 204, 204);
+    border-radius: 3px 0 0 3px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    top: 8px;
+    color: rgb(85,85,85);
+    left: 1px;
+    font-size: 13px;
+}
+.field-icon.email-icon{
+    font-size: 16px;
+}
+.fied-input{
+    position: relative;
+}
+
+.remember-input{
+    display: flex;    
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.remember-label{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    margin-left: 4px;
+}

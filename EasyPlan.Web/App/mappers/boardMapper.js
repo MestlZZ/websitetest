@@ -3,27 +3,27 @@
 
     return {
         map,
-        mapToViewModel,
+        //mapToViewModel,
         mapToShortInfo
     }
 
     function map(src) {
         return new Board({
-            id: src.Id,
-            title: src.Title,
-            criterions: _.map(src.Criterions, criterionMapper.map),
-            items: _.map(src.Items, itemMapper.map)
+            id: src.id,
+            title: src.title,
+            criterions: _.map(src.criterions, criterionMapper.map),
+            items: _.map(src.items, itemMapper.map)
         });
     }
 
     function mapToShortInfo(src) {
         return new Board({
-            id: src.Id,
-            title: src.Title,
+            id: src.id,
+            title: src.title,
         });
     }
 
-    function mapToViewModel(src) {
+   /* function mapToViewModel(src) {
         if (src.id === undefined)
             src = map(src);
 
@@ -37,5 +37,5 @@
         board.items.countVisible = ko.observable(board.items().length);
 
         return board;
-    }
+    }*/
 });

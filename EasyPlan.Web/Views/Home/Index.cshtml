@@ -1,29 +1,14 @@
 ﻿@using System.Web.Optimization
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>EasyPlan</title>
 
-    
-    <meta charset="utf-8" />
+<div class="spinner spinner-on">
+    @Html.Partial("_splash")
+</div>
 
-    @Styles.Render("~/Content/css")
+<div id="application">
+</div>
 
-</head>
-<body>
+@Scripts.Render("~/Scripts/vendor")
 
-    <div class="spinner spinner-on">
-        @Html.Partial("_splash")
-    </div>
-
-    <div id="application">
-    </div>
-
-    @Scripts.Render("~/Scripts/vendor")
-
-    <script type="text/javascript" src="~/Scripts/require.js" data-main="/App/main"></script>
-</body>
-</html>

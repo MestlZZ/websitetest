@@ -1,5 +1,12 @@
 ﻿<div class="board">
-    <h2 class="board-title" data-bind="text: board.title"></h2>
+    <div class="board-title">
+        <div class="board-title-input title-value" data-bind="editableText: {handler: updateBoardTitle, value: board.title}, selectTextOnFocus: true, hasFocus: true"></div>
+        <span class="board-title-validation-message validation-message" data-bind="css: {'visible': board.title.hasError}">
+            <span class="validation-message-error" data-bind="text: board.title.validationMessage"></span>
+            <i class="validation-message-arrow"></i>
+        </span>
+    </div>
+
     <div class="board-body">        
         <div class="board-body-filter">
             <label for="board-filter">Filter: </label>
@@ -80,11 +87,11 @@
                 </tr>                
             </thead>
             <tbody class="table-body">  
-                <!--ko if: _.isEmpty(board.items()) || !board.items.countVisible() -->
+                <!--ko if: _.isEmpty(board.items()) || (!board.items.countVisible() && !_.isEmpty(board.items())) -->
                 <tr class="item-cell">
-                    <td data-bind="attr: {'colspan' : columnCount}">
+                    <td data-bind="attr: {'colspan' : $root.board.criterions().length + 3}">
                         <span class="items-noitems-message" data-bind="visible: _.isEmpty(board.items())">No items!</span>
-                        <span class="items-noitems-filter-message" data-bind="visible: !board.items.countVisible()">The appropriate result is not found for the value ​​in the filter!</span>
+                        <span class="items-noitems-filter-message" data-bind="visible: (!board.items.countVisible() && !_.isEmpty(board.items()))">The appropriate result is not found for the value ​​in the filter!</span>
                     </td>
                 </tr>
                 <!--/ko-->

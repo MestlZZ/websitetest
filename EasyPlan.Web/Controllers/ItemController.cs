@@ -9,7 +9,8 @@ using EasyPlan.Web.Components.Mapper;
 using EasyPlan.Web.Components;
 
 namespace EasyPlan.Web.Controllers
-{    
+{
+    [Authorize]
     public class ItemController : DefaultController
     {
         private readonly IItemRepository _itemRepository;

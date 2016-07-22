@@ -1,13 +1,14 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EasyPlan.DomainModel.Entities;
+using NSubstitute;
 
 namespace EasyPlan.DomainModel.Test
 {
     [TestClass]
     public class ItemTests
     {
-        private Board board = new Board();
+        private Board board = Substitute.For<Board>();
         
         [TestMethod]
         public void Item_Create_Success()

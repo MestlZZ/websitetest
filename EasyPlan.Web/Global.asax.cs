@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using EasyPlan.Infrastructure;
 using EasyPlan.Web.Components.ModelBinding;
+using System.Web.Security;
 
 
 namespace EasyPlan.Web

@@ -6,6 +6,7 @@ using EasyPlan.Web.Controllers;
 using System.Linq;
 using EasyPlan.DomainModel.Repositories;
 using EasyPlan.DomainModel.Entities;
+using EasyPlan.Web.Components;
 
 namespace EasyPlan.Web.Tests
 {
@@ -14,32 +15,17 @@ namespace EasyPlan.Web.Tests
     { 
         private BoardController _controller;
         private IBoardRepository _boardRepository;
+        private IMembershipProvider _membershipProvider;
+        private IRoleProvider _roleProvider;
 
         [TestInitialize]
         public void Initialize()
         {
             _boardRepository = Substitute.For<IBoardRepository>();
+            _membershipProvider = Substitute.For<IMembershipProvider>();
+            _roleProvider = Substitute.For<IRoleProvider>();
 
-            _controller = new BoardController(_boardRepository);
-        }
-
-        [TestMethod]
-        public void BoardController_GetBoardsInfo()
-        {
-            //arrange
-            var collection = new List<Board>();
-            collection.Add(Substitute.For<Board>());
-            collection.Add(Substitute.For<Board>());
-
-            _boardRepository.GetCollection().Returns(collection);
-
-            //act
-            dynamic jsonResult = _controller.GetBoardsInfo();
-
-            IEnumerable<dynamic> enumerble = jsonResult.Data;
-
-            //assert
-            Assert.AreEqual(enumerble.Count(), 2, message: "Array length isn't 2");
+            _controller = new BoardController(_boardRepository, _membershipProvider, _roleProvider);
         }
     }
 }

@@ -13,9 +13,9 @@
             var mark = marks[key];
 
             if(mark.isBenefit){
-                result += +ko.unwrap(mark.value) * mark.weight;
+                result += +ko.unwrap(mark.value) * ko.unwrap(mark.weight);
             } else {
-                result -= (+ko.unwrap(mark.value) - 5) * mark.weight;
+                result -= (+ko.unwrap(mark.value) - 5) * ko.unwrap(mark.weight);
             }
         });
 

@@ -1,0 +1,38 @@
+﻿@model EasyPlan.Web.ViewModels.LogOnModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+
+    <div class="login-form">
+        <div class="login-form-header">
+            <h2 class="login-form-title">Sign in to EasyPlan</h2>
+        </div>
+        <div class="login-form-body">
+            <div class="login-form-field email-field fied-input">
+                <i class="field-icon email-icon">✉</i>
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Email address" } })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+
+            <div class="login-form-field password-field fied-input">
+                <i class="field-icon password-icon">🔒</i>
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { placeholder = "Password" } })
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+            
+            <div class="login-form-field remember-input">
+                @Html.EditorFor(model => model.RememberMe, new {  @class = "remember-field"  })
+                @Html.LabelFor(model => model.RememberMe, new { @class = "remember-label"  })
+            </div>
+        </div>
+        <div class="login-form-buttons">
+                <span class="login-form-need-account">Need an account? @Html.ActionLink("Sign Up", "Register",null, new { @class = "login-link" })</span>
+                <input class="login-form-submit button" type="submit" value="Sign In" />
+        </div>
+    </div>
+}

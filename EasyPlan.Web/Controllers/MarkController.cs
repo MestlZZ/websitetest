@@ -10,6 +10,7 @@ using EasyPlan.Web.Components;
 
 namespace EasyPlan.Web.Controllers
 {    
+    [Authorize]
     public class MarkController : DefaultController
     {
         private readonly IMarkRepository _markRepository;

@@ -20,6 +20,12 @@ namespace EasyPlan.Web
 
             builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
 
+            builder.RegisterType<MembershipProvider>()
+               .As<IMembershipProvider>();
+
+            builder.RegisterType<RoleProvider>()
+               .As<IRoleProvider>();
+
             builder.RegisterModule(new DataAccessModule());
             var container = builder.Build();
 

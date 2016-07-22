@@ -19,6 +19,18 @@ namespace EasyPlan.DataAccess
                .As<IBoardRepository>()
                .As<IQueryableRepository<Board>>();
 
+            builder.RegisterType<UserRepository>()
+               .As<IUserRepository>()
+               .As<IQueryableRepository<User>>();
+
+            builder.RegisterType<RoleRepository>()
+               .As<IRoleRepository>()
+               .As<IQueryableRepository<Role>>();
+
+            builder.RegisterType<UserRoleRepository>()
+               .As<IUserRoleRepository>()
+               .As<IQueryableRepository<UserRole>>();
+
             builder.RegisterType<MarkRepository>()
                .As<IMarkRepository>()
                .As<IQueryableRepository<Mark>>();

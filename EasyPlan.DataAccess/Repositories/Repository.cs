@@ -15,7 +15,7 @@ namespace EasyPlan.DataAccess.Repositories
             _dataContext.GetSet<T>().Add(entity);
         }
 
-        public void Remove(T entity)
+        public virtual void Remove(T entity)
         {
             _dataContext.GetSet<T>().Remove(entity);
         }

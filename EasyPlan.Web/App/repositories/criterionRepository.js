@@ -1,5 +1,5 @@
-﻿define(['constants', 'storageContext', 'http/storageHttpWrapper', 'mappers/criterionMapper'],
-    function (constants, storage, storageHttpWrapper, criterionMapper) {
+﻿define(['constants', 'http/storageHttpWrapper'],
+    function (constants, storageHttpWrapper) {
         return {
             setWeight,
             setTitle,
@@ -15,15 +15,7 @@
                 throw "Invalid item id"
 
 
-            return storageHttpWrapper.post(constants.storage.setCriterionWeightUrl, { weight: weight, criterionId: criterionId }).then(function () {
-                var criterions = storage.openedBoard.criterions;
-
-                var criterion = criterions.find(function (criterion) {
-                    return criterion.id == criterionId
-                });
-
-                criterion.weight = weight;
-            });
+            return storageHttpWrapper.post(constants.storage.setCriterionWeightUrl, { weight: weight, criterionId: criterionId })
         }
 
         function setTitle(title, criterionId) {
@@ -34,50 +26,20 @@
                 throw "Invalid item id"
 
 
-            return storageHttpWrapper.post(constants.storage.setCriterionTitleUrl, { title: title, criterionId: criterionId }).then(function () {
-                var criterions = storage.openedBoard.criterions;
-                var criterion = criterions.find(function (criterion) {
-                    return criterion.id == criterionId
-                });
-
-                criterion.title = title;
-            });
+            return storageHttpWrapper.post(constants.storage.setCriterionTitleUrl, { title: title, criterionId: criterionId })
         }
 
         function remove(criterionId) {
             if (_.isNull(criterionId) || _.isUndefined(criterionId) || _.isEmpty(criterionId))
                 throw "Invalid item id"
 
-            return storageHttpWrapper.post(constants.storage.removeCriterionUrl, { criterionId: criterionId }).then(function () {
-                var criterions = storage.openedBoard.criterions;
-                var criterion = criterions.find(function (criterion) {
-                    return criterion.id == criterionId
-                });
-
-                var index = criterions.indexOf(criterion);
-
-                criterions.splice(index, 1);
-            })
+            return storageHttpWrapper.post(constants.storage.removeCriterionUrl, { criterionId: criterionId })
         }
 
-        function getNewCriterion(isBenefit) {
-            var board = storage.openedBoard;
-            
+        function getNewCriterion(isBenefit, boardId) {            
             if (_.isNull(isBenefit) || _.isUndefined(isBenefit))
                 throw "Is invalid isBenefit"
 
-            return storageHttpWrapper.post(constants.storage.createNewCriterionUrl, { isBenefit: isBenefit, boardId: board.id }).then(function (criterion) {
-
-                if (_.isNull(criterion) || _.isUndefined(criterion))
-                    throw "Failed to load item"
-
-                var criterion = criterionMapper.map(criterion);
-
-                var criterions = board.criterions;
-
-                criterions.unshift(criterion);
-
-                return criterion;
-            });
+            return storageHttpWrapper.post(constants.storage.createNewCriterionUrl, { isBenefit: isBenefit, boardId: boardId })
         }
 })

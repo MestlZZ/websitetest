@@ -10,28 +10,56 @@ using EasyPlan.Web.Components;
 
 namespace EasyPlan.Web.Controllers
 {
+    [Authorize]
     public class BoardController : DefaultController
     {
         private readonly IBoardRepository _boardRepository;
+        private readonly IMembershipProvider _membershipProvider;
+        private readonly IRoleProvider _roleProvider;
 
-        public BoardController(IBoardRepository boardRepository)
+        public BoardController(IBoardRepository boardRepository, IMembershipProvider membershipProvider, IRoleProvider roleProvider)
         {
             _boardRepository = boardRepository;
+            _membershipProvider = membershipProvider;
+            _roleProvider = roleProvider;
         }
 
         [HttpPost]
         public ActionResult GetBoardData(Board board)
         {
+            var user = _membershipProvider.FindUserByEmail(HttpContext.User.Identity.Name);
+
+            var role = _roleProvider.GetRoleForUser(board, user);
+
+            if (role == null)
+                HttpNotFound();
+
             return JsonSuccess(BoardMapper.Map(board));
         }
 
         [HttpPost]
-        public ActionResult GetBoardsInfo()
+        public void SetTitle(Board board, string title)
         {
-            var tmp = _boardRepository.GetCollection();
-            var boards = tmp.Select(e => BoardMapper.MapToShortInfo(e));
+            board.SetTitle(title);
+        }
 
-            return JsonSuccess(boards);
+        [HttpPost]
+        public ActionResult Create()
+        {
+            var user = _membershipProvider.FindUserByEmail(HttpContext.User.Identity.Name);
+            var role = _roleProvider.FindRoleByName("Admin");
+
+            var board = new Board(user, role);
+
+            _boardRepository.Add(board);
+
+            return JsonSuccess(BoardMapper.MapToShortInfo(board));
+        }
+
+        [HttpPost]
+        public void Remove(Board board)
+        {
+            _boardRepository.Remove(board);
         }
     }
 }

@@ -1,34 +1,28 @@
-﻿define(['models/mark', 'repositories/boardRepository', 'services/validateService', 'durandal/app'], function (Mark, boardRepository, validateService, app) {
+﻿define(['models/mark'], function (Mark) {
     return {
         map,
-        mapToViewModel
+        //mapToViewModel
     }
 
     function map(src) {
-        var board = boardRepository.getOpenedBoard();
+        /*var board = boardRepository.getOpenedBoard();
 
         var criterion;
-
-        if (_.isUndefined(board.Criterions)) {
-            criterion = board.criterions.find(function (criterion) {
-                return criterion.id == src.CriterionId;
-            });
-        } else {
-            criterion = board.Criterions.find(function (criterion) {
-                return criterion.Id == src.CriterionId;
-            });
-        }
-
+               
+        criterion = board.criterions.find(function (criterion) {
+            return criterion.id == src.criterionId;
+        });
+        */
         return new Mark({
-            id: src.Id,
-            value: src.Value,
-            criterionId: src.CriterionId,
-            isBenefit: criterion.IsBenefit || criterion.isBenefit,
-            weight: criterion.Weight || criterion.weight,
-            itemId: src.ItemId
+            id: src.id,
+            value: src.value,
+            criterionId: src.criterionId,
+            //isBenefit: criterion.isBenefit || criterion.isBenefit,
+            //weight: criterion.weight || criterion.weight,
+            itemId: src.itemId
         })
     }
-
+/*
     function mapToViewModel(src) {
         if (src.value === undefined)
             src = map(src);
@@ -50,5 +44,5 @@
         });
 
         return res;
-    }
+    }*/
 });

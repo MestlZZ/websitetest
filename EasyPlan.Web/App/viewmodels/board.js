@@ -1,9 +1,11 @@
 ﻿define(['repositories/boardRepository', 'repositories/itemRepository','mappers/markMapper','repositories/markRepository',
     'durandal/app', 'mappers/boardMapper', 'mappers/itemMapper', 'constants', 'services/boardService',
-    'repositories/criterionRepository', 'mappers/criterionMapper', 'spinner', 'services/validateService'],
+    'repositories/criterionRepository', 'mappers/criterionMapper', 'spinner', 'services/validators'],
     function (boardRepository, itemRepository,markMapper, markRepository, app, boardMapper, itemMapper, constants, boardService,
-        criterionRepository, criterionMapper, spinner, validateService) {
-        var board;
+        criterionRepository, criterionMapper, spinner, validators) {
+
+        var mappedCriterions = [];
+
 
         return viewModel = {
             board: {},
@@ -14,7 +16,7 @@
             costCriterions: ko.observableArray([]),
 
             filterValue: ko.observable("").extend({
-                validate: validateService.validateObservableFilterValue
+                validate: validators.validateObservableFilterValue
             }),
 
             activate,
@@ -25,6 +27,7 @@
             setMark,
             setWeight,
             updateCriterionTitle,
+            updateBoardTitle,
             deleteCriterion,
             addCostCriterion,
             addBenefitCriterion,
@@ -33,28 +36,19 @@
 
         function activate(boardId) {
             var self = this;
-            boardId = boardId || "ccef5cf6-5184-4a5a-8234-c2df683cbfba";
 
             spinner.show();
             return boardRepository.getBoard(boardId).then(function (data) {
-                var b = boardMapper.map(data);
+                var board = boardMapper.map(data);
 
-                boardRepository.updateOpenedBoard(b);
+                self.board = mapBoard(board);
 
-                board = boardMapper.mapToViewModel(b);
-
-                self.board = board;
-
-                _.each(board.criterions(), function (criterion) {
+                _.each(self.board.criterions(), function (criterion) {
                     if (criterion.isBenefit) {
                         self.benefitCriterions.push(criterion);
                     } else {
                         self.costCriterions.push(criterion);
                     }
-                })
-
-                self.columnCount = ko.computed(function () {
-                    return self.board.criterions().length + 3;
                 })
 
                 self.sortByRank();
@@ -63,27 +57,24 @@
                     self.sorted(false);
                 });
 
-                self.sortAscending(true);
-                self.sorted(true);
-
-                boardService.boardChanged(board);
+                boardService.boardChanged(self.board);
 
                 self.sortAscending(true);
                 self.sorted(true);
 
                 self.filterValue.subscribe(function () { applyFilter(); });
-
+                self.board.items.subscribe(function () { applyFilter(); });
                 spinner.hide();
             });
         };
 
         function sortByRank(){
-            board.items(_.sortBy(board.items(), function (item) {
+            viewModel.board.items(_.sortBy(viewModel.board.items(), function (item) {
                 return item.score();
             }));
 
             if (!viewModel.sortAscending())
-                board.items.reverse();
+                viewModel.board.items.reverse();
 
             viewModel.sorted(true);
             viewModel.sortAscending(!viewModel.sortAscending());
@@ -93,6 +84,12 @@
             item.title(item.title().trim());
 
             itemRepository.setTitle(item.title(), item.id);
+        };
+
+        function updateBoardTitle(context) {
+            context.board.title(context.board.title().trim());
+
+            boardRepository.setTitle(context.board.title(), context.board.id);
         };
 
         function deleteItem(item, event) {
@@ -106,9 +103,9 @@
             .then(function (s) { 
                 if (s) {
                     itemRepository.remove(item.id);
-                    board.items.remove(item);
+                    viewModel.board.items.remove(item);
 
-                    boardService.boardChanged(board);
+                    boardService.boardChanged(viewModel.board);
                 }
             });            
         };
@@ -116,19 +113,19 @@
         function addItem() {
             spinner.show();
 
-            itemRepository.getNewItem().then(function(item){
-                item = itemMapper.mapToViewModel(item);
+            itemRepository.getNewItem(viewModel.board.id).then(function(item){
+                item = mapItem(item);
 
-                board.items.unshift(item);
+                viewModel.board.items.unshift(item);
 
-                boardService.boardChanged(board);
+                boardService.boardChanged(viewModel.board);
 
                 spinner.hide();
             });
         };
 
         function setMark (mark) {
-            if (_.isUndefined(mark.id)) {
+            if (_.isNull(mark.id)) {
                 markRepository.createMark(mark.itemId, mark.criterionId).then(function (newMark) {
                     mark.id = newMark.id;
 
@@ -138,7 +135,7 @@
                 markRepository.setValue(+mark.value(), mark.id, mark.itemId, mark.criterionId);
             }
 
-            boardService.boardChanged(board);
+            boardService.boardChanged(viewModel.board);
         };
 
         function setWeight (criterion) {
@@ -146,7 +143,7 @@
 
             boardService.criterionChanged(criterion);
 
-            boardService.boardChanged(board);
+            boardService.boardChanged(viewModel.board);
         };
 
         function updateCriterionTitle (criterion) {
@@ -154,7 +151,7 @@
 
             boardService.criterionChanged(criterion);
 
-            boardService.boardChanged(board);
+            boardService.boardChanged(viewModel.board);
         };
 
         function deleteCriterion(criterion) {
@@ -174,9 +171,9 @@
             .then(function (s) {
                 if (s) {
                     criterionRepository.remove(criterion.id);
-                    board.criterions.remove(criterion);
+                    viewModel.board.criterions.remove(criterion);
                     
-                    _.each(board.items(), function (item) {
+                    _.each(viewModel.board.items(), function (item) {
                         delete item.marks[criterion.id];
                     });
                     
@@ -187,7 +184,7 @@
 
                     boardService.criterionChanged(criterion);
 
-                    boardService.boardChanged(board);
+                    boardService.boardChanged(viewModel.board);
                 }
             });
         };
@@ -195,18 +192,23 @@
         function addCriterion(isBenefit) {
             spinner.show();
 
-            criterionRepository.getNewCriterion(isBenefit).then(function (criterion) {
-                criterion = criterionMapper.mapToViewModel(criterion);
+            criterionRepository.getNewCriterion(isBenefit, viewModel.board.id).then(function (criterion) {
+                criterion = mapCriterion(criterion);
 
-                _.each(board.items(), function (item) {
-                    item.marks[criterion.id] = markMapper.mapToViewModel({
-                        Value: 0,
-                        CriterionId: criterion.id,
-                        ItemId: item.id
+                _.each(viewModel.board.items(), function (item) {
+                    item.marks[criterion.id] = mapMark({
+                        id: null,
+                        value: 0,
+                        criterionId: criterion.id,
+                        itemId: item.id
+                    }, criterion);
+                    
+                    item.score = ko.computed(function () {
+                        return boardService.computeScore(item.marks);
                     });
                 });
 
-                board.criterions.unshift(criterion);
+                viewModel.board.criterions.unshift(criterion);
 
                 if (isBenefit)
                     viewModel.benefitCriterions.push(criterion);
@@ -215,7 +217,7 @@
 
                 boardService.criterionChanged(criterion);
 
-                boardService.boardChanged(board);
+                boardService.boardChanged(viewModel.board);
 
                 spinner.hide();
             });
@@ -232,7 +234,7 @@
         function applyFilter() {
             var countVisible = 0;
 
-            _.each(board.items(), function (item) {
+            _.each(viewModel.board.items(), function (item) {
                 var itemLowerValue = item.title().toLowerCase();
                 var filterLowerValue = viewModel.filterValue().toLowerCase();
 
@@ -244,6 +246,82 @@
                 }
             });
 
-            board.items.countVisible(countVisible);
+            viewModel.board.items.countVisible(countVisible);
         }
+
+            function mapBoard(board) {
+                var boardViewModel = {};
+
+                boardViewModel.id = board.id;
+                boardViewModel.title = ko.observable(board.title).extend({
+                    validate: validators.validateObservableBoardTitle
+                });
+                boardViewModel.criterions = ko.observableArray(_.map(board.criterions, mapCriterion));
+
+                mappedCriterions = boardViewModel.criterions;
+
+                boardViewModel.items = ko.observableArray(_.map(board.items, mapItem));
+
+                boardViewModel.items.countVisible = ko.observable(board.items.length);
+
+                return boardViewModel;
+            }
+
+            function mapCriterion(criterion) {
+                var criterionViewModel = {};
+
+                criterionViewModel.id = criterion.id;
+                criterionViewModel.isBenefit = criterion.isBenefit;
+                criterionViewModel.title = ko.observable(criterion.title).extend({
+                    validate: validators.validateObservableTitle
+                });
+                criterionViewModel.weight = ko.observable(criterion.weight).extend({
+                    validate: validators.validateObservableWeightValue
+                });
+
+                return criterionViewModel;
+            }
+
+            function mapItem(item) {
+                var itemViewModel = {};
+
+                itemViewModel.id = item.id;
+                itemViewModel.title = ko.observable(item.title).extend({
+                    validate: validators.validateObservableTitle
+                });
+                itemViewModel.marks = {};
+
+                _.map(mappedCriterions(), function (criterion) {
+                    var mark = _.find(item.marks, function(mark){return mark.criterionId == criterion.id});
+
+                    if (_.isUndefined(mark)){
+                        itemViewModel.marks[criterion.id] = mapMark({id: null, criterionId: criterion.id, itemId: item.id, value: 0 }, criterion);
+                    } else {
+                        itemViewModel.marks[criterion.id] = mapMark(mark, criterion);
+                    }                    
+                })
+
+                itemViewModel.rank = ko.observable();
+                itemViewModel.score = ko.computed(function () {
+                    return boardService.computeScore(itemViewModel.marks);
+                });
+                itemViewModel.visible = ko.observable(true);
+
+                return itemViewModel;
+            }
+
+            function mapMark(mark, criterion) {
+                var markViewModel = {};
+
+                markViewModel.id = mark.id;
+                markViewModel.value = ko.observable(mark.value).extend({
+                    validate: validators.validateObservableMarkValue
+                })
+                markViewModel.criterionId = mark.criterionId;
+                markViewModel.itemId = mark.itemId;
+                markViewModel.isBenefit = criterion.isBenefit;
+                markViewModel.weight = criterion.weight;
+
+                return markViewModel;
+            }   
 });

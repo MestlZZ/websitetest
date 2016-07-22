@@ -90,8 +90,19 @@
     <Compile Include="Migrations\201607140736274_setMaxLengthForTitle.Designer.cs">
       <DependentUpon>201607140736274_setMaxLengthForTitle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607210840193_user-auth.cs" />
+    <Compile Include="Migrations\201607210840193_user-auth.Designer.cs">
+      <DependentUpon>201607210840193_user-auth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607220713117_user-email-auth.cs" />
+    <Compile Include="Migrations\201607220713117_user-email-auth.Designer.cs">
+      <DependentUpon>201607220713117_user-email-auth.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\UserRoleRepository.cs" />
+    <Compile Include="Repositories\RoleRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\MarkRepository.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
     <Compile Include="Repositories\CriterionRepository.cs" />
@@ -137,6 +148,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607140736274_setMaxLengthForTitle.resx">
       <DependentUpon>201607140736274_setMaxLengthForTitle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607210840193_user-auth.resx">
+      <DependentUpon>201607210840193_user-auth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607220713117_user-email-auth.resx">
+      <DependentUpon>201607220713117_user-email-auth.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

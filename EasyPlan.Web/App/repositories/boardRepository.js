@@ -1,30 +1,26 @@
-﻿define(['constants', 'storageContext', 'http/storageHttpWrapper'],
-    function (constants, storage, storageHttpWrapper) {
+﻿define(['constants', 'http/storageHttpWrapper'],
+    function (constants, storageHttpWrapper) {
 
     return {
-        getCollection,
         getBoard,
-        getOpenedBoard,
-        updateOpenedBoard
-    }
-
-    function getCollection() {
-        return storage.boards;
+        createBoard,
+        setTitle,
+        removeBoard
     }
 
     function getBoard(boardId) {        
-        return storageHttpWrapper.post(constants.storage.boardDataUrl, { boardId: boardId }).then(function (board) {
-            storage.openedBoard = board;
-
-            return board;
-        });
+        return storageHttpWrapper.post(constants.storage.boardDataUrl, { boardId: boardId })
     }
 
-    function getOpenedBoard() {
-        return storage.openedBoard;
+    function createBoard() {
+        return storageHttpWrapper.post(constants.storage.boardCreateUrl)
     }
 
-    function updateOpenedBoard(board) {
-        storage.openedBoard = board;
+    function setTitle(title, id) {
+        return storageHttpWrapper.post(constants.storage.boardSetTitleUrl, { boardId: id, title: title });
+    }
+
+    function removeBoard(id) {
+        return storageHttpWrapper.post(constants.storage.boardRemoveUrl, { boardId: id });
     }
 });

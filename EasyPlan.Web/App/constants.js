@@ -11,7 +11,11 @@
             setCriterionWeightUrl: 'board/criterion/SetCriterionWeight',
             setCriterionTitleUrl: 'board/criterion/SetCriterionTitle',
             removeCriterionUrl: 'board/criterion/RemoveCriterion',
-            createNewCriterionUrl: 'board/criterion/CreateCriterion'
+            createNewCriterionUrl: 'board/criterion/CreateCriterion',
+            currentUserUrl: 'account/GetUserData',
+            boardCreateUrl: 'board/Create',
+            boardSetTitleUrl: 'board/SetTitle',
+            boardRemoveUrl: 'board/Remove'
         },
         popupTemplatesId: {
             confirmation: "#confirmation-popup-body-template"

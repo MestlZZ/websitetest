@@ -40,6 +40,13 @@ namespace EasyPlan.Web
              );
 
             routes.MapRoute(
+                name: "Account",
+                url: "account/{action}",
+                defaults: new { controller = "Account" },
+                namespaces: new[] { "EasyPlan.Controllers" }
+             );
+
+            routes.MapRoute(
                name: "Default",
                url: "",
                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },

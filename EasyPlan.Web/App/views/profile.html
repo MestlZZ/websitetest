@@ -1,0 +1,13 @@
+﻿<div>Hello <!--ko text: user.name--><!--/ko--></div>
+<nav>
+    <ul data-bind="foreach: user.boardsShortInfo">
+        <li>
+            <a data-bind="attr: {href: '#board/' + id}, text: title"></a>
+            <button data-bind="click: $root.removeBoard">Remove</button>
+        </li>
+    </ul>
+</nav>
+
+<div>
+    <button data-bind="click: createBoard">New board</button>
+</div>
