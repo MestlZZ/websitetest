@@ -12,6 +12,7 @@ namespace EasyPlan.Web {
             .Include("~/Scripts/jquery-ui.js")
             .Include("~/Scripts/knockout-{version}.js")
             .Include("~/Scripts/knockout.mapping.js")
+            .Include("~/Scripts/unmaskPasswordField.js")
         );
 
       bundles.Add(

@@ -237,6 +237,7 @@
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\unmaskPasswordField.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -244,13 +245,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\DefaultController.cs" />
-    <Compile Include="Components\IMembershipProvider.cs" />
-    <Compile Include="Components\IRoleProvider.cs" />
+    <Compile Include="Components\Providers\IMembershipProvider.cs" />
+    <Compile Include="Components\Providers\IRoleProvider.cs" />
     <Compile Include="Components\Mapper\UserMapper.cs" />
-    <Compile Include="Components\MembershipProvider.cs" />
+    <Compile Include="Components\Providers\MembershipProvider.cs" />
     <Compile Include="Components\ModelBinder\EntityModelBinder.cs" />
     <Compile Include="Components\ModelBinder\EntityModelBinderProvider.cs" />
-    <Compile Include="Components\RoleProvider.cs" />
+    <Compile Include="Components\Providers\RoleProvider.cs" />
     <Compile Include="Configurations\ContainerConfig.cs" />
     <Compile Include="Configurations\BundleConfig.cs" />
     <Compile Include="Configurations\RouteConfig.cs" />

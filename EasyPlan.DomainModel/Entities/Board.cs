@@ -21,6 +21,8 @@ namespace EasyPlan.DomainModel.Entities
             Criterions.Add(new Criterion(this, false));
 
             Roles.Add(new Role(this, user, RoleName.Admin));
+
+            CreatedBy = user.Email;
         }
 
         public string Title { get; private set; }
@@ -30,6 +32,8 @@ namespace EasyPlan.DomainModel.Entities
         public virtual ICollection<Item> Items { get; private set; }
 
         public virtual ICollection<Role> Roles { get; private set; }
+
+        public string CreatedBy { get; private set; }
 
         public void SetTitle(string title)
         {

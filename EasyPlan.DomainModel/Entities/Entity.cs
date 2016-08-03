@@ -10,7 +10,7 @@ namespace EasyPlan.DomainModel.Entities
             CreatedOn = DateTime.UtcNow;
         }
         
-        public DateTime CreatedOn { get; }
+        public DateTime CreatedOn { get; private set; }
         public Guid Id { get; private set; }
     }
 }

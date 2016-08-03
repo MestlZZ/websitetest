@@ -9,7 +9,6 @@
 
         return viewModel = {
             board: {},
-            columnCount: ko.observable(),
             sorted: ko.observable(),
             sortAscending: ko.observable(),
             benefitCriterions: ko.observableArray([]),
@@ -36,6 +35,16 @@
 
         function activate(boardId) {
             var self = this;
+
+            self.board = {};
+            self.sorted = ko.observable();
+            self.sortAscending = ko.observable();
+            self.benefitCriterions = ko.observableArray([]);
+            self.costCriterions = ko.observableArray([]);
+
+            self.filterValue = ko.observable("").extend({
+                validate: validators.validateObservableFilterValue
+            });
 
             spinner.show();
             return boardRepository.getBoard(boardId).then(function (data) {

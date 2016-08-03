@@ -7,6 +7,7 @@ using EasyPlan.DomainModel.Repositories;
 using EasyPlan.Infrastructure;
 using EasyPlan.Web.Components.Mapper;
 using EasyPlan.Web.Components;
+using EasyPlan.Web.Components.Providers;
 using EasyPlan.Web.ViewModels;
 using System.Web.Security;
 
@@ -60,7 +61,7 @@ namespace EasyPlan.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Incorrect login or password");
+                    ModelState.AddModelError("", "Incorrect email or password");
                 }
             }
             return View(model);
@@ -92,7 +93,7 @@ namespace EasyPlan.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Registration error");
+                    ModelState.AddModelError("", "User with this email address are exist.");
                 }
             }
 

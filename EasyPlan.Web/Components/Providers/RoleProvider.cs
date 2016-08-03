@@ -7,7 +7,7 @@ using EasyPlan.DomainModel.Repositories;
 using EasyPlan.Infrastructure;
 using System.Web.Security;
 
-namespace EasyPlan.Web.Components
+namespace EasyPlan.Web.Components.Providers
 {
     public class RoleProvider : IRoleProvider
     {

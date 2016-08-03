@@ -8,6 +8,10 @@
     border: 1px solid rgb(0, 119, 179);
 }
 
+.summary-error-message{
+    color: rgb(200, 0, 0);
+}
+
 .login-form{
     background-color: white;
     width: 350px;
@@ -201,4 +205,19 @@
 }
 .down-menu-item:hover{
     background-color: rgba(0, 223, 254, .2);
+}
+
+.text-box.password{
+    padding-right: 37px;
+    width: 148px;
+}
+
+.see-password{
+    font-size: 30px;
+    left: auto;
+    cursor: pointer;
+    right: 3px;
+    border: 0;
+    background-color: transparent;
+    top: 7px;
 }

@@ -1,5 +1,5 @@
-﻿define(['repositories/userRepository', 'repositories/boardRepository', 'spinner'], function (userRepository, boardRepository, spinner) {
-    return viewModel = {
+﻿define(['repositories/userRepository', 'repositories/boardRepository', 'spinner', 'constants'], function (userRepository, boardRepository, spinner, constants) {
+    return profileViewModel = {
         user: {},
         activate,
         createBoard,
@@ -8,10 +8,17 @@
     };
     
     function activate() {
-        return userRepository.getCurrentUser().then(function (user) {
-            viewModel.user = user;
+        var self = this;
 
-            viewModel.user.boardsShortInfo = ko.observableArray(user.boardsShortInfo);
+        self.user = {};
+
+        if (!spinner.enabled)
+            spinner.show();
+
+        return userRepository.getCurrentUser().then(function (user) {
+            self.user = user;
+
+            self.user.boardsShortInfo = ko.observableArray(user.boardsShortInfo);
 
             spinner.hide();
         })
@@ -25,15 +32,20 @@
         spinner.show();
 
         boardRepository.createBoard().then(function (boardShortInfo) {
-            viewModel.user.boardsShortInfo.push(boardShortInfo);
+            profileViewModel.user.boardsShortInfo.push(boardShortInfo);
 
             spinner.hide();
         })
     }
 
     function removeBoard(board) {
-        boardRepository.removeBoard(board.id);
+        $(constants.popupTemplatesId.confirmation).popup({ title: "Delete", body: 'delete "' + board.title + '"' })
+            .then(function (s) {
+                if (s) {
+                    boardRepository.removeBoard(board.id);
 
-        viewModel.user.boardsShortInfo.remove(board);
+                    profileViewModel.user.boardsShortInfo.remove(board);
+                }
+            });
     }
 });

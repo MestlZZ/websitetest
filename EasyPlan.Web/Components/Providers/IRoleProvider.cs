@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EasyPlan.DomainModel.Entities;
 using EasyPlan.Infrastructure;
 
-namespace EasyPlan.Web.Components
+namespace EasyPlan.Web.Components.Providers
 {
     public interface IRoleProvider
     {

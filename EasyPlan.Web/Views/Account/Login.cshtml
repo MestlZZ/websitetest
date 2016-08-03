@@ -5,14 +5,13 @@
 
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary(true)
     @Html.AntiForgeryToken()
 
     <div class="login-form">
         <div class="login-form-header">
             <h2 class="login-form-title">Sign in to EasyPlan</h2>
         </div>
-        <div class="login-form-body">
+        <div class="login-form-body">            
             <div class="login-form-field email-field fied-input">
                 <i class="field-icon email-icon">✉</i>
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Email address" } })
@@ -29,6 +28,11 @@
                 @Html.EditorFor(model => model.RememberMe, new {  @class = "remember-field"  })
                 @Html.LabelFor(model => model.RememberMe, new { @class = "remember-label"  })
             </div>
+
+            <div class="summary-error-message">
+                @Html.ValidationSummary(true)
+            </div>
+
         </div>
         <div class="login-form-buttons">
                 <span class="login-form-need-account">Need an account? @Html.ActionLink("Sign Up", "Register",null, new { @class = "link" })</span>

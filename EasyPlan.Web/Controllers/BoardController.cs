@@ -7,6 +7,7 @@ using EasyPlan.DomainModel.Repositories;
 using EasyPlan.Infrastructure;
 using EasyPlan.Web.Components.Mapper;
 using EasyPlan.Web.Components;
+using EasyPlan.Web.Components.Providers;
 
 namespace EasyPlan.Web.Controllers
 {

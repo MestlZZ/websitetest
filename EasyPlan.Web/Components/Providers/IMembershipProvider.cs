@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EasyPlan.DomainModel.Entities;
 
-namespace EasyPlan.Web.Components
+namespace EasyPlan.Web.Components.Providers
 {
     public interface IMembershipProvider
     {

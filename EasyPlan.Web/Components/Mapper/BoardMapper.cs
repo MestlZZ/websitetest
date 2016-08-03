@@ -25,7 +25,9 @@ namespace EasyPlan.Web.Components.Mapper
             return new
             {
                 id = entity.Id,
-                title = entity.Title
+                title = entity.Title,
+                createdOn = entity.CreatedOn.ToString(),
+                createdBy = entity.CreatedBy
             };
         }
     }

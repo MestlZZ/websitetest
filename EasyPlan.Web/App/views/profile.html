@@ -3,11 +3,15 @@
        <!--ko foreach: user.boardsShortInfo-->
          <li class="short-board" data-bind="style: {'backgroundColor': '#' + $root.getBoardColor()}">
             <i class="short-board-delete" title="Delete board" data-bind="click: $root.removeBoard">✗</i>
-            <a class="short-board-title" data-bind="attr: {href: '#board/' + id}, text: title"></a>
+            <a class="short-board-link" data-bind="attr: {href: '#board/' + id}">
+                <span class="short-board-extra-info info-title" data-bind="text: title"></span>
+                <span class="short-board-extra-info info-createdby" data-bind="text: createdBy"></span>
+                <span class="short-board-extra-info info-createdon" data-bind="text: createdOn"></span>
+            </a>
         </li>
         <!--/ko-->
         <li class="short-board">
-            <button data-bind="click: createBoard">New board</button>
+            <i class="add-board" data-bind="click: createBoard">➕</i>
         </li>
     </ul>
 </nav>

@@ -6,7 +6,7 @@ using EasyPlan.DomainModel.Entities;
 using EasyPlan.DomainModel.Repositories;
 using EasyPlan.Infrastructure;
 
-namespace EasyPlan.Web.Components
+namespace EasyPlan.Web.Components.Providers
 {
     public class MembershipProvider : IMembershipProvider
     {      
