@@ -21,6 +21,7 @@ body{
 .board-body-filter{
     position: relative;
     text-align: right;
+    z-index: 2;
 }
 
 .board-filter{
@@ -128,6 +129,7 @@ body{
 }
 
 .header{
+    z-index: 2;
     flex: 0 40px;
 	background: rgb(125,185,232); /* Old browsers */
 	background: -moz-linear-gradient(top, rgb(125,185,232) 0%, rgb(49,127,155) 100%); /* FF3.6-15 */
@@ -140,7 +142,16 @@ body{
     flex: 1;
 }
 
+#access-layer{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 .item-rank-title{
+    z-index: 2;
     cursor: pointer;
 }
 
@@ -368,6 +379,7 @@ body{
     padding: 0;
     margin: 0;
     display: flex;
+    z-index: 2;
     flex-wrap: wrap;
 }
 

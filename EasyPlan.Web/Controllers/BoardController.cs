@@ -35,7 +35,7 @@ namespace EasyPlan.Web.Controllers
             if (role == null)
                 return HttpNotFound();
 
-            return JsonSuccess(BoardMapper.Map(board));
+            return JsonSuccess(BoardMapper.Map(board, role.Name));
         }
 
         [HttpPost]
@@ -53,7 +53,7 @@ namespace EasyPlan.Web.Controllers
 
             _boardRepository.Add(board);
 
-            return JsonSuccess(BoardMapper.MapToShortInfo(board));
+            return JsonSuccess(BoardMapper.MapToShortInfo(board, RoleName.Admin));
         }
 
         [HttpPost]

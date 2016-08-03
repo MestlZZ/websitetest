@@ -6,6 +6,7 @@
 
         var mappedCriterions = [];
 
+        var boardHub = $.connection.boardHub;
 
         return viewModel = {
             board: {},
@@ -13,6 +14,7 @@
             sortAscending: ko.observable(),
             benefitCriterions: ko.observableArray([]),
             costCriterions: ko.observableArray([]),
+            userRole: ko.observable(),
 
             filterValue: ko.observable("").extend({
                 validate: validators.validateObservableFilterValue
@@ -41,15 +43,19 @@
             self.sortAscending = ko.observable();
             self.benefitCriterions = ko.observableArray([]);
             self.costCriterions = ko.observableArray([]);
+            self.userRole = ko.observable();
 
             self.filterValue = ko.observable("").extend({
                 validate: validators.validateObservableFilterValue
             });
 
-            spinner.show();
-            return boardRepository.getBoard(boardId).then(function (data) {
+            spinner.show();           
+
+            return boardRepository.getBoard(boardId)
+                .then(function (data) {
                 var board = boardMapper.map(data);
 
+                self.userRole(data.userRole);
                 self.board = mapBoard(board);
 
                 _.each(self.board.criterions(), function (criterion) {
@@ -74,6 +80,95 @@
                 self.filterValue.subscribe(function () { applyFilter(); });
                 self.board.items.subscribe(function () { applyFilter(); });
                 spinner.hide();
+            })
+                .then(function () {
+                var deferred = Q.defer();
+
+                $.connection.hub.start().done(function () {
+                    boardHub.server.CloseBoard();
+                    boardHub.server.OpenBoard(boardId);
+
+                    /*Hub init*/
+                    boardHub.client.updateItemTitle = function (id, title) {
+                        var item = self.board.items().find(function (item) { return id == item.id });
+
+                        item.title(title);
+                    }
+
+                    boardHub.client.deleteItem = function (id) {
+                        var item = self.board.items().find(function (item) { return id == item.id });
+
+                        self.board.items.remove(item);
+                    }
+
+                    boardHub.client.addItem = function (item) {
+                        item = mapItem(item);
+
+                        self.board.items.unshift(item);
+
+                        boardService.boardChanged(self.board);
+                    }
+
+                    boardHub.client.setMark = function (mark) {
+                        var item = self.board.items().find(function (item) { return mark.itemId == item.id });
+                        var criterion = self.board.criterions().find(function (criterion) { return mark.criterionId == criterion.id });
+
+                        item.marks[criterionId] = mapMark(mark, criterion);
+
+                        boardService.boardChanged(self.board);
+                    }
+
+                    boardHub.client.setCriterionWeight = function (id, weight) {
+                        var criterion = self.board.criterions().find(function (criterion) { return id == criterion.id });
+
+                        criterion.weight(weight);
+
+                        boardService.criterionChanged(criterion);
+
+                        boardService.boardChanged(viewModel.board);
+                    }
+
+                    boardHub.client.updateCriterionTitle = function (id, title) {
+                        var criterion = self.board.criterions().find(function (criterion) { return id == criterion.id });
+
+                        criterion.title(title);
+
+                        boardService.criterionChanged(criterion);
+
+                        boardService.boardChanged(viewModel.board);
+                    }
+
+                    boardHub.client.updateBoardTitle = function (title) {
+                        self.board.title(title);
+                    }
+
+                    boardHub.client.deleteCriterion = function (id) {
+                        var criterion = self.board.criterions().find(function (criterion) { return id == criterion.id });
+
+                        self.board.criterions.remove(criterion);
+                        self.board.benefitCriterions.remove(criterion);
+                        self.board.costCriterions.remove(criterion);
+                    }
+
+                    boardHub.client.addCriterion = function (criterion) {
+                        var criterion = mapCriterion(criterion);
+
+                        viewModel.board.criterions.unshift(criterion);
+
+                        if (isBenefit)
+                            viewModel.benefitCriterions.push(criterion);
+                        else
+                            viewModel.costCriterions.push(criterion);
+
+                        boardService.criterionChanged(criterion);
+
+                        boardService.boardChanged(viewModel.board);
+                    }
+                    /*End*/
+                    deferred.resolve('OK');
+                });
+
+                return deferred;
             });
         };
 
@@ -93,12 +188,16 @@
             item.title(item.title().trim());
 
             itemRepository.setTitle(item.title(), item.id);
+
+            boardHub.server.updateItemTitle(item.id, item.title());
         };
 
         function updateBoardTitle(context) {
             context.board.title(context.board.title().trim());
 
             boardRepository.setTitle(context.board.title(), context.board.id);
+
+            boardHub.server.updateBoardTitle(context.board.title());
         };
 
         function deleteItem(item, event) {
@@ -115,6 +214,8 @@
                     viewModel.board.items.remove(item);
 
                     boardService.boardChanged(viewModel.board);
+
+                    boardHub.server.deleteItem(item.id);
                 }
             });            
         };
@@ -128,6 +229,8 @@
                 viewModel.board.items.unshift(item);
 
                 boardService.boardChanged(viewModel.board);
+
+                boardHub.server.addItem(item.id);
 
                 spinner.hide();
             });
@@ -145,6 +248,8 @@
             }
 
             boardService.boardChanged(viewModel.board);
+
+            boardHub.server.setMark(mark.id);
         };
 
         function setWeight (criterion) {
@@ -153,6 +258,8 @@
             boardService.criterionChanged(criterion);
 
             boardService.boardChanged(viewModel.board);
+
+            boardHub.server.setCriterionWeight(criterion.id, criterion.weight());
         };
 
         function updateCriterionTitle (criterion) {
@@ -161,6 +268,8 @@
             boardService.criterionChanged(criterion);
 
             boardService.boardChanged(viewModel.board);
+
+            boardHub.server.updateCriterionTitle(criterion.id, criterion.title());
         };
 
         function deleteCriterion(criterion) {
@@ -194,6 +303,8 @@
                     boardService.criterionChanged(criterion);
 
                     boardService.boardChanged(viewModel.board);
+
+                    boardHub.server.deleteCriterion(criterion.id);
                 }
             });
         };
@@ -228,6 +339,8 @@
 
                 boardService.boardChanged(viewModel.board);
 
+                boardHub.server.addCriterion(criterion.id);
+
                 spinner.hide();
             });
         };
@@ -258,79 +371,79 @@
             viewModel.board.items.countVisible(countVisible);
         }
 
-            function mapBoard(board) {
-                var boardViewModel = {};
+        function mapBoard(board) {
+            var boardViewModel = {};
 
-                boardViewModel.id = board.id;
-                boardViewModel.title = ko.observable(board.title).extend({
-                    validate: validators.validateObservableBoardTitle
-                });
-                boardViewModel.criterions = ko.observableArray(_.map(board.criterions, mapCriterion));
+            boardViewModel.id = board.id;
+            boardViewModel.title = ko.observable(board.title).extend({
+                validate: validators.validateObservableBoardTitle
+            });
+            boardViewModel.criterions = ko.observableArray(_.map(board.criterions, mapCriterion));
 
-                mappedCriterions = boardViewModel.criterions;
+            mappedCriterions = boardViewModel.criterions;
 
-                boardViewModel.items = ko.observableArray(_.map(board.items, mapItem));
+            boardViewModel.items = ko.observableArray(_.map(board.items, mapItem));
 
-                boardViewModel.items.countVisible = ko.observable(board.items.length);
+            boardViewModel.items.countVisible = ko.observable(board.items.length);
 
-                return boardViewModel;
-            }
+            return boardViewModel;
+        }
 
-            function mapCriterion(criterion) {
-                var criterionViewModel = {};
+        function mapCriterion(criterion) {
+            var criterionViewModel = {};
 
-                criterionViewModel.id = criterion.id;
-                criterionViewModel.isBenefit = criterion.isBenefit;
-                criterionViewModel.title = ko.observable(criterion.title).extend({
-                    validate: validators.validateObservableTitle
-                });
-                criterionViewModel.weight = ko.observable(criterion.weight).extend({
-                    validate: validators.validateObservableWeightValue
-                });
+            criterionViewModel.id = criterion.id;
+            criterionViewModel.isBenefit = criterion.isBenefit;
+            criterionViewModel.title = ko.observable(criterion.title).extend({
+                validate: validators.validateObservableTitle
+            });
+            criterionViewModel.weight = ko.observable(criterion.weight).extend({
+                validate: validators.validateObservableWeightValue
+            });
 
-                return criterionViewModel;
-            }
+            return criterionViewModel;
+        }
 
-            function mapItem(item) {
-                var itemViewModel = {};
+        function mapItem(item) {
+            var itemViewModel = {};
 
-                itemViewModel.id = item.id;
-                itemViewModel.title = ko.observable(item.title).extend({
-                    validate: validators.validateObservableTitle
-                });
-                itemViewModel.marks = {};
+            itemViewModel.id = item.id;
+            itemViewModel.title = ko.observable(item.title).extend({
+                validate: validators.validateObservableTitle
+            });
+            itemViewModel.marks = {};
 
-                _.map(mappedCriterions(), function (criterion) {
-                    var mark = _.find(item.marks, function(mark){return mark.criterionId == criterion.id});
+            _.map(mappedCriterions(), function (criterion) {
+                var mark = _.find(item.marks, function(mark){return mark.criterionId == criterion.id});
 
-                    if (_.isUndefined(mark)){
-                        itemViewModel.marks[criterion.id] = mapMark({id: null, criterionId: criterion.id, itemId: item.id, value: 0 }, criterion);
-                    } else {
-                        itemViewModel.marks[criterion.id] = mapMark(mark, criterion);
-                    }                    
-                })
+                if (_.isUndefined(mark)){
+                    itemViewModel.marks[criterion.id] = mapMark({id: null, criterionId: criterion.id, itemId: item.id, value: 0 }, criterion);
+                } else {
+                    itemViewModel.marks[criterion.id] = mapMark(mark, criterion);
+                }                    
+            })
 
-                itemViewModel.rank = ko.observable();
-                itemViewModel.score = ko.computed(function () {
-                    return boardService.computeScore(itemViewModel.marks);
-                });
-                itemViewModel.visible = ko.observable(true);
+            itemViewModel.rank = ko.observable();
+            itemViewModel.score = ko.computed(function () {
+                return boardService.computeScore(itemViewModel.marks);
+            });
+            itemViewModel.visible = ko.observable(true);
 
-                return itemViewModel;
-            }
+            return itemViewModel;
+        }
 
-            function mapMark(mark, criterion) {
-                var markViewModel = {};
+        function mapMark(mark, criterion) {
+            var markViewModel = {};
 
-                markViewModel.id = mark.id;
-                markViewModel.value = ko.observable(mark.value).extend({
-                    validate: validators.validateObservableMarkValue
-                })
-                markViewModel.criterionId = mark.criterionId;
-                markViewModel.itemId = mark.itemId;
-                markViewModel.isBenefit = criterion.isBenefit;
-                markViewModel.weight = criterion.weight;
+            markViewModel.id = mark.id;
+            markViewModel.value = ko.observable(mark.value).extend({
+                validate: validators.validateObservableMarkValue
+            })
+            markViewModel.criterionId = mark.criterionId;
+            markViewModel.itemId = mark.itemId;
+            markViewModel.isBenefit = criterion.isBenefit;
+            markViewModel.weight = criterion.weight;
 
-                return markViewModel;
-            }   
+            return markViewModel;
+        }   
 });

@@ -1,4 +1,5 @@
-﻿<div class="board">
+﻿<div id="access-layer" data-bind="style: {'z-index': userRole() - 2}"></div>
+<div class="board">
     <div class="board-title">
         <div class="board-title-input title-value" data-bind="editableText: {handler: updateBoardTitle, value: board.title}, selectTextOnFocus: true, hasFocus: true"></div>
         <span class="board-title-validation-message validation-message" data-bind="css: {'visible': board.title.hasError}">

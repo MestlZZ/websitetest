@@ -8,6 +8,7 @@ namespace EasyPlan.Web {
             .Include("~/Scripts/handlebars-4.0.5.js")
             .Include("~/Scripts/underscore.js")
             .Include("~/Scripts/jquery-{version}.js")
+            .Include("~/Scripts/jquery.signalR-{version}.js")
             .Include("~/Scripts/q.js")
             .Include("~/Scripts/jquery-ui.js")
             .Include("~/Scripts/knockout-{version}.js")

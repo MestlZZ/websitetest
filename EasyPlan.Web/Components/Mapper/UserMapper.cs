@@ -15,7 +15,7 @@ namespace EasyPlan.Web.Components.Mapper
                 id = entity.Id,
                 name = entity.FullName,
                 email = entity.Email,
-                boardsShortInfo = entity.Roles.Select(e => BoardMapper.MapToShortInfo(e.Board))
+                boardsShortInfo = entity.Roles.Select(e => BoardMapper.MapToShortInfo(e.Board, e.Name))
             };
         }
     }
