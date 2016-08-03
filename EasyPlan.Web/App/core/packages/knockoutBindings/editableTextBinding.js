@@ -39,6 +39,7 @@
         }
 
         function keyUp(e) {
+            console.log(observValue.hasError);
             observValue($input.text());
 
             if (e.keyCode == 27) {
