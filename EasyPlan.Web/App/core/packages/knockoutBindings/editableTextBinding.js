@@ -5,11 +5,19 @@
         var observValue = data.value;
         var $input = $(element);
         var lastValue = '';
+        var hasFocus = false;
+
+        observValue.subscribe(function () {
+            if(!hasFocus)
+                $input.text(observValue());
+        });
 
         $input.attr("contenteditable", "true");
         $input.text(observValue());
                
         $input.focus(function focus(event) {
+            hasFocus = true;
+
             clearBind();
 
             lastValue = observValue();
@@ -18,6 +26,8 @@
             $input.keypress(keyPress);
 
             $input.focusout(function fout(e) {
+                hasFocus = false;
+
                 clearBind();
 
                 if (!observValue.hasError()) {
@@ -39,7 +49,6 @@
         }
 
         function keyUp(e) {
-            console.log(observValue.hasError);
             observValue($input.text());
 
             if (e.keyCode == 27) {

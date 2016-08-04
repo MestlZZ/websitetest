@@ -6,6 +6,10 @@
         var $input = $(element);
         var lastValue = '';
 
+        observValue.subscribe(function () {
+            console.log(observValue());
+        });
+
         $input.focus(function focus(event) {
             clearBind();
 

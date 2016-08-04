@@ -80,7 +80,8 @@
                 var item = self.board.items().find(function (item) { return mark.itemId == item.id });
                 var criterion = self.board.criterions().find(function (criterion) { return mark.criterionId == criterion.id });
 
-                item.marks[mark.criterionId] = mapMark(mark, criterion);
+                item.marks[mark.criterionId].id = mark.id;
+                item.marks[mark.criterionId].value(mark.value);
 
                 boardService.boardChanged(self.board);
             }
@@ -263,22 +264,31 @@
                 markRepository.createMark(mark.itemId, mark.criterionId).then(function (newMark) {
                     mark.id = newMark.id;
 
+                    var newMark = {
+                        id: mark.id,
+                        value: mark.value(),
+                        criterionId: mark.criterionId,
+                        itemId: mark.itemId
+                    }
+
+                    boardHub.server.setMark(viewModel.board.id, newMark);
+
                     return markRepository.setValue(+mark.value(), mark.id, mark.itemId, mark.criterionId);
                 });
             } else {
                 markRepository.setValue(+mark.value(), mark.id, mark.itemId, mark.criterionId);
+
+                var newMark = {
+                    id: mark.id,
+                    value: mark.value(),
+                    criterionId: mark.criterionId,
+                    itemId: mark.itemId
+                }
+
+                boardHub.server.setMark(viewModel.board.id, newMark);
             }
 
             boardService.boardChanged(viewModel.board);
-
-            var newMark = {
-                id: mark.id,
-                value: mark.value(),
-                criterionId: mark.criterionId,
-                itemId: mark.itemId
-            }
-
-            boardHub.server.setMark(viewModel.board.id, newMark);
         };
 
         function setWeight (criterion) {
