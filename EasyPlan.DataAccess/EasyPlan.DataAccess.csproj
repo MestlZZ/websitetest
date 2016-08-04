@@ -126,6 +126,10 @@
     <Compile Include="Migrations\201608030844095_CreatedOn.Designer.cs">
       <DependentUpon>201608030844095_CreatedOn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608041055177_UserEmail.cs" />
+    <Compile Include="Migrations\201608041055177_UserEmail.Designer.cs">
+      <DependentUpon>201608041055177_UserEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
@@ -202,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608030844095_CreatedOn.resx">
       <DependentUpon>201608030844095_CreatedOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608041055177_UserEmail.resx">
+      <DependentUpon>201608041055177_UserEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,12 @@
         </span>
     </div>
 
-    <div class="board-body">        
+    <div class="board-body">
+        <div class="board-invite" data-bind="visible: userRole() < 2">
+            <label for="board-settings" class="board-settings-label noselect">⚒</label>
+            <input type="checkbox" id="board-settings" hidden="hidden" data-bind="checked: settingsVisible"/>
+            <div class="board-settings-body" data-bind="boardSettings: {boardId: board.id}, style: {opacity: (settingsVisible() ? 1 : 0)}"></div>
+        </div>        
         <div class="board-body-filter">
             <label for="board-filter">Filter: </label>
             <input id="board-filter" type="text" data-bind="value: filterValue, valueUpdate: 'afterkeydown'"/>
@@ -107,7 +112,7 @@
                         </span>
                     </td>                                        
                     <!--ko foreach: $root.benefitCriterions-->
-                    <td class="cell-field item-mark" data-bind="with: $parent.marks[id]">
+                    <td class="cell-field item-mark" data-bind="with: $parent.marks()[id]">
                         <input type="number" min="0" max="5" class="item-mark-input" data-bind="value: value, valueUpdate: 'afterkeydown', editableInput: {handler: $root.setMark, value: value}, selectTextOnFocus: true" />
                         <span class="item-mark-validation-message validation-message" data-bind="css: {'visible':value.hasError}">
                             <span class="validation-message-error" data-bind="text: value.validationMessage"></span>
@@ -116,7 +121,7 @@
                     </td>
                     <!--/ko-->
                     <!--ko foreach: $root.costCriterions-->
-                    <td class="cell-field item-mark" data-bind="with: $parent.marks[id]">
+                    <td class="cell-field item-mark" data-bind="with: $parent.marks()[id]">
                         <input type="number" min="0" max="5" class="item-mark-input" data-bind="value: value, valueUpdate: 'afterkeydown', editableInput: {handler: $root.setMark, value: value}, selectTextOnFocus: true" />
                         <span class="item-mark-validation-message validation-message" data-bind="css: {'visible':value.hasError}">
                             <span class="validation-message-error" data-bind="text: value.validationMessage"></span>

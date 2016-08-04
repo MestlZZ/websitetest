@@ -214,6 +214,8 @@
     <Content Include="App\views\board.html" />
     <Content Include="App\views\profile.html" />
     <Content Include="App\views\shell.html" />
+    <Content Include="App\widgets\boardSettings\view.html" />
+    <Content Include="App\widgets\boardSettings\viewmodel.js" />
     <Content Include="Content\authforms.css" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\images\arrow.png" />
@@ -271,6 +273,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\DefaultController.cs" />
+    <Compile Include="Components\Mapper\RoleMapper.cs" />
     <Compile Include="Components\Providers\IMembershipProvider.cs" />
     <Compile Include="Components\Providers\IRoleProvider.cs" />
     <Compile Include="Components\Mapper\UserMapper.cs" />

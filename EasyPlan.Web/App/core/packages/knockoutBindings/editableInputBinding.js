@@ -6,10 +6,6 @@
         var $input = $(element);
         var lastValue = '';
 
-        observValue.subscribe(function () {
-            console.log(observValue());
-        });
-
         $input.focus(function focus(event) {
             clearBind();
 
@@ -28,7 +24,8 @@
                     observValue(lastValue);
                 }
 
-                window.getSelection().empty();
+                window.getSelection().removeAllRanges();
+
                 $input.unbind('focusout', fout);
             });
         });

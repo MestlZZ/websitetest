@@ -25,7 +25,10 @@ define(['durandal/system', 'durandal/app',
 
     app.configurePlugins({
         router: true,
-        dialog: true
+        dialog: true,
+        widget: {
+            kinds: ['boardSettings']
+        }
     });
 
     bootstrapper.initialize().then(function () {

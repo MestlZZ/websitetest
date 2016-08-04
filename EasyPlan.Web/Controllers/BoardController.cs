@@ -61,5 +61,27 @@ namespace EasyPlan.Web.Controllers
         {
             _boardRepository.Remove(board);
         }
+
+        [HttpPost]
+        public ActionResult InviteUser(Board board, User user, int role)
+        {
+            var role1 = _roleProvider.SetUserRole(board, user, (RoleName)role);
+
+            return JsonSuccess(RoleMapper.Map(role1));
+        }
+
+        [HttpPost]
+        public ActionResult GetBoardUserInfo(Board board)
+        {
+            var role = _roleProvider.GetRoleForUser(board, User.Identity.Name);
+
+            return JsonSuccess(BoardMapper.MapToUsersInfo(board, role.Name));
+        }
+
+        [HttpPost]
+        public void RemoveUser(Board board, User user)
+        {
+            _roleProvider.RemoveUserFromRole(board, user);
+        }
     }
 }

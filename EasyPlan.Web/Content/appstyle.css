@@ -18,7 +18,57 @@ body{
     height: 100%;
 }
 
+.remove-user-button{
+    color: red;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 20px;
+    transition: all .2s;
+    cursor: pointer;
+}
+
+.settings-user-select-role{
+    cursor: pointer;
+}
+
+.remove-user-button:hover{
+    transform: scale(2.2);
+}
+
+.board-settings-label{
+    transition: all 1s;
+    display: block;
+    font-size: 30px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    padding: 0px;
+    margin: 0px;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.creation-info{
+    font-weight: bold;
+}
+
+.board-settings-item{
+    margin-bottom: 10px;
+}
+
+.board-settings-label:hover{
+    transform: scale(1.3) rotate(360deg);
+    color: rgb(150,0,0);
+}
+
+.board-invite{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
 .board-body-filter{
+    display: inline-block;
+    float: right;
     position: relative;
     text-align: right;
     z-index: 2;
@@ -116,6 +166,16 @@ body{
     margin: 0;
     vertical-align: middle;
     text-align: center;
+}
+
+.board-settings-menu{
+    position: absolute;
+    z-index: 40;
+}
+
+.board-settings-body{
+    transition: all .3s;
+    opacity: 0;
 }
 
 .noselect {

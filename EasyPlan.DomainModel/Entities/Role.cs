@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using EasyPlan.Infrastructure;
 
@@ -22,12 +23,12 @@ namespace EasyPlan.DomainModel.Entities
         }
 
         public virtual Board Board { get; private set; }
-
+        
         public virtual User User { get; private set; }
 
         public Guid BoardId { get; private set; }
 
-        public Guid UserId { get; private set; }
+        public string UserId { get; private set; }
 
         public RoleName Name { get; private set; }
 

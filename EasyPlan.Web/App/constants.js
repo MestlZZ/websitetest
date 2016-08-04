@@ -15,7 +15,10 @@
             currentUserUrl: 'account/GetUserData',
             boardCreateUrl: 'board/Create',
             boardSetTitleUrl: 'board/SetTitle',
-            boardRemoveUrl: 'board/Remove'
+            boardRemoveUrl: 'board/Remove',
+            boardInviteUrl: 'board/InviteUser',
+            getBoardUsersInfoUrl: 'board/GetBoardUserInfo',
+            removeUserFromBoardUrl: 'board/RemoveUser'
         },
         popupTemplatesId: {
             confirmation: "#confirmation-popup-body-template"

@@ -5,7 +5,10 @@
         getBoard,
         createBoard,
         setTitle,
-        removeBoard
+        removeBoard,
+        inviteUser,
+        getBoardUsersInfo,
+        removeUser
     }
 
     function getBoard(boardId) {        
@@ -22,5 +25,17 @@
 
     function removeBoard(id) {
         return storageHttpWrapper.post(constants.storage.boardRemoveUrl, { boardId: id });
+    }
+
+    function inviteUser(boardId, email, role) {
+        return storageHttpWrapper.post(constants.storage.boardInviteUrl, { boardId: boardId, email, role });
+    }
+
+    function getBoardUsersInfo(boardId) {
+        return storageHttpWrapper.post(constants.storage.getBoardUsersInfoUrl, { boardId: boardId });
+    }
+
+    function removeUser(boardId, email) {
+        return storageHttpWrapper.post(constants.storage.removeUserFromBoardUrl, { boardId: boardId, email: email });
     }
 });

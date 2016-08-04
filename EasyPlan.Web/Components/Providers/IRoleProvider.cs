@@ -10,10 +10,11 @@ namespace EasyPlan.Web.Components.Providers
 {
     public interface IRoleProvider
     {
-        void SetUserRole(Board board, User user, RoleName roleName);
+        Role SetUserRole(Board board, User user, RoleName roleName);
         IEnumerable<User> FindUsersInRole(Board board, RoleName roleName);
         IEnumerable<Role> GetRolesForUser(User user);
         Role GetRoleForUser(Board board, User user);
+        Role GetRoleForUser(Board board, string email);
         bool IsUserInRole(Board board, string email, RoleName roleName);
         void RemoveUserFromRole(Board board, User user);
     }

@@ -10,6 +10,7 @@
 
         return viewModel = {
             board: {},
+            settingsVisible: ko.observable(false),
             sorted: ko.observable(),
             sortAscending: ko.observable(),
             benefitCriterions: ko.observableArray([]),
@@ -80,8 +81,8 @@
                 var item = self.board.items().find(function (item) { return mark.itemId == item.id });
                 var criterion = self.board.criterions().find(function (criterion) { return mark.criterionId == criterion.id });
 
-                item.marks[mark.criterionId].id = mark.id;
-                item.marks[mark.criterionId].value(mark.value);
+                item.marks()[mark.criterionId].id = mark.id;
+                item.marks()[mark.criterionId].value(mark.value);
 
                 boardService.boardChanged(self.board);
             }
@@ -119,22 +120,25 @@
                     viewModel.benefitCriterions.remove(criterion);
                 else
                     viewModel.costCriterions.remove(criterion);
+                
+                _.each(viewModel.board.items(), function (item) {
+                    delete item.marks()[criterion.id];
+                    item.marks.notifySubscribers();
+                });
             }
 
             boardHub.client.addCriterion = function (criterion) {
                 var criterion = mapCriterion(criterion);
 
                 _.each(viewModel.board.items(), function (item) {
-                    item.marks[criterion.id] = mapMark({
+                    item.marks()[criterion.id] = mapMark({
                         id: null,
                         value: 0,
                         criterionId: criterion.id,
                         itemId: item.id
                     }, criterion);
-
-                    item.score = ko.computed(function () {
-                        return boardService.computeScore(item.marks);
-                    });
+                    
+                    item.marks.notifySubscribers();
                 });
 
                 viewModel.board.criterions.unshift(criterion);
@@ -331,7 +335,8 @@
                     viewModel.board.criterions.remove(criterion);
                     
                     _.each(viewModel.board.items(), function (item) {
-                        delete item.marks[criterion.id];
+                        delete item.marks()[criterion.id];
+                        item.marks.notifySubscribers();
                     });
                     
                     if (criterion.isBenefit)
@@ -357,16 +362,17 @@
                 criterion = mapCriterion(criterion);
 
                 _.each(viewModel.board.items(), function (item) {
-                    item.marks[criterion.id] = mapMark({
+                    item.marks()[criterion.id] = mapMark({
                         id: null,
                         value: 0,
                         criterionId: criterion.id,
                         itemId: item.id
                     }, criterion);
-                    
-                    item.score = ko.computed(function () {
+
+                    item.marks.notifySubscribers();
+                    /*item.score = ko.computed(function () {
                         return boardService.computeScore(item.marks);
-                    });
+                    });*/
                 });
 
                 viewModel.board.criterions.unshift(criterion);
@@ -450,21 +456,21 @@
             itemViewModel.title = ko.observable(item.title).extend({
                 validate: validators.validateObservableTitle
             });
-            itemViewModel.marks = {};
+            itemViewModel.marks = ko.observable({});
 
             _.map(mappedCriterions(), function (criterion) {
                 var mark = _.find(item.marks, function(mark){return mark.criterionId == criterion.id});
 
                 if (_.isUndefined(mark)){
-                    itemViewModel.marks[criterion.id] = mapMark({id: null, criterionId: criterion.id, itemId: item.id, value: 0 }, criterion);
+                    itemViewModel.marks()[criterion.id] = mapMark({id: null, criterionId: criterion.id, itemId: item.id, value: 0 }, criterion);
                 } else {
-                    itemViewModel.marks[criterion.id] = mapMark(mark, criterion);
+                    itemViewModel.marks()[criterion.id] = mapMark(mark, criterion);
                 }                    
             })
 
             itemViewModel.rank = ko.observable();
             itemViewModel.score = ko.computed(function () {
-                return boardService.computeScore(itemViewModel.marks);
+                return boardService.computeScore(itemViewModel.marks());
             });
             itemViewModel.visible = ko.observable(true);
 

@@ -20,7 +20,7 @@ namespace EasyPlan.Web.Components.Providers
             _unitOfWork = unitOfWork;
         }
 
-        public void SetUserRole(Board board, User user, RoleName roleName)
+        public Role SetUserRole(Board board, User user, RoleName roleName)
         {
             var currentRole = GetRoleForUser(board, user);
 
@@ -28,6 +28,8 @@ namespace EasyPlan.Web.Components.Providers
             {
                 var userRole = new Role(board, user, roleName);
                 _roleRepository.Add(userRole);
+
+                currentRole = userRole;
             }
             else
             {
@@ -35,6 +37,8 @@ namespace EasyPlan.Web.Components.Providers
             }
 
             _unitOfWork.Save();
+
+            return currentRole;
         }
 
         public IEnumerable<User> FindUsersInRole(Board board, RoleName roleName)
@@ -54,6 +58,14 @@ namespace EasyPlan.Web.Components.Providers
         public Role GetRoleForUser(Board board, User user)
         {
             var roles = _roleRepository.GetCollection().ToList().FindAll(e => e.User == user);
+            var role = roles.Find(e => e.Board == board);
+
+            return role;
+        }
+
+        public Role GetRoleForUser(Board board, string email)
+        {
+            var roles = _roleRepository.GetCollection().ToList().FindAll(e => e.User.Email == email);
             var role = roles.Find(e => e.Board == board);
 
             return role;

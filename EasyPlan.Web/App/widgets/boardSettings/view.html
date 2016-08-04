@@ -1,0 +1,47 @@
+﻿<div class="ui-dialog board-settings-menu">
+    <div class="board-settings-item invite-user">
+        <span>Invite user</span>
+        <input type="email" data-bind="value: email" />
+        <select data-bind="value: role">
+            <option value="1">Admin</option>
+            <option value="2">Editor</option>
+            <option value="3">Wiewer</option>
+        </select>
+        <button data-bind="click: invite">Invite</button>
+    </div>
+    <div class="board-settings-item user-list">
+        <table>
+            <thead>
+                <tr>
+                    <td>User</td>
+                    <td>Role</td>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: info().usersInRoles">
+                <tr>
+                    <td><!--ko text: user.name--><!--/ko-->(<!--ko text: user.email--><!--/ko-->)</td>
+                    <td>
+                        <select class="settings-user-select-role" data-bind="value: accessLevel">
+                            <option value="1">Admin</option>
+                            <option value="2">Editor</option>
+                            <option value="3">Wiewer</option>
+                        </select>
+                    </td>
+                    <!--ko if: $parent.info().userRole <= 1 && $parent.info().createdBy != user.email-->
+                    <td>
+                        <i class="remove-user-button" title="Delete user from board" data-bind="click: $parent.removeUser">✗</i>
+                    </td>
+                    <!--/ko-->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="board-settings-item creation-info">
+        <div class="board-settings-createdBy">
+            <span>Created By: <!--ko text: info().createdBy--><!--/ko--></span>
+        </div>
+        <div class="board-settings-createdOn">
+            <span>Created On: <!--ko text: info().createdOn--><!--/ko--></span>
+        </div>
+    </div>
+</div>

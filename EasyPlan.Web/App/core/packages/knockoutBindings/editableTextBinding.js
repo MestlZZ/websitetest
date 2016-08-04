@@ -37,8 +37,9 @@
                     observValue(lastValue);
                     $input.text(lastValue);
                 }
+                
+                window.getSelection().removeAllRanges();
 
-                window.getSelection().empty();
                 $input.unbind('focusout', fout);
             });
         });

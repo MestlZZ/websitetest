@@ -51,10 +51,10 @@ namespace EasyPlan.DataAccess
             modelBuilder.Entity<Criterion>().Property(e => e.IsBenefit).IsRequired();
             modelBuilder.Entity<Criterion>().Property(e => e.Weight).IsRequired();
             
-            modelBuilder.Entity<Role>().HasRequired(e => e.Board).WithMany(e => e.Roles);
-            modelBuilder.Entity<Role>().HasRequired(e => e.User).WithMany(e => e.Roles);
+            modelBuilder.Entity<Role>().HasRequired(e => e.Board).WithMany(e => e.Roles).HasForeignKey(e => e.BoardId);
+            modelBuilder.Entity<Role>().HasRequired(e => e.User).WithMany(e => e.Roles).HasForeignKey(e => e.UserId);
             modelBuilder.Entity<Role>().Property(e => e.Name).IsRequired();
-            modelBuilder.Entity<Role>().HasKey(e => new { e.UserId, e.BoardId });
+            modelBuilder.Entity<Role>().HasKey(e => new { e.UserId, e.BoardId });            
 
             modelBuilder.Entity<Board>().HasMany(e => e.Roles).WithRequired(e => e.Board);
             modelBuilder.Entity<Board>().Property(e => e.Title).HasMaxLength(50).IsRequired();

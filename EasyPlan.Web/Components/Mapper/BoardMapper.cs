@@ -34,5 +34,16 @@ namespace EasyPlan.Web.Components.Mapper
                 userRole = userRole
             };
         }
+
+        public static object MapToUsersInfo(Board entity, RoleName userRole)
+        {
+            return new
+            {
+                createdOn = entity.CreatedOn.ToString(),
+                createdBy = entity.CreatedBy,
+                userRole = userRole,
+                usersInRoles = entity.Roles.Select(e => RoleMapper.Map(e))
+            };
+        }
     }
 }

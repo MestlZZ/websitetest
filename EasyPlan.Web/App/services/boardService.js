@@ -9,15 +9,16 @@
     function computeScore(marks) {
         var result = 0;
 
-        _.each(_.keys(marks), function (key) {
+        for (var key in marks)
+        {
             var mark = marks[key];
 
-            if(mark.isBenefit){
+            if (mark.isBenefit) {
                 result += +ko.unwrap(mark.value) * ko.unwrap(mark.weight);
             } else {
                 result -= (+ko.unwrap(mark.value) - 5) * ko.unwrap(mark.weight);
             }
-        });
+        }
 
         return result;
     }
