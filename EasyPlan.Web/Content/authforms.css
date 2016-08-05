@@ -150,6 +150,10 @@
     right: 10px;
     color: white;
     list-style: none;
+    height: 40px;
+    margin-top: 0px;
+    cursor: pointer;
+    z-index: 2;
 }
 
 .user-menu .link{
@@ -181,11 +185,6 @@
     border-radius: 0px 0px 5px 5px;
     left: -2px;
     top: 27px;
-}
-.user-menu{
-    height: 40px;
-    margin-top: 0px;
-    cursor: pointer;
 }
 
 .user-menu:hover .down-menu{    

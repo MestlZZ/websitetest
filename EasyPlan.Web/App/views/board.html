@@ -12,7 +12,7 @@
         <div class="board-invite" data-bind="visible: userRole() < 2">
             <label for="board-settings" class="board-settings-label noselect">⚒</label>
             <input type="checkbox" id="board-settings" hidden="hidden" data-bind="checked: settingsVisible"/>
-            <div class="board-settings-body" data-bind="boardSettings: {boardId: board.id}, style: {opacity: (settingsVisible() ? 1 : 0)}"></div>
+            <div class="board-settings-body" data-bind="boardSettings: {boardId: board.id}, css: {'invisible': !settingsVisible()}"></div>
         </div>        
         <div class="board-body-filter">
             <label for="board-filter">Filter: </label>
@@ -48,7 +48,7 @@
                     <!--ko foreach: benefitCriterions-->
                     <td class="cell-field board-criterion criterion-benefit">
                         <div class="criterion-title-input title-value" data-bind="editableText: {handler: $root.updateCriterionTitle, value: title}, selectTextOnFocus: true, hasFocus: true"></div>
-                        <!--ko if: $root.benefitCriterions().length > 1-->
+                        <!--ko if: $root.benefitCriterions().length > 1 && $root.userRole() < 2-->
                         <i class="criterion-title-delete" title="Delete criterion" data-bind="click: $root.deleteCriterion">✗</i>
                         <!--/ko-->
                         <span class="criterion-title-validation-message validation-message" data-bind="css: {'visible':title.hasError}">
@@ -60,7 +60,7 @@
                     <!--ko foreach: costCriterions-->
                     <td class="cell-field board-criterion criterion-cost">
                         <div class="criterion-title-input title-value" data-bind="editableText: {handler: $root.updateCriterionTitle, value: title}, selectTextOnFocus: true, hasFocus: true"></div>
-                        <!--ko if: $root.costCriterions().length > 1-->
+                        <!--ko if: $root.costCriterions().length > 1  && $root.userRole() < 2-->
                         <i class="criterion-title-delete" title="Delete criterion" data-bind="click: $root.deleteCriterion">✗</i>
                         <!--/ko-->
                         <span class="criterion-title-validation-message validation-message" data-bind="css: {'visible':title.hasError}">

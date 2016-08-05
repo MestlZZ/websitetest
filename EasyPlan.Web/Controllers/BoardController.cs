@@ -75,7 +75,7 @@ namespace EasyPlan.Web.Controllers
         {
             var role = _roleProvider.GetRoleForUser(board, User.Identity.Name);
 
-            return JsonSuccess(BoardMapper.MapToUsersInfo(board, role.Name));
+            return JsonSuccess(BoardMapper.MapToUsersInfo(board, role.Name, User.Identity.Name));
         }
 
         [HttpPost]

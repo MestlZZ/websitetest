@@ -1,4 +1,4 @@
-﻿define(['repositories/boardRepository', 'spinner'], function (boardRepository, spinner) {
+﻿define(['repositories/boardRepository', 'spinner', 'constants'], function (boardRepository, spinner, constants) {
     return viewModel1 = {
         role: ko.observable(),
         email: ko.observable(),
@@ -33,11 +33,14 @@
             })
         },
         removeUser: function (userRole) {
-            console.log(userRole);
-
-            boardRepository.removeUser(viewModel1.boardId(), userRole.user.email).then(function () {
-                viewModel1.info().usersInRoles.remove(userRole);
-            })
+            $(constants.popupTemplatesId.confirmation).popup({ title: "Remove", body: 'remove user "' + userRole.user.email + '" from board' })
+            .then(function (s) {
+                if (s) {
+                    boardRepository.removeUser(viewModel1.boardId(), userRole.user.email).then(function () {
+                        viewModel1.info().usersInRoles.remove(userRole);
+                    })
+                }
+            });
         }
     }
 

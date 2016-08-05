@@ -27,7 +27,7 @@
                             <option value="3">Wiewer</option>
                         </select>
                     </td>
-                    <!--ko if: $parent.info().userRole <= 1 && $parent.info().createdBy != user.email-->
+                    <!--ko if: $parent.info().userRole <= 1 && $parent.info().createdBy != user.email && $parent.info.email != user.email-->
                     <td>
                         <i class="remove-user-button" title="Delete user from board" data-bind="click: $parent.removeUser">✗</i>
                     </td>

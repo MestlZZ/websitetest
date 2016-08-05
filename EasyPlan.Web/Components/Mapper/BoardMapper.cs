@@ -35,13 +35,14 @@ namespace EasyPlan.Web.Components.Mapper
             };
         }
 
-        public static object MapToUsersInfo(Board entity, RoleName userRole)
+        public static object MapToUsersInfo(Board entity, RoleName userRole, string email)
         {
             return new
             {
                 createdOn = entity.CreatedOn.ToString(),
                 createdBy = entity.CreatedBy,
                 userRole = userRole,
+                email = email,
                 usersInRoles = entity.Roles.Select(e => RoleMapper.Map(e))
             };
         }
