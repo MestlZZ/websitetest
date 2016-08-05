@@ -3,7 +3,6 @@
 
     return {
         map,
-        //mapToViewModel,
         mapToShortInfo
     }
 
@@ -22,20 +21,4 @@
             title: src.title,
         });
     }
-
-   /* function mapToViewModel(src) {
-        if (src.id === undefined)
-            src = map(src);
-
-        var board = new Board({
-            id: src.id,
-            title: ko.observable(src.title),
-            criterions: ko.observableArray(_.map(src.criterions, criterionMapper.mapToViewModel)),
-            items: ko.observableArray(_.map(src.items, itemMapper.mapToViewModel)),
-        });
-
-        board.items.countVisible = ko.observable(board.items().length);
-
-        return board;
-    }*/
 });

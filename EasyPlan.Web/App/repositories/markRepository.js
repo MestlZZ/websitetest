@@ -6,7 +6,7 @@
             createMark
         }
 
-        function setValue(value, markId, itemId, criterionId) {
+        function setValue(value, markId, boardId) {
             if (_.isNull(value) || _.isUndefined(value) || _.isNaN(value) || !_.isFinite(value))
                 throw "Invalid value"
 
@@ -15,10 +15,10 @@
                 throw "Invalid mark id"
             }
 
-            return storageHttpWrapper.post(constants.storage.setMarkValueUrl, { value: value, markId: markId })
+            return storageHttpWrapper.post(constants.storage.setMarkValueUrl, { value: value, markId: markId, boardId: boardId })
         }
 
-        function createMark(itemId, criterionId) {
-            return storageHttpWrapper.post(constants.storage.createMarkUrl, { itemId: itemId, criterionId: criterionId })
+        function createMark(itemId, criterionId, boardId) {
+            return storageHttpWrapper.post(constants.storage.createMarkUrl, { itemId: itemId, criterionId: criterionId, boardId: boardId });
         }
     });

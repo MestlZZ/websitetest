@@ -8,6 +8,8 @@ using EasyPlan.Infrastructure;
 using EasyPlan.Web.Components.Mapper;
 using EasyPlan.Web.Components;
 using EasyPlan.Web.Components.Providers;
+using EasyPlan.Web.Components.ActionFilters.Premission;
+
 
 namespace EasyPlan.Web.Controllers
 {
@@ -15,22 +17,23 @@ namespace EasyPlan.Web.Controllers
     public class BoardController : DefaultController
     {
         private readonly IBoardRepository _boardRepository;
-        private readonly IMembershipProvider _membershipProvider;
-        private readonly IRoleProvider _roleProvider;
+        private readonly IUserRepository _userRepository;
 
-        public BoardController(IBoardRepository boardRepository, IMembershipProvider membershipProvider, IRoleProvider roleProvider)
+        public BoardController(IBoardRepository boardRepository, IUserRepository userRepository)
         {
             _boardRepository = boardRepository;
-            _membershipProvider = membershipProvider;
-            _roleProvider = roleProvider;
+            _userRepository = userRepository;
         }
 
         [HttpPost]
         public ActionResult GetBoardData(Board board)
         {
-            var user = _membershipProvider.FindUserByEmail(HttpContext.User.Identity.Name);
+            if(board == null)
+                return HttpNotFound();
 
-            var role = _roleProvider.GetRoleForUser(board, user);
+            var user = _userRepository.FindUserByEmail(HttpContext.User.Identity.Name);
+
+            var role = board.GetRole(user);
 
             if (role == null)
                 return HttpNotFound();
@@ -39,6 +42,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [UserRole(RoleName.Admin)]
         public void SetTitle(Board board, string title)
         {
             board.SetTitle(title);
@@ -47,7 +51,7 @@ namespace EasyPlan.Web.Controllers
         [HttpPost]
         public ActionResult Create()
         {
-            var user = _membershipProvider.FindUserByEmail(HttpContext.User.Identity.Name);
+            var user = _userRepository.FindUserByEmail(HttpContext.User.Identity.Name);
 
             var board = new Board(user);
 
@@ -59,29 +63,38 @@ namespace EasyPlan.Web.Controllers
         [HttpPost]
         public void Remove(Board board)
         {
-            _boardRepository.Remove(board);
+            var user = _userRepository.FindUserByEmail(HttpContext.User.Identity.Name);
+
+            if (!user.RemoveFromBoard(board)) {
+                _boardRepository.Remove(board);
+            };
         }
 
         [HttpPost]
+        [UserRole(RoleName.Admin)]
         public ActionResult InviteUser(Board board, User user, int role)
         {
-            var role1 = _roleProvider.SetUserRole(board, user, (RoleName)role);
+            board.SetRole(user, (RoleName)role);
 
-            return JsonSuccess(RoleMapper.Map(role1));
+            return JsonSuccess(RoleMapper.Map(board.GetRole(user)));
         }
 
         [HttpPost]
+        [UserRole(RoleName.Admin, RoleName.Editor)]
         public ActionResult GetBoardUserInfo(Board board)
         {
-            var role = _roleProvider.GetRoleForUser(board, User.Identity.Name);
+            var user = _userRepository.FindUserByEmail(User.Identity.Name);
+
+            var role = board.GetRole(user);
 
             return JsonSuccess(BoardMapper.MapToUsersInfo(board, role.Name, User.Identity.Name));
         }
 
         [HttpPost]
+        [UserRole(RoleName.Admin)]
         public void RemoveUser(Board board, User user)
         {
-            _roleProvider.RemoveUserFromRole(board, user);
+            board.RemoveUser(user);
         }
     }
 }

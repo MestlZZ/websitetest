@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EasyPlan.Infrastructure;
 
 namespace EasyPlan.DomainModel.Entities
@@ -41,6 +42,43 @@ namespace EasyPlan.DomainModel.Entities
             ArgumentValidation.ThrowIfLongerThan(title, 50, argumentName: "board title");
 
             Title = title;
+        }
+
+        public void SetRole(User user, RoleName roleName)
+        {
+            ArgumentValidation.ThrowIfNull(user, argumentName: "user");
+            ArgumentValidation.ThrowIfNull(roleName, argumentName: "role name");
+
+            var role = Roles.FirstOrDefault(e => e.User == user);
+
+            if (role == null)
+                Roles.Add(new Role(this, user, roleName));
+            else
+                role.SetRole(roleName);
+        }
+
+        public Role GetRole(User user)
+        {
+            ArgumentValidation.ThrowIfNull(user, argumentName: "user");
+
+            return Roles.FirstOrDefault(e => e.User == user);
+        }
+
+        public bool isUserInRole(User user, RoleName roleName)
+        {
+            ArgumentValidation.ThrowIfNull(user, argumentName: "user");
+            ArgumentValidation.ThrowIfNull(roleName, argumentName: "role name");
+
+            var role = Roles.FirstOrDefault(e => e.User == user);
+
+            return role.Name == roleName;
+        }
+
+        public void RemoveUser(User user)
+        {
+            ArgumentValidation.ThrowIfNull(user, argumentName: "user");
+
+            Roles.Remove(Roles.FirstOrDefault(e => e.User == user));
         }
     }
 }

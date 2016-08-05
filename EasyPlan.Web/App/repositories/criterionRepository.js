@@ -7,18 +7,17 @@
             getNewCriterion
         }
 
-        function setWeight(weight, criterionId) {
+        function setWeight(weight, criterionId, boardId) {
             if (_.isNull(weight) || _.isUndefined(weight) || _.isNaN(weight) || !_.isFinite(weight))
                 throw "Invalid weight"
 
             if (_.isNull(criterionId) || _.isUndefined(criterionId) || _.isEmpty(criterionId))
-                throw "Invalid item id"
+                throw "Invalid item id";
 
-
-            return storageHttpWrapper.post(constants.storage.setCriterionWeightUrl, { weight: weight, criterionId: criterionId })
+            return storageHttpWrapper.post(constants.storage.setCriterionWeightUrl, { weight: weight, criterionId: criterionId, boardId: boardId })
         }
 
-        function setTitle(title, criterionId) {
+        function setTitle(title, criterionId, boardId) {
             if (_.isNull(title) || _.isUndefined(title) || _.isEmpty(title))
                 throw "Invalid title id"
 
@@ -26,14 +25,14 @@
                 throw "Invalid item id"
 
 
-            return storageHttpWrapper.post(constants.storage.setCriterionTitleUrl, { title: title, criterionId: criterionId })
+            return storageHttpWrapper.post(constants.storage.setCriterionTitleUrl, { title: title, criterionId: criterionId, boardId: boardId })
         }
 
-        function remove(criterionId) {
+        function remove(criterionId, boardId) {
             if (_.isNull(criterionId) || _.isUndefined(criterionId) || _.isEmpty(criterionId))
                 throw "Invalid item id"
 
-            return storageHttpWrapper.post(constants.storage.removeCriterionUrl, { criterionId: criterionId })
+            return storageHttpWrapper.post(constants.storage.removeCriterionUrl, { criterionId: criterionId, boardId: boardId })
         }
 
         function getNewCriterion(isBenefit, boardId) {            

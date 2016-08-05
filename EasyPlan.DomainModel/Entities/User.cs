@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using EasyPlan.Infrastructure;
-using System;
+using System.Linq;
 
 namespace EasyPlan.DomainModel.Entities
 {
@@ -43,6 +43,26 @@ namespace EasyPlan.DomainModel.Entities
             ArgumentValidation.ThrowIfLongerThan(fullName, 255, argumentName: "full Name");
 
             FullName = fullName;
+        }
+
+        public Role GetRole(Board board)
+        {
+            ArgumentValidation.ThrowIfNull(board, argumentName: "board");
+
+            return Roles.FirstOrDefault(e => e.Board == board);
+        }
+
+        public bool RemoveFromBoard(Board board)
+        {
+            if(board.CreatedBy == Email)
+            {
+                return false;
+            }
+            else
+            {
+                Roles.Remove(Roles.FirstOrDefault(e => e.Board == board));
+                return true;
+            }
         }
     }
 }

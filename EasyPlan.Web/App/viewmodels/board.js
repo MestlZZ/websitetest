@@ -50,9 +50,7 @@
                 validate: validators.validateObservableFilterValue
             });
 
-            spinner.show();           
-
-            window.model = viewModel;
+            spinner.show();
 
             /*Hub init*/
             boardHub.client.updateItemTitle = function (id, title) {
@@ -190,7 +188,6 @@
                 $.connection.hub.start().done(function () {
                     boardHub.server.closeBoard();
                     boardHub.server.openBoard(boardId);
-
                     
                     deferred.resolve('OK');
                 });
@@ -214,7 +211,7 @@
         function updateItemTitle (item) {
             item.title(item.title().trim());
 
-            itemRepository.setTitle(item.title(), item.id);
+            itemRepository.setTitle(viewModel.board.id, item.title(), item.id);
 
             boardHub.server.updateItemTitle(viewModel.board.id, item.id, item.title());
         };
@@ -233,16 +230,19 @@
             if (title.length > 50)
                 title = title.slice(0, 50) + "...";
 
-
+            spinner.show();
             $(constants.popupTemplatesId.confirmation).popup({ title: "Delete", body: 'delete "' + title + '"' })
             .then(function (s) { 
                 if (s) {
-                    itemRepository.remove(item.id);
-                    viewModel.board.items.remove(item);
+                    itemRepository.remove(item.id, viewModel.board.id).then(function () {
+                        viewModel.board.items.remove(item);
 
-                    boardService.boardChanged(viewModel.board);
+                        boardService.boardChanged(viewModel.board);
 
-                    boardHub.server.deleteItem(viewModel.board.id, item.id);
+                        boardHub.server.deleteItem(viewModel.board.id, item.id);
+
+                        spinner.hide();
+                    });
                 }
             });            
         };
@@ -265,7 +265,7 @@
 
         function setMark (mark) {
             if (_.isNull(mark.id)) {
-                markRepository.createMark(mark.itemId, mark.criterionId).then(function (newMark) {
+                markRepository.createMark(mark.itemId, mark.criterionId, viewModel.board.id).then(function (newMark) {
                     mark.id = newMark.id;
 
                     var newMark = {
@@ -277,10 +277,10 @@
 
                     boardHub.server.setMark(viewModel.board.id, newMark);
 
-                    return markRepository.setValue(+mark.value(), mark.id, mark.itemId, mark.criterionId);
+                    return markRepository.setValue(+mark.value(), mark.id, viewModel.board.id);
                 });
             } else {
-                markRepository.setValue(+mark.value(), mark.id, mark.itemId, mark.criterionId);
+                markRepository.setValue(+mark.value(), mark.id, viewModel.board.id);
 
                 var newMark = {
                     id: mark.id,
@@ -296,7 +296,7 @@
         };
 
         function setWeight (criterion) {
-            criterionRepository.setWeight(criterion.weight(), criterion.id);
+            criterionRepository.setWeight(criterion.weight(), criterion.id, viewModel.board.id);
 
             boardService.criterionChanged(criterion);
 
@@ -306,7 +306,7 @@
         };
 
         function updateCriterionTitle (criterion) {
-            criterionRepository.setTitle(criterion.title, criterion.id);
+            criterionRepository.setTitle(criterion.title, criterion.id, viewModel.board.id);
 
             boardService.criterionChanged(criterion);
 
@@ -331,7 +331,7 @@
             $(constants.popupTemplatesId.confirmation).popup({ title: "Delete", body: 'delete "' + title + '"' })
             .then(function (s) {
                 if (s) {
-                    criterionRepository.remove(criterion.id);
+                    criterionRepository.remove(criterion.id, viewModel.board.id);
                     viewModel.board.criterions.remove(criterion);
                     
                     _.each(viewModel.board.items(), function (item) {
@@ -370,9 +370,6 @@
                     }, criterion);
 
                     item.marks.notifySubscribers();
-                    /*item.score = ko.computed(function () {
-                        return boardService.computeScore(item.marks);
-                    });*/
                 });
 
                 viewModel.board.criterions.unshift(criterion);

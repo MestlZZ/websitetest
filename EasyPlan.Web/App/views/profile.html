@@ -2,7 +2,7 @@
     <ul class="short-board-list">
        <!--ko foreach: user.boardsShortInfo-->
          <li class="short-board" data-bind="style: {'backgroundColor': '#' + $root.getBoardColor()}">
-            <i class="short-board-delete" title="Delete board" data-bind="click: $root.removeBoard, visible: userRole <= 1">✗</i>
+            <i class="short-board-delete" title="Delete board" data-bind="click: $root.removeBoard">✗</i>
             <a class="short-board-link" data-bind="attr: {href: '#board/' + id}">
                 <span class="short-board-extra-info info-title" data-bind="text: title"></span>
                 <span class="short-board-extra-info info-createdby" data-bind="text: createdBy"></span>

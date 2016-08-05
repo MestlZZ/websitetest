@@ -11,30 +11,32 @@ using EasyPlan.Web.Components.Providers;
 using EasyPlan.Web.ViewModels;
 using System.Web.Security;
 
+
+
 namespace EasyPlan.Web.Controllers
 {
     public class AccountController : DefaultController
     {
         private readonly IMembershipProvider _membershipProvider;
-        private readonly IRoleProvider _roleProvider;
         private readonly IBoardRepository _boardRepository;
+        private readonly IUserRepository _userRepository;
 
-        public AccountController(IMembershipProvider membershipProvider, IRoleProvider roleProvider, IBoardRepository boardRepository)
+        public AccountController(IMembershipProvider membershipProvider, IUserRepository userRepository, IBoardRepository boardRepository)
         {
             _membershipProvider = membershipProvider;
-            _roleProvider = roleProvider;
             _boardRepository = boardRepository;
+            _userRepository = userRepository;
         }
 
         [HttpPost]
         [Authorize]
         public ActionResult GetUserData()
         {
-            var user = _membershipProvider.FindUserByEmail(User.Identity.Name);
-
+            var user = _userRepository.FindUserByEmail(User.Identity.Name);
+            
             return JsonSuccess(UserMapper.Map(user));
         }
-
+        
         public ActionResult Login()
         {
             return View();
@@ -46,22 +48,30 @@ namespace EasyPlan.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_membershipProvider.ValidateUser(model.Email, model.Password))
+                var user = _userRepository.FindUserByEmail(model.Email);
+                if (user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-
-                    if (Url.IsLocalUrl(returnUrl))
+                    if (_membershipProvider.ValidateUser(user, model.Password))
                     {
-                        return Redirect(returnUrl);
+                        _membershipProvider.Authorize(model.Email, model.RememberMe);
+
+                        if (Url.IsLocalUrl(returnUrl))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        ModelState.AddModelError("", "Incorrect password");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Incorrect email or password");
+                    ModelState.AddModelError("", "Incorrect email");
                 }
             }
             return View(model);
@@ -69,7 +79,7 @@ namespace EasyPlan.Web.Controllers
 
         public ActionResult LogOff()
         {
-            FormsAuthentication.SignOut();
+            _membershipProvider.SignOut();
             return RedirectToAction("Login", "Account");
         }
 
@@ -84,11 +94,12 @@ namespace EasyPlan.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _membershipProvider.CreateUser(model.Email, model.Password, model.FullName);
+                if (_userRepository.FindUserByEmail(model.Email) == null)
+                {
+                    _userRepository.Add(new User(model.FullName, model.Email, model.Password));
 
-                if (user != null)
-                {         
-                    FormsAuthentication.SetAuthCookie(model.Email, false);
+                    _membershipProvider.Authorize(model.Email, true);
+
                     return RedirectToAction("Index", "Home");
                 }
                 else

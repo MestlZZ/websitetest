@@ -9,16 +9,9 @@ namespace EasyPlan.Web.Components.Providers
 {
     public interface IMembershipProvider
     {
-        bool ChangePassword(Guid id, string oldPassword, string newPassword);
-
-        User CreateUser(string fullName, string email, string password);
-
-        bool DeleteUser(Guid id);
-
-        User FindUserByEmail(string email);
-
-        bool ValidateUser(Guid id, string password);
+        bool ChangePassword(User user, string oldPassword, string newPassword);
         bool ValidateUser(User user, string password);
-        bool ValidateUser(string email, string password);
+        void Authorize(string email, bool rememberMe);
+        void SignOut();
     }
 }

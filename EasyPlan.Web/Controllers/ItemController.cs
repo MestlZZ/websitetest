@@ -7,6 +7,7 @@ using EasyPlan.DomainModel.Repositories;
 using EasyPlan.Infrastructure;
 using EasyPlan.Web.Components.Mapper;
 using EasyPlan.Web.Components;
+using EasyPlan.Web.Components.ActionFilters.Premission;
 
 namespace EasyPlan.Web.Controllers
 {
@@ -21,18 +22,21 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [UserRole(RoleName.Admin, RoleName.Editor)]
         public void SetItemTitle(string title, Item item)
         {
             item.SetTitle(title);
         }
 
         [HttpPost]
+        [UserRole(RoleName.Admin, RoleName.Editor)]
         public void RemoveItem(Item item)
         {
             _itemRepository.Remove(item);
         }
 
         [HttpPost]
+        [UserRole(RoleName.Admin, RoleName.Editor)]
         public ActionResult CreateItem(Board board)
         {
             var item = new Item("New item", board);

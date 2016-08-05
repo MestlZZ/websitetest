@@ -272,15 +272,14 @@
     <Content Include="Views\Home\_splash.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ActionFilters\Premission\UserRoleAttribute.cs" />
     <Compile Include="Components\DefaultController.cs" />
     <Compile Include="Components\Mapper\RoleMapper.cs" />
     <Compile Include="Components\Providers\IMembershipProvider.cs" />
-    <Compile Include="Components\Providers\IRoleProvider.cs" />
     <Compile Include="Components\Mapper\UserMapper.cs" />
     <Compile Include="Components\Providers\MembershipProvider.cs" />
     <Compile Include="Components\ModelBinder\EntityModelBinder.cs" />
     <Compile Include="Components\ModelBinder\EntityModelBinderProvider.cs" />
-    <Compile Include="Components\Providers\RoleProvider.cs" />
     <Compile Include="Configurations\ContainerConfig.cs" />
     <Compile Include="Configurations\BundleConfig.cs" />
     <Compile Include="Configurations\RouteConfig.cs" />

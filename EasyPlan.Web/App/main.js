@@ -33,11 +33,8 @@ define(['durandal/system', 'durandal/app',
 
     bootstrapper.initialize().then(function () {
         return app.start();
-    })
-    .then(function () {
+    }).then(function () {
         viewLocator.useConvention();
-
         app.setRoot('viewmodels/shell', 'entrance', 'application');
-
     });
 });

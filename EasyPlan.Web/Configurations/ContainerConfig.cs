@@ -23,9 +23,6 @@ namespace EasyPlan.Web
             builder.RegisterType<MembershipProvider>()
                .As<IMembershipProvider>();
 
-            builder.RegisterType<RoleProvider>()
-               .As<IRoleProvider>();
-
             builder.RegisterModule(new DataAccessModule());
             var container = builder.Build();
 

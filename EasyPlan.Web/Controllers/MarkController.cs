@@ -7,6 +7,7 @@ using EasyPlan.DomainModel.Repositories;
 using EasyPlan.Infrastructure;
 using EasyPlan.Web.Components.Mapper;
 using EasyPlan.Web.Components;
+using EasyPlan.Web.Components.ActionFilters.Premission;
 
 namespace EasyPlan.Web.Controllers
 {    
@@ -21,12 +22,14 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [UserRole(RoleName.Admin, RoleName.Editor)]
         public void SetMarkValue(int value, Mark mark)
         {
             mark.SetValue(value);
         }
 
         [HttpPost]
+        [UserRole(RoleName.Admin, RoleName.Editor)]
         public ActionResult CreateMark(Item item, Criterion criterion)
         {
             var mark = new Mark(item, criterion, 0);
