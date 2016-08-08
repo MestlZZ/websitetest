@@ -39,7 +39,7 @@ namespace EasyPlan.Web.Components.Mapper
             {
                 createdOn = entity.CreatedOn.ToString(),
                 createdBy = entity.CreatedBy,
-                usersInRoles = entity.Roles.Select(e => RoleMapper.Map(e))
+                usersInRoles = entity.Rights.Select(e => RoleMapper.Map(e))
             };
         }
     }

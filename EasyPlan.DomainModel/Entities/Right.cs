@@ -8,11 +8,11 @@ using EasyPlan.Infrastructure;
 
 namespace EasyPlan.DomainModel.Entities
 {
-    public class Role : Entity
+    public class Right : Entity
     {
-        protected internal Role() { }
+        protected internal Right() { }
 
-        public Role(Board board, User user, RoleName roleName)
+        public Right(Board board, User user, RoleName roleName)
         {
             ArgumentValidation.ThrowIfNull(board, argumentName: "board");
             ArgumentValidation.ThrowIfNull(user, argumentName: "user");

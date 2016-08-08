@@ -130,6 +130,10 @@
     <Compile Include="Migrations\201608041055177_UserEmail.Designer.cs">
       <DependentUpon>201608041055177_UserEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608080804584_RoleToRights.cs" />
+    <Compile Include="Migrations\201608080804584_RoleToRights.Designer.cs">
+      <DependentUpon>201608080804584_RoleToRights.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
@@ -209,6 +213,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608041055177_UserEmail.resx">
       <DependentUpon>201608041055177_UserEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608080804584_RoleToRights.resx">
+      <DependentUpon>201608080804584_RoleToRights.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

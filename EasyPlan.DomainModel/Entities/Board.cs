@@ -16,12 +16,12 @@ namespace EasyPlan.DomainModel.Entities
 
             Items = new List<Item>();
             Criterions = new List<Criterion>();
-            Roles = new List<Role>();
+            Rights = new List<Right>();
 
             Criterions.Add(new Criterion(this, true));
             Criterions.Add(new Criterion(this, false));
 
-            Roles.Add(new Role(this, user, RoleName.Admin));
+            Rights.Add(new Right(this, user, RoleName.Admin));
 
             CreatedBy = user.Email;
         }
@@ -32,7 +32,7 @@ namespace EasyPlan.DomainModel.Entities
 
         public virtual ICollection<Item> Items { get; private set; }
 
-        public virtual ICollection<Role> Roles { get; private set; }
+        public virtual ICollection<Right> Rights { get; private set; }
 
         public string CreatedBy { get; private set; }
 
@@ -49,19 +49,19 @@ namespace EasyPlan.DomainModel.Entities
             ArgumentValidation.ThrowIfNull(user, argumentName: "user");
             ArgumentValidation.ThrowIfNull(roleName, argumentName: "role name");
 
-            var role = Roles.FirstOrDefault(e => e.User == user);
+            var role = Rights.FirstOrDefault(e => e.User == user);
 
             if (role == null)
-                Roles.Add(new Role(this, user, roleName));
+                Rights.Add(new Right(this, user, roleName));
             else
                 role.SetRole(roleName);
         }
 
-        public Role GetRole(User user)
+        public Right GetRole(User user)
         {
             ArgumentValidation.ThrowIfNull(user, argumentName: "user");
 
-            return Roles.FirstOrDefault(e => e.User == user);
+            return Rights.FirstOrDefault(e => e.User == user);
         }
 
         public bool isUserInRole(User user, RoleName roleName)
@@ -69,7 +69,7 @@ namespace EasyPlan.DomainModel.Entities
             ArgumentValidation.ThrowIfNull(user, argumentName: "user");
             ArgumentValidation.ThrowIfNull(roleName, argumentName: "role name");
 
-            var role = Roles.FirstOrDefault(e => e.User == user);
+            var role = Rights.FirstOrDefault(e => e.User == user);
 
             return role.Name == roleName;
         }
@@ -78,7 +78,7 @@ namespace EasyPlan.DomainModel.Entities
         {
             ArgumentValidation.ThrowIfNull(user, argumentName: "user");
 
-            Roles.Remove(Roles.FirstOrDefault(e => e.User == user));
+            Rights.Remove(Rights.FirstOrDefault(e => e.User == user));
         }
     }
 }

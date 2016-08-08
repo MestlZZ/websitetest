@@ -25,7 +25,7 @@ namespace EasyPlan.DataAccess
 
             builder.RegisterType<RoleRepository>()
                .As<IRoleRepository>()
-               .As<IQueryableRepository<Role>>();            
+               .As<IQueryableRepository<Right>>();            
 
             builder.RegisterType<MarkRepository>()
                .As<IMarkRepository>()

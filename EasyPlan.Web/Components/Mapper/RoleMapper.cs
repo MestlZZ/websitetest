@@ -8,7 +8,7 @@ namespace EasyPlan.Web.Components.Mapper
 {
     public static class RoleMapper
     {
-        public static object Map(Role entity)
+        public static object Map(Right entity)
         {
             return new
             {

@@ -19,7 +19,7 @@ namespace EasyPlan.DomainModel.Entities
         public string Email { get; private set; }
         public string FullName { get; private set; }
 
-        public virtual ICollection<Role> Roles { get; private set; }
+        public virtual ICollection<Right> Rights { get; private set; }
 
         public void SetPassword(string password)
         {
@@ -45,11 +45,11 @@ namespace EasyPlan.DomainModel.Entities
             FullName = fullName;
         }
 
-        public Role GetRole(Board board)
+        public Right GetRole(Board board)
         {
             ArgumentValidation.ThrowIfNull(board, argumentName: "board");
 
-            return Roles.FirstOrDefault(e => e.Board == board);
+            return Rights.FirstOrDefault(e => e.Board == board);
         }
 
         public bool RemoveFromBoard(Board board)
@@ -60,7 +60,7 @@ namespace EasyPlan.DomainModel.Entities
             }
             else
             {
-                Roles.Remove(Roles.FirstOrDefault(e => e.Board == board));
+                Rights.Remove(Rights.FirstOrDefault(e => e.Board == board));
                 return true;
             }
         }

@@ -45,7 +45,7 @@
     <Compile Include="Entities\Mark.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Item.cs" />
-    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Right.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Сriterion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
