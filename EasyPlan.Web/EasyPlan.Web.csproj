@@ -189,14 +189,6 @@
     <Content Include="App\bootstrapping\popupTemplatesTask.js" />
     <Content Include="App\bootstrapping\underscoreExtraTask.js" />
     <Content Include="App\constants.js" />
-    <Content Include="App\core\packages\jqueryPlugins\jquery-ui.js" />
-    <Content Include="App\core\packages\jqueryPlugins\jquery.popup.js" />
-    <Content Include="App\core\packages\jqueryPlugins\jquery.selectText.js" />
-    <Content Include="App\core\packages\knockoutBindings\editableInputBinding.js" />
-    <Content Include="App\core\packages\knockoutBindings\editableTextBinding.js" />
-    <Content Include="App\core\packages\knockoutBindings\selectTextOnFocusBinding.js" />
-    <Content Include="App\core\packages\knockoutExtenders\validateExtender.js" />
-    <Content Include="App\core\packages\underscore\validation.js" />
     <Content Include="App\packages\underscore\validation.js" />
     <Content Include="App\http\httpRequestSender.js" />
     <Content Include="App\http\storageHttpWrapper.js" />

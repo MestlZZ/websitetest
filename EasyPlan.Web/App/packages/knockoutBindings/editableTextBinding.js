@@ -3,6 +3,7 @@
         var data = ko.unwrap(valueAccessor());
         var handler = data.handler;
         var observValue = data.value;
+        var active = data.active;
         var $input = $(element);
         var lastValue = '';
         var hasFocus = false;
@@ -13,7 +14,7 @@
             }
         });
 
-        $input.attr('contenteditable', 'true');
+        $input.attr('contenteditable', active);
         $input.text(observValue());
                
         $input.focus(function focus(event) {

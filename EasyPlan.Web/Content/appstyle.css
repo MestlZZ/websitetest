@@ -97,6 +97,7 @@ body{
 
 .board-invite{
     display: inline-block;
+    position: relative;
     margin-bottom: 10px;
 }
 
@@ -294,6 +295,7 @@ body{
 .board-title{
     text-align: center;
     font-size: 30px;
+    position:relative;
     margin: 1%;
 }
 
@@ -578,4 +580,16 @@ body{
 
     color: rgba(43,70,259,1);
     text-shadow: 0px 0px 10px rgb(13,40,129);
+}
+
+
+.board-title-validation-message{
+    left: calc(50% - 100px);
+    top: 100%;
+}
+
+.board-title-validation-message .validation-message-arrow{
+    transform: rotate(90deg);
+    top: -11px;
+    left: calc(50% - 7.5px);
 }
