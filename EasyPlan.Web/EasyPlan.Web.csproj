@@ -196,6 +196,7 @@
     <Content Include="App\mappers\markMapper.js" />
     <Content Include="App\mappers\boardMapper.js" />
     <Content Include="App\models\board.js" />
+    <Content Include="App\models\entity.js" />
     <Content Include="App\models\mark.js" />
     <Content Include="App\models\criterion.js" />
     <Content Include="App\models\item.js" />

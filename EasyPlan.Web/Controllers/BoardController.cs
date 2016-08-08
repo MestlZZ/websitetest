@@ -80,6 +80,10 @@ namespace EasyPlan.Web.Controllers
         [UserRole(RoleName.Admin)]
         public ActionResult InviteUser(Board board, User user, int role)
         {
+            if(board.CreatedBy == user.Email)
+            {
+                throw new ArgumentValidationException("Can't change role for creator of board", statusCode: 403);
+            }
             board.SetRole(user, (RoleName)role);
 
             return JsonSuccess(RoleMapper.Map(board.GetRole(user)));
