@@ -14,9 +14,9 @@
 define('jquery', function () { return jQuery; });
 define('knockout', ko);
 
-define(['durandal/system', 'durandal/app',
+define(['durandal/system', 'durandal/app', 'synchronization',
     'durandal/viewLocator','spinner', 'bootstrapper'],
-    function (system, app, viewLocator, spinner, bootstrapper) {
+    function (system, app, sync, viewLocator, spinner, bootstrapper) {
     //>>excludeStart("build", true);
     system.debug(true);
     //>>excludeEnd("build");
@@ -31,10 +31,11 @@ define(['durandal/system', 'durandal/app',
         }
     });
 
-    bootstrapper.initialize().then(function () {
-        return app.start();
-    }).then(function () {
-        viewLocator.useConvention();
-        app.setRoot('viewmodels/shell', 'entrance', 'application');
-    });
+    bootstrapper.initialize()
+        .then(function () { return sync.connect(); })
+        .then(function () { return app.start(); })
+        .then(function () {
+            viewLocator.useConvention();
+            app.setRoot('viewmodels/shell', 'entrance', 'application');
+        });
 });

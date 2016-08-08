@@ -23,6 +23,26 @@
         popupTemplatesId: {
             confirmation: "#confirmation-popup-body-template"
         },
+        EVENT:{
+            BOARD: {
+                ITEM: {
+                    TITLE_CHANGED: 'board_item:title',
+                    REMOVED: 'board_item:remove',
+                    ADDED: 'board_item:add'
+                },
+                CRITERION: {
+                    TITLE_CHANGED: 'board_criterion:title',
+                    WEIGHT_CHANGED: 'board_criterion:weight',
+                    REMOVED: 'board_criterion:remove',
+                    ADDED: 'board_criterion:add'
+                },
+                MARK: {
+                    VALUE_CHANGED: 'board_mark:value',
+                    ADDED: 'board_mark:add'
+                },
+                TITLE_CHANGED: 'board:title'
+            }
+        },
         ROLE: {
             ADMIN: 1,
             EDITOR: 2,

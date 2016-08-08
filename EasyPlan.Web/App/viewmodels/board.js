@@ -1,8 +1,8 @@
 ﻿define(['repositories/boardRepository', 'repositories/itemRepository','mappers/markMapper','repositories/markRepository',
     'durandal/app', 'mappers/boardMapper', 'mappers/itemMapper', 'constants', 'services/boardService',
-    'repositories/criterionRepository', 'mappers/criterionMapper', 'spinner', 'services/validators'],
+    'repositories/criterionRepository', 'mappers/criterionMapper', 'spinner', 'services/validators', 'synchronization'],
     function (boardRepository, itemRepository,markMapper, markRepository, app, boardMapper, itemMapper, constants, boardService,
-        criterionRepository, criterionMapper, spinner, validators) {
+        criterionRepository, criterionMapper, spinner, validators, sync) {
 
         var mappedCriterions = [];
 
@@ -23,6 +23,7 @@
             }),
 
             activate: activate,
+            deactivate: deactivate,
             sortByRank: sortByRank,
             updateItemTitle: updateItemTitle,
             deleteItem: deleteItem,
@@ -37,8 +38,14 @@
             applyFilter: applyFilter
         }
 
+        function deactivate() {
+            sync.closeBoard();
+        }
+
         function activate(boardId) {
             var self = this;
+
+            sync.openBoard(boardId);
 
             self.board = {};
             self.sorted = ko.observable();
@@ -53,30 +60,30 @@
 
             spinner.show();
 
-            /*Hub init*/
-            boardHub.client.updateItemTitle = function (id, title) {
+            /*Hub events*/
+            app.on(constants.EVENT.BOARD.ITEM.TITLE_CHANGED, function (id, title) {
                 var item = _.find(self.board.items(), function (item) { return id == item.id });
 
                 item.title(title);
 
                 boardService.boardChanged(viewModel.board);
-            }
+            });
 
-            boardHub.client.deleteItem = function (id) {
+            app.on(constants.EVENT.BOARD.ITEM.REMOVED, function (id) {
                 var item = _.find(self.board.items(), function (item) { return id == item.id });
 
                 self.board.items.remove(item);
-            }
+            });
 
-            boardHub.client.addItem = function (item) {
+            app.on(constants.EVENT.BOARD.ITEM.ADDED, function (item) {
                 item = mapItem(item);
 
                 self.board.items.unshift(item);
 
                 boardService.boardChanged(self.board);
-            }
+            });
 
-            boardHub.client.setMark = function (mark) {
+            app.on(constants.EVENT.BOARD.MARK.VALUE_CHANGED, function (mark) {
                 var item = _.find(self.board.items(), function (item) { return mark.itemId == item.id });
                 var criterion = _.find(self.board.criterions(), function (criterion) { return mark.criterionId == criterion.id });
 
@@ -84,9 +91,9 @@
                 item.marks()[mark.criterionId].value(mark.value);
 
                 boardService.boardChanged(self.board);
-            }
+            });
 
-            boardHub.client.setCriterionWeight = function (id, weight) {
+            app.on(constants.EVENT.BOARD.CRITERION.WEIGHT_CHANGED, function (id, weight) {
                 var criterion = _.find(self.board.criterions(), function (criterion) { return id == criterion.id });
 
                 criterion.weight(weight);
@@ -94,9 +101,9 @@
                 boardService.criterionChanged(criterion);
 
                 boardService.boardChanged(viewModel.board);
-            }
+            });
 
-            boardHub.client.updateCriterionTitle = function (id, title) {
+            app.on(constants.EVENT.BOARD.CRITERION.TITLE_CHANGED, function (id, title) {
                 var criterion = _.find(self.board.criterions(), function (criterion) { return id == criterion.id });
 
                 criterion.title(title);
@@ -104,13 +111,13 @@
                 boardService.criterionChanged(criterion);
 
                 boardService.boardChanged(viewModel.board);
-            }
+            });
 
-            boardHub.client.updateBoardTitle = function (title) {
+            app.on(constants.EVENT.BOARD.TITLE_CHANGED, function (title) {
                 self.board.title(title);
-            }
+            });
 
-            boardHub.client.deleteCriterion = function (id) {
+            app.on(constants.EVENT.BOARD.CRITERION.REMOVED, function (id) {
                 var criterion = _.find(self.board.criterions(), function (criterion) { return id == criterion.id });
 
                 self.board.criterions.remove(criterion);
@@ -119,14 +126,14 @@
                     viewModel.benefitCriterions.remove(criterion);
                 else
                     viewModel.costCriterions.remove(criterion);
-                
+
                 _.each(viewModel.board.items(), function (item) {
                     delete item.marks()[criterion.id];
                     item.marks.notifySubscribers();
                 });
-            }
+            });
 
-            boardHub.client.addCriterion = function (criterion) {
+            app.on(constants.EVENT.BOARD.CRITERION.ADDED, function (criterion) {
                 var criterion = mapCriterion(criterion);
 
                 _.each(viewModel.board.items(), function (item) {
@@ -136,7 +143,7 @@
                         criterionId: criterion.id,
                         itemId: item.id
                     }, criterion);
-                    
+
                     item.marks.notifySubscribers();
                 });
 
@@ -150,51 +157,39 @@
                 boardService.criterionChanged(criterion);
 
                 boardService.boardChanged(viewModel.board);
-            }
+            });
             /*End*/
 
             return boardRepository.getBoard(boardId)
                 .then(function (data) {
-                var board = boardMapper.map(data.board);
+                    var board = boardMapper.map(data.board);
 
-                self.userRole(data.clientRole);
-                self.board = mapBoard(board);
+                    self.userRole(data.clientRole);
+                    self.board = mapBoard(board);
 
-                _.each(self.board.criterions(), function (criterion) {
-                    if (criterion.isBenefit) {
-                        self.benefitCriterions.push(criterion);
-                    } else {
-                        self.costCriterions.push(criterion);
-                    }
-                })
+                    _.each(self.board.criterions(), function (criterion) {
+                        if (criterion.isBenefit) {
+                            self.benefitCriterions.push(criterion);
+                        } else {
+                            self.costCriterions.push(criterion);
+                        }
+                    })
 
-                self.sortByRank();
+                    self.sortByRank();
 
-                app.on('board:item-changed', function () {
-                    self.sorted(false);
+                    app.on('board:item-changed', function () {
+                        self.sorted(false);
+                    });
+
+                    boardService.boardChanged(self.board);
+
+                    self.sortAscending(true);
+                    self.sorted(true);
+
+                    self.filterValue.subscribe(function () { applyFilter(); });
+                    self.board.items.subscribe(function () { applyFilter(); });
+                    spinner.hide();
                 });
-
-                boardService.boardChanged(self.board);
-
-                self.sortAscending(true);
-                self.sorted(true);
-
-                self.filterValue.subscribe(function () { applyFilter(); });
-                self.board.items.subscribe(function () { applyFilter(); });
-                spinner.hide();
-            })
-                .then(function () {
-                var deferred = Q.defer();
-
-                $.connection.hub.start().done(function () {
-                    boardHub.server.closeBoard();
-                    boardHub.server.openBoard(boardId);
-                    
-                    deferred.resolve('OK');
-                });
-
-                return deferred;
-            });
         };
 
         function sortByRank(){

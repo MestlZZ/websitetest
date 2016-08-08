@@ -208,6 +208,7 @@
     <Content Include="App\services\boardService.js" />
     <Content Include="App\services\validators.js" />
     <Content Include="App\spinner.js" />
+    <Content Include="App\synchronization.js" />
     <Content Include="App\templates\confirmation-popup-template.html" />
     <Content Include="App\viewmodels\board.js" />
     <Content Include="App\viewmodels\profile.js" />
