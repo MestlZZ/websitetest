@@ -55,7 +55,7 @@
 
             /*Hub init*/
             boardHub.client.updateItemTitle = function (id, title) {
-                var item = self.board.items().find(function (item) { return id == item.id });
+                var item = _.find(self.board.items(), function (item) { return id == item.id });
 
                 item.title(title);
 
@@ -63,7 +63,7 @@
             }
 
             boardHub.client.deleteItem = function (id) {
-                var item = self.board.items().find(function (item) { return id == item.id });
+                var item = _.find(self.board.items(), function (item) { return id == item.id });
 
                 self.board.items.remove(item);
             }
@@ -77,8 +77,8 @@
             }
 
             boardHub.client.setMark = function (mark) {
-                var item = self.board.items().find(function (item) { return mark.itemId == item.id });
-                var criterion = self.board.criterions().find(function (criterion) { return mark.criterionId == criterion.id });
+                var item = _.find(self.board.items(), function (item) { return mark.itemId == item.id });
+                var criterion = _.find(self.board.criterions(), function (criterion) { return mark.criterionId == criterion.id });
 
                 item.marks()[mark.criterionId].id = mark.id;
                 item.marks()[mark.criterionId].value(mark.value);
@@ -87,7 +87,7 @@
             }
 
             boardHub.client.setCriterionWeight = function (id, weight) {
-                var criterion = self.board.criterions().find(function (criterion) { return id == criterion.id });
+                var criterion = _.find(self.board.criterions(), function (criterion) { return id == criterion.id });
 
                 criterion.weight(weight);
 
@@ -97,7 +97,7 @@
             }
 
             boardHub.client.updateCriterionTitle = function (id, title) {
-                var criterion = self.board.criterions().find(function (criterion) { return id == criterion.id });
+                var criterion = _.find(self.board.criterions(), function (criterion) { return id == criterion.id });
 
                 criterion.title(title);
 
@@ -111,7 +111,7 @@
             }
 
             boardHub.client.deleteCriterion = function (id) {
-                var criterion = self.board.criterions().find(function (criterion) { return id == criterion.id });
+                var criterion = _.find(self.board.criterions(), function (criterion) { return id == criterion.id });
 
                 self.board.criterions.remove(criterion);
 

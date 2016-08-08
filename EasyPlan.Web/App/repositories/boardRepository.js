@@ -28,7 +28,7 @@
     }
 
     function inviteUser(boardId, email, role) {
-        return storageHttpWrapper.post(constants.storage.boardInviteUrl, { boardId: boardId, email, role });
+        return storageHttpWrapper.post(constants.storage.boardInviteUrl, { boardId: boardId, email: email, role: role });
     }
 
     function getBoardUsersInfo(boardId) {

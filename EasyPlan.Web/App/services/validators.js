@@ -42,7 +42,7 @@
         if (stringValue.length == 0) {
             target.hasError(true);
             target.validationMessage("Mark field can't be clear");
-        } else if (!Number.isInteger(value)) {
+        } else if (!_.isNumber(value)) {
             target.hasError(true);
             target.validationMessage("Value in mark field must be a number.");
         } else if (value > 5) {
@@ -63,7 +63,7 @@
         if (stringValue.length == 0) {
             target.hasError(true);
             target.validationMessage("Weight field can't be clear");
-        } else if (!Number.isInteger(value)) {
+        } else if (!_.isNumber(value)) {
             target.hasError(true);
             target.validationMessage("Value in weight field must be a number.");
         } else if (value > 20) {
