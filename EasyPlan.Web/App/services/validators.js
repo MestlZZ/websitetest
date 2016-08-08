@@ -9,15 +9,15 @@
     };
 
     function validateItemTitle(target) {
-        validateTitle(target, 255);
+        validateTitle(target, 255, false);
     }
 
     function validateBoardTitle(target) {
-        validateTitle(target, 50);
+        validateTitle(target, 50, false);
     }
 
     function validateFilterValue(target) {
-        validateTitle(target, 255);
+        validateTitle(target, 255, true);
     }
 
     function validateMarkValue(target) {
@@ -25,13 +25,13 @@
     }
 
     function validateWeightValue(target) {
-        validateValue(target, 1, 20);
+        validateValue(target, 1, 21);
     }
 
-    function validateTitle(target, maxLength) {
+    function validateTitle(target, maxLength, canBeClear) {
         var text = target().trim();
 
-        if (!text) {
+        if (!canBeClear && !text) {
             target.hasError(true);
             target.validationMessage('Text in field can\'t be clear.');
         } else if (text.length > maxLength) {
@@ -52,12 +52,12 @@
         } else if (!_.isNumber(value)) {
             target.hasError(true);
             target.validationMessage('Value must be a number.');
-        } else if (value > 5) {
+        } else if (value > max) {
             target.hasError(true);
             target.validationMessage('Value must to be less or equal ' + max + '.');
-        } else if (value < 0) {
+        } else if (value < min) {
             target.hasError(true);
-            target.validationMessage('Value must be greater than ' + min + '.');
+            target.validationMessage('Value must be greater or equal ' + min + '.');
         } else {
             target.hasError(false);
         }

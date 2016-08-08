@@ -16,8 +16,8 @@
                 throw 'Invalid title';
             }
 
-            if (_.isInvalidText(titleId)) {
-                throw 'Invalid title id';
+            if (_.isInvalidText(itemId)) {
+                throw 'Invalid item id';
             }
 
             return storageHttpWrapper.post(constants.storage.setItemTitleUrl, { boardId: boardId, title: title, itemId: itemId });

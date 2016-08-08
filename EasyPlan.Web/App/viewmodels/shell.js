@@ -7,7 +7,7 @@
             var self = this;
 
             router.map([
-                { route: '', title: 'User panel', moduleId: 'viewmodels/profile', nav: true },
+                { route: '', title: 'Boards List', moduleId: 'viewmodels/boards', nav: true },
                 { route: 'board/:id', title: 'Board', moduleId: 'viewmodels/board', nav: true },
             ]).buildNavigationModel();
 

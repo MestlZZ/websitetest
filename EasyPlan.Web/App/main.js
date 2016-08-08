@@ -4,10 +4,8 @@
         'durandal': 'core',
         'plugins': 'core/plugins',
         'transitions': 'core/transitions',
-        'packages': 'core/packages',
         'bindings': 'core/packages/knockoutBindings',
         'extenders': 'core/packages/knockoutExtenders'
-
     }
 });
 
