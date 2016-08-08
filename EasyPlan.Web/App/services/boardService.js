@@ -1,16 +1,14 @@
 ﻿define(['durandal/app'], function (app) {
+
     return {
         computeScore: computeScore,
-        setRanks: setRanks,
-        boardChanged: boardChanged,
-        criterionChanged: criterionChanged
-    }
+        setRanks: setRanks
+    };
 
     function computeScore(marks) {
         var result = 0;
 
-        for (var key in marks)
-        {
+        _.each(_.keys(marks), function (key) {
             var mark = marks[key];
 
             if (mark.isBenefit) {
@@ -18,7 +16,7 @@
             } else {
                 result -= (+ko.unwrap(mark.value) - 5) * ko.unwrap(mark.weight);
             }
-        }
+        });
 
         return result;
     }
@@ -27,15 +25,6 @@
         return _.sortBy(items, function (item) {
             return item.score();
         }).reverse();
-    }
-
-    function boardChanged(board) {
-        app.trigger('board:item-changed', board.items());
-        setRanks(board.items());
-    }
-
-    function criterionChanged(criterion) {
-        app.trigger('board:criterion-changed', criterion);
     }
 
     function setRanks(items) {

@@ -3,7 +3,7 @@
 
         return {
             getCurrentUser: getCurrentUser
-        }
+        };
 
         function getCurrentUser() {
             return storageHttpWrapper.post(constants.storage.currentUserUrl);

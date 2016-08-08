@@ -6,7 +6,7 @@
 
     function initialize() {
         return Q.all([
-            require('extenders/validateExtender'),
+            require('packages/underscore/validation')
         ]);
     }
 });

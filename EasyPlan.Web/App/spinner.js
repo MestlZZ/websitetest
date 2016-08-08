@@ -1,12 +1,12 @@
 ﻿define(['durandal/app'], function (app) {
-    
+
     var spinner = $('.spinner');
-    
+
     return spinnerModel = {
         enabled: false,
         show: show,
         hide: hide
-    }
+    };
 
     function show() {
         spinnerModel.enabled = true;
@@ -19,4 +19,4 @@
         spinner.removeClass('spinner-on');
         spinner.addClass('spinner-off');
     }
-})
+});

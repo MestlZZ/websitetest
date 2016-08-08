@@ -17,6 +17,7 @@ define('knockout', ko);
 define(['durandal/system', 'durandal/app', 'synchronization',
     'durandal/viewLocator','spinner', 'bootstrapper'],
     function (system, app, sync, viewLocator, spinner, bootstrapper) {
+
     //>>excludeStart("build", true);
     system.debug(true);
     //>>excludeEnd("build");

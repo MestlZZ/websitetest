@@ -1,7 +1,7 @@
 ﻿define(['models/mark'], function (Mark) {
     return {
-        map: map,
-    }
+        map: map
+    };
 
     function map(src) {
         return new Mark({
@@ -9,6 +9,6 @@
             value: src.value,
             criterionId: src.criterionId,
             itemId: src.itemId
-        })
+        });
     }
 });

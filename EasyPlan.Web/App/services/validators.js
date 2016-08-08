@@ -1,90 +1,65 @@
 ﻿define(['constants'], function (constants) {
+
     return {
-        validateObservableTitle: validateObservableTitle,
-        validateObservableMarkValue: validateObservableMarkValue,
-        validateObservableWeightValue: validateObservableWeightValue,
-        validateObservableFilterValue: validateObservableFilterValue,
-        validateObservableBoardTitle: validateObservableBoardTitle
+        validateItemTitle: validateItemTitle,
+        validateMarkValue: validateMarkValue,
+        validateWeightValue: validateWeightValue,
+        validateFilterValue: validateFilterValue,
+        validateBoardTitle: validateBoardTitle
     };
 
-    function validateObservableTitle(target) {
+    function validateItemTitle(target) {
+        validateTitle(target, 255);
+    }
+
+    function validateBoardTitle(target) {
+        validateTitle(target, 50);
+    }
+
+    function validateFilterValue(target) {
+        validateTitle(target, 255);
+    }
+
+    function validateMarkValue(target) {
+        validateValue(target, 0, 5);
+    }
+
+    function validateWeightValue(target) {
+        validateValue(target, 1, 20);
+    }
+
+    function validateTitle(target, maxLength) {
         var text = target().trim();
 
         if (!text) {
             target.hasError(true);
-            target.validationMessage("Title field can't be clear.");
-        } else if (text.length > 255) {
+            target.validationMessage('Text in field can\'t be clear.');
+        } else if (text.length > maxLength) {
             target.hasError(true);
-            target.validationMessage("Text in title field can't be longer than 255 symbols.");
+            target.validationMessage('Text in field can\'t be longer than ' + maxLength + 'symbols.');
         } else {
             target.hasError(false);
         }
     }
 
-    function validateObservableBoardTitle(target) {
-        var text = target().trim();
-
-        if (!text) {
-            target.hasError(true);
-            target.validationMessage("Title field can't be clear.");
-        } else if (text.length > 50) {
-            target.hasError(true);
-            target.validationMessage("Text in title field can't be longer than 50 symbols.");
-        } else {
-            target.hasError(false);
-        }
-    }
-
-    function validateObservableMarkValue(target) {
+    function validateValue(target, min, max) {
         var value = +target();
         var stringValue = target().toString();
 
         if (stringValue.length == 0) {
             target.hasError(true);
-            target.validationMessage("Mark field can't be clear");
+            target.validationMessage('Field can\'t be clear.');
         } else if (!_.isNumber(value)) {
             target.hasError(true);
-            target.validationMessage("Value in mark field must be a number.");
+            target.validationMessage('Value must be a number.');
         } else if (value > 5) {
             target.hasError(true);
-            target.validationMessage('Number in mark field must to be less than 6.');
+            target.validationMessage('Value must to be less or equal ' + max + '.');
         } else if (value < 0) {
             target.hasError(true);
-            target.validationMessage("Number in mark field can't be negative.");
+            target.validationMessage('Value must be greater than ' + min + '.');
         } else {
             target.hasError(false);
         }
     }
-
-    function validateObservableWeightValue(target) {
-        var value = +target();
-        var stringValue = target().toString();
-
-        if (stringValue.length == 0) {
-            target.hasError(true);
-            target.validationMessage("Weight field can't be clear");
-        } else if (!_.isNumber(value)) {
-            target.hasError(true);
-            target.validationMessage("Value in weight field must be a number.");
-        } else if (value > 20) {
-            target.hasError(true);
-            target.validationMessage('Number in weight field can\'t be greater than 20.');
-        } else if (value < 1) {
-            target.hasError(true);
-            target.validationMessage("Number in weight field can't be negative or equal to zero.");
-        } else {
-            target.hasError(false);
-        }
-    }
-
-    function validateObservableFilterValue(target) {
-        var text = target().trim();
-
-        if (text.length > 255) {
-            target.hasError(true);
-            target.validationMessage("text in filter field can't be longer than 255 symbols.");
-        } else {
-            target.hasError(false);
-        }
-    }
-})
+});

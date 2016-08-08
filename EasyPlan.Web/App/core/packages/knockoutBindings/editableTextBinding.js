@@ -1,6 +1,6 @@
 ﻿ko.bindingHandlers.editableText = {
     init: function (element, valueAccessor, allBindings, viewModel, context) {
-        var data = ko.utils.unwrapObservable(valueAccessor());
+        var data = ko.unwrap(valueAccessor());
         var handler = data.handler;
         var observValue = data.value;
         var $input = $(element);
@@ -8,11 +8,12 @@
         var hasFocus = false;
 
         observValue.subscribe(function () {
-            if(!hasFocus)
+            if (!hasFocus) {
                 $input.text(observValue());
+            }
         });
 
-        $input.attr("contenteditable", "true");
+        $input.attr('contenteditable', 'true');
         $input.text(observValue());
                
         $input.focus(function focus(event) {
@@ -31,8 +32,9 @@
                 clearBind();
 
                 if (!observValue.hasError()) {
-                    if (observValue() != lastValue)
+                    if (observValue() != lastValue) {
                         handler(viewModel);
+                    }
                 } else {
                     observValue(lastValue);
                     $input.text(lastValue);
@@ -63,7 +65,9 @@
 
         function keyPress(e) {
             if (e.keyCode == 13) {              
-                if (!observValue.hasError()) $input.focusout().blur();
+                if (!observValue.hasError()) {
+                    $input.focusout().blur();
+                }
 
                 return false;
             }

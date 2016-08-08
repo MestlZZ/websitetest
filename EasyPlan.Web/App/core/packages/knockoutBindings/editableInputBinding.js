@@ -1,6 +1,6 @@
 ﻿ko.bindingHandlers.editableInput = {
     init: function (element, valueAccessor, allBindings, viewModel, context) {
-        var data = ko.utils.unwrapObservable(valueAccessor());
+        var data = ko.unwrap(valueAccessor());
         var handler = data.handler;
         var observValue = data.value;
         var $input = $(element);
@@ -18,8 +18,9 @@
                 clearBind();
 
                 if (!observValue.hasError()) {
-                    if (observValue() != lastValue)
+                    if (observValue() != lastValue) {
                         handler(viewModel);
+                    }
                 } else {
                     observValue(lastValue);
                 }
@@ -46,7 +47,9 @@
 
         function keyPress(e) {
             if (e.keyCode == 13) {
-                if (!observValue.hasError()) $input.focusout().blur();
+                if (!observValue.hasError()) {
+                    $input.focusout().blur();
+                }
 
                 return false;
             }

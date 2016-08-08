@@ -3,17 +3,18 @@
         var isSwitchOn = ko.unwrap(valueAccessor());
         var $input = $(element);
 
-        if (isSwitchOn)
+        if (isSwitchOn) {
             $input.focus(select);
-        else
+        } else {
             $input.unbind('focus', select);
-
+        }
 
         function select() {
-            if ($input.prop("tagName") === "INPUT")
+            if ($input.prop("tagName") === "INPUT") {
                 $input.select();
-            else
+            } else {
                 $input.selectText();
+            }
         }
     }
 }

@@ -187,7 +187,9 @@
     <Content Include="App\bootstrapping\knockoutBindingTask.js" />
     <Content Include="App\bootstrapping\knockoutExtendersTask.js" />
     <Content Include="App\bootstrapping\popupTemplatesTask.js" />
+    <Content Include="App\bootstrapping\underscoreExtraTask.js" />
     <Content Include="App\constants.js" />
+    <Content Include="App\core\packages\underscore\underscore.js" />
     <Content Include="App\http\httpRequestSender.js" />
     <Content Include="App\http\storageHttpWrapper.js" />
     <Content Include="App\main.js" />

@@ -3,8 +3,8 @@
     function Item(opt) {
         Entity.call(this, opt.id);
 
-        this.title = opt.title,
-        this.marks = opt.marks
+        this.title = opt.title;
+        this.marks = opt.marks;
     }
 
     Item.prototype = Object.create(Entity.prototype);

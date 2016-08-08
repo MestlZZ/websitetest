@@ -1,44 +1,66 @@
 ﻿define(['constants', 'http/storageHttpWrapper'],
     function (constants, storageHttpWrapper) {
+
         return {
             setWeight: setWeight,
             setTitle: setTitle,
             remove: remove,
             getNewCriterion: getNewCriterion
-        }
+        };
 
         function setWeight(weight, criterionId, boardId) {
-            if (_.isNull(weight) || _.isUndefined(weight) || _.isNaN(weight) || !_.isFinite(weight))
-                throw "Invalid weight"
+            if (_.isInvalidNumber(weight)) {
+                throw 'Invalid weight';
+            }
 
-            if (_.isNull(criterionId) || _.isUndefined(criterionId) || _.isEmpty(criterionId))
-                throw "Invalid item id";
+            if (_.isInvalidText(criterionId)) {
+                throw 'Invalid criterion id';
+            }
 
-            return storageHttpWrapper.post(constants.storage.setCriterionWeightUrl, { weight: weight, criterionId: criterionId, boardId: boardId })
+            if (_.isInvalidText(boardId)) {
+                throw 'Invalid board id';
+            }
+
+            return storageHttpWrapper.post(constants.storage.setCriterionWeightUrl, { weight: weight, criterionId: criterionId, boardId: boardId });
         }
 
         function setTitle(title, criterionId, boardId) {
-            if (_.isNull(title) || _.isUndefined(title) || _.isEmpty(title))
-                throw "Invalid title id"
+            if (_.isInvalidText(title)) {
+                throw 'Invalid criterion title';
+            }
 
-            if (_.isNull(criterionId) || _.isUndefined(criterionId) || _.isEmpty(criterionId))
-                throw "Invalid item id"
+            if (_.isInvalidText(criterionId)) {
+                throw 'Invalid criterion id';
+            }
 
+            if (_.isInvalidText(boardId)) {
+                throw 'Invalid board id';
+            }
 
-            return storageHttpWrapper.post(constants.storage.setCriterionTitleUrl, { title: title, criterionId: criterionId, boardId: boardId })
+            return storageHttpWrapper.post(constants.storage.setCriterionTitleUrl, { title: title, criterionId: criterionId, boardId: boardId });
         }
 
         function remove(criterionId, boardId) {
-            if (_.isNull(criterionId) || _.isUndefined(criterionId) || _.isEmpty(criterionId))
-                throw "Invalid item id"
+            if (_.isInvalidText(criterionId)) {
+                throw 'Invalid criterion id';
+            }
 
-            return storageHttpWrapper.post(constants.storage.removeCriterionUrl, { criterionId: criterionId, boardId: boardId })
+            if (_.isInvalidText(boardId)) {
+                throw 'Invalid board id';
+            }
+
+            return storageHttpWrapper.post(constants.storage.removeCriterionUrl, { criterionId: criterionId, boardId: boardId });
         }
 
-        function getNewCriterion(isBenefit, boardId) {            
-            if (_.isNull(isBenefit) || _.isUndefined(isBenefit))
-                throw "Is invalid isBenefit"
+        function getNewCriterion(isBenefit, boardId) {
+            if (_.isInvalidBoolean(isBenefit)) {
+                throw 'Is invalid isBenefit';
+            }
 
-            return storageHttpWrapper.post(constants.storage.createNewCriterionUrl, { isBenefit: isBenefit, boardId: boardId })
+            if (_.isInvalidText(boardId)) {
+                throw 'Invalid board id';
+            }
+
+            return storageHttpWrapper.post(constants.storage.createNewCriterionUrl, { isBenefit: isBenefit, boardId: boardId });
         }
-})
+    });
