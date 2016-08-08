@@ -198,16 +198,25 @@
             viewModel.sortAscending(!viewModel.sortAscending());
         }
 
-        function updateItemTitle (item) {
-            itemRepository.setTitle(viewModel.board.id, item.title(), item.id);
+        function updateItemTitle(item) {
+            spinner.show();
+            itemRepository.setTitle(viewModel.board.id, item.title(), item.id)
+                .then(function () {
+                    boardHub.server.updateItemTitle(viewModel.board.id, item.id, item.title());
 
-            boardHub.server.updateItemTitle(viewModel.board.id, item.id, item.title());
+                    spinner.hide();
+            });
         }
 
         function updateBoardTitle(context) {
-            boardRepository.setTitle(context.board.title(), context.board.id);
+            spinner.show();
 
-            boardHub.server.updateBoardTitle(viewModel.board.id, context.board.title());
+            boardRepository.setTitle(context.board.title(), context.board.id)
+                .then(function () {
+                    boardHub.server.updateBoardTitle(viewModel.board.id, context.board.title());
+
+                    spinner.hide();
+            });
         }
 
         function deleteItem(item, event) {
@@ -219,9 +228,12 @@
             $(constants.popupTemplatesId.confirmation).popup({ title: 'Delete', body: 'delete "' + title + '"' })
             .then(function (response) { 
                 if (response) {
+                    spinner.show();
+
                     itemRepository.remove(item.id, viewModel.board.id).then(function () {
 
                         boardHub.server.deleteItem(viewModel.board.id, item.id);
+                        spinner.hide();
                     });
                 }
             });            
@@ -237,7 +249,9 @@
             });
         }
 
-        function setMark (mark) {
+        function setMark(mark) {
+            spinner.show();
+
             if (_.isNull(mark.id)) {
                 markRepository.createMark(mark.itemId, mark.criterionId, viewModel.board.id)
                     .then(function (newMark) {
@@ -250,9 +264,11 @@
                             itemId: mark.itemId
                         };
 
-                        boardHub.server.setMark(viewModel.board.id, newMark);
+                        markRepository.setValue(+mark.value(), mark.id, viewModel.board.id).then(function () {
+                            boardHub.server.setMark(viewModel.board.id, newMark);
 
-                        return markRepository.setValue(+mark.value(), mark.id, viewModel.board.id);
+                            spinner.hide();
+                        });
                     });
             } else {
                 var newMark = {
@@ -262,22 +278,32 @@
                     itemId: mark.itemId
                 };
 
-                boardHub.server.setMark(viewModel.board.id, newMark);
+                markRepository.setValue(+mark.value(), mark.id, viewModel.board.id).then(function () {
+                    boardHub.server.setMark(viewModel.board.id, newMark);
 
-                return markRepository.setValue(+mark.value(), mark.id, viewModel.board.id);
+                    spinner.hide();
+                });
             }
         }
 
-        function setWeight (criterion) {
-            criterionRepository.setWeight(criterion.weight(), criterion.id, viewModel.board.id);
+        function setWeight(criterion) {
+            spinner.show();
 
-            boardHub.server.setCriterionWeight(viewModel.board.id, criterion.id, criterion.weight());
+            criterionRepository.setWeight(criterion.weight(), criterion.id, viewModel.board.id).then(function () {
+                boardHub.server.setCriterionWeight(viewModel.board.id, criterion.id, criterion.weight());
+
+                spinner.hide();
+            });
         }
 
-        function updateCriterionTitle (criterion) {
-            criterionRepository.setTitle(criterion.title, criterion.id, viewModel.board.id);
+        function updateCriterionTitle(criterion) {
+            spinner.show();
 
-            boardHub.server.updateCriterionTitle(viewModel.board.id, criterion.id, criterion.title());
+            criterionRepository.setTitle(criterion.title, criterion.id, viewModel.board.id).then(function () {
+                boardHub.server.updateCriterionTitle(viewModel.board.id, criterion.id, criterion.title());
+
+                spinner.hide();
+            });
         }
 
         function deleteCriterion(criterion) {
@@ -295,9 +321,13 @@
             $(constants.popupTemplatesId.confirmation).popup({ title: 'Delete', body: 'delete "' + title + '"' })
                 .then(function (response) {
                     if (response) {
-                        criterionRepository.remove(criterion.id, viewModel.board.id);
+                        spinner.show();
 
-                        boardHub.server.deleteCriterion(viewModel.board.id, criterion.id);
+                        criterionRepository.remove(criterion.id, viewModel.board.id).then(function () {
+                            boardHub.server.deleteCriterion(viewModel.board.id, criterion.id);
+
+                            spinner.hide();
+                        });
                     }
                 });
         }

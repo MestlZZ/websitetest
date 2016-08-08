@@ -10,7 +10,7 @@ using System.Web.Security;
 
 namespace EasyPlan.Web.Components.ActionFilters.Premission
 {
-    public class UserRoleAttribute : AuthorizeAttribute, IAuthorizationFilter
+    public class UserRoleAttribute : FilterAttribute, IAuthorizationFilter
     {
         public IUserRepository UserRepository
         {
@@ -29,28 +29,13 @@ namespace EasyPlan.Web.Components.ActionFilters.Premission
         }
 
         public RoleName[] SelectedRoles { get; set; }
-        protected Guid BoardId { get; set; }
-        protected bool Result { get; set; }
 
         public UserRoleAttribute(params RoleName[] role)
         {
             SelectedRoles = role;
         }
 
-        protected override bool AuthorizeCore(HttpContextBase filterContext)
-        {
-
-            var user = UserRepository.FindUserByEmail(filterContext.User.Identity.Name);
-
-            if (user == null || !CheckAccess(BoardId, user))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public override void OnAuthorization(AuthorizationContext filterContext)
+        public void OnAuthorization(AuthorizationContext filterContext)
         {
             var entityId = filterContext.Controller.ValueProvider.GetValue("boardId");
 
@@ -59,14 +44,18 @@ namespace EasyPlan.Web.Components.ActionFilters.Premission
                 throw new InvalidOperationException();
             }
 
-            BoardId = Guid.Parse(entityId.AttemptedValue);
+            var user = UserRepository.FindUserByEmail(filterContext.HttpContext.User.Identity.Name);
 
-            base.OnAuthorization(filterContext);
+            var boardId = Guid.Parse(entityId.AttemptedValue);
+
+            if (!CheckAccess(boardId, user))
+            {
+                throw new ArgumentValidationException("Access denied", statusCode: 403);
+            }
         }
 
         protected bool CheckAccess(Guid boardId, User user)
-        {                     
-
+        { 
             var board = BoardRepository.Get(boardId);
 
             if (board == null)
