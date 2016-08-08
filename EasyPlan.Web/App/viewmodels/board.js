@@ -10,6 +10,7 @@
 
         return viewModel = {
             board: {},
+            ROLE: constants.ROLE,
             settingsVisible: ko.observable(false),
             sorted: ko.observable(),
             sortAscending: ko.observable(),

@@ -6,6 +6,7 @@
         boardId: ko.observable(),
         clientEmail: ko.observable(),
         clientRole: ko.observable(),
+        ROLE: constants.ROLE,
         activate: function (settings) {
             var self = this;
 

@@ -13,7 +13,6 @@ namespace EasyPlan.Web.Components.Mapper
             return new
             {
                 user = UserMapper.MapToShortInfo(entity.User),
-                name = entity.Name.ToString(),
                 accessLevel = entity.Name
             };
         }

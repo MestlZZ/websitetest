@@ -22,6 +22,11 @@
         },
         popupTemplatesId: {
             confirmation: "#confirmation-popup-body-template"
+        },
+        ROLE: {
+            ADMIN: 1,
+            EDITOR: 2,
+            VIEWER: 3
         }
     }
 });
