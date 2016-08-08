@@ -6,7 +6,7 @@ using EasyPlan.DomainModel.Entities;
 
 namespace EasyPlan.Web.Components.Mapper
 {
-    public class ItemMapper
+    public static class ItemMapper
     {
         public static object Map(Item entity)
         {

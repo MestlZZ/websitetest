@@ -9,6 +9,7 @@ using EasyPlan.Web.Components.Mapper;
 using EasyPlan.Web.Components;
 using EasyPlan.Web.Components.Providers;
 using EasyPlan.Web.Components.ActionFilters.Premission;
+using EasyPlan.DomainModel.ObjectMothers;
 
 
 namespace EasyPlan.Web.Controllers
@@ -56,7 +57,7 @@ namespace EasyPlan.Web.Controllers
         {
             var user = _userRepository.FindUserByEmail(HttpContext.User.Identity.Name);
 
-            var board = new Board(user);
+            var board = BoardObjectMother.Create(user);
 
             _boardRepository.Add(board);
 

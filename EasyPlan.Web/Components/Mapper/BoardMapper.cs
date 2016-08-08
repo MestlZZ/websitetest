@@ -9,7 +9,7 @@ using EasyPlan.Infrastructure;
 
 namespace EasyPlan.Web.Components.Mapper
 {
-    public class BoardMapper
+    public static class BoardMapper
     {
         public static object Map(Board entity)
         {

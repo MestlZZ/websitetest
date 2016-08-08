@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using EasyPlan.Infrastructure;
 using System.Linq;
 
@@ -13,6 +14,8 @@ namespace EasyPlan.DomainModel.Entities
             SetPassword(password);
             SetEmail(email);
             SetFullName(fullName);
+
+            Rights = new Collection<Right>();
         }
 
         public string HashPassword { get; private set; }

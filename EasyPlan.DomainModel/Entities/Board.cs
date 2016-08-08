@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Collections.ObjectModel;
 using EasyPlan.Infrastructure;
 
 namespace EasyPlan.DomainModel.Entities
@@ -8,20 +9,15 @@ namespace EasyPlan.DomainModel.Entities
     {
         protected internal Board() { }
 
-        public Board(User user, string title = "New board")
+        public Board(User user, string title)
         {
             ArgumentValidation.ThrowIfNull(user, argumentName: "user");
 
             SetTitle(title);
 
-            Items = new List<Item>();
-            Criterions = new List<Criterion>();
-            Rights = new List<Right>();
-
-            Criterions.Add(new Criterion(this, true));
-            Criterions.Add(new Criterion(this, false));
-
-            Rights.Add(new Right(this, user, RoleName.Admin));
+            Items = new Collection<Item>();
+            Criterions = new Collection<Criterion>();
+            Rights = new Collection<Right>();
 
             CreatedBy = user.Email;
         }
