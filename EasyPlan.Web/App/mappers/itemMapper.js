@@ -1,7 +1,7 @@
 ﻿define(['models/item', 'mappers/markMapper'],
     function (Item, markMapper) {
     return {
-        map,
+        map: map,
     }
 
     function map(src) {

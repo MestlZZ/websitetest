@@ -1,6 +1,6 @@
 ﻿define(['models/mark'], function (Mark) {
     return {
-        map,
+        map: map,
     }
 
     function map(src) {

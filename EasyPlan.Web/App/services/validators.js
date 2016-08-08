@@ -1,10 +1,10 @@
 ﻿define(['constants'], function (constants) {
     return {
-        validateObservableTitle,
-        validateObservableMarkValue,
-        validateObservableWeightValue,
-        validateObservableFilterValue,
-        validateObservableBoardTitle
+        validateObservableTitle: validateObservableTitle,
+        validateObservableMarkValue: validateObservableMarkValue,
+        validateObservableWeightValue: validateObservableWeightValue,
+        validateObservableFilterValue: validateObservableFilterValue,
+        validateObservableBoardTitle: validateObservableBoardTitle
     };
 
     function validateObservableTitle(target) {

@@ -2,8 +2,8 @@
     function (Board, itemMapper, criterionMapper) {
 
     return {
-        map,
-        mapToShortInfo
+        map: map,
+        mapToShortInfo: mapToShortInfo
     }
 
     function map(src) {

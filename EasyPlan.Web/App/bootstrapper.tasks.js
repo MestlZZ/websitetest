@@ -1,6 +1,6 @@
 ﻿define(function (require) {
     return {
-        getTasks
+        getTasks: getTasks
     }
 
     function getTasks()

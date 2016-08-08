@@ -2,9 +2,9 @@
     function (constants, storageHttpWrapper) {
 
         return {
-            setTitle,
-            remove,
-            getNewItem
+            setTitle: setTitle,
+            remove: remove,
+            getNewItem: getNewItem
         };
 
         function setTitle(boardId, title, itemId) {

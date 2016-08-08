@@ -1,6 +1,6 @@
 ﻿define(['models/criterion', 'mappers/markMapper'], function (Criterion, markMapper) {
     return {
-        map,
+        map: map,
     }
 
     function map(src) {

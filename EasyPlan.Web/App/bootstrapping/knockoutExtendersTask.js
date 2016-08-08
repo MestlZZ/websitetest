@@ -1,6 +1,6 @@
 ﻿define(function (require) {
     return {
-        initialize
+        initialize: initialize
     }
 
     function initialize() {

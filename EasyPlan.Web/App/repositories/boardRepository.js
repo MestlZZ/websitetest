@@ -2,13 +2,13 @@
     function (constants, storageHttpWrapper) {
 
     return {
-        getBoard,
-        createBoard,
-        setTitle,
-        removeBoard,
-        inviteUser,
-        getBoardUsersInfo,
-        removeUser
+        getBoard: getBoard,
+        createBoard: createBoard,
+        setTitle: setTitle,
+        removeBoard: removeBoard,
+        inviteUser: inviteUser,
+        getBoardUsersInfo: getBoardUsersInfo,
+        removeUser: removeUser
     }
 
     function getBoard(boardId) {        

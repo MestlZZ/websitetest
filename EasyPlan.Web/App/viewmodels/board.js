@@ -22,19 +22,19 @@
                 validate: validators.validateObservableFilterValue
             }),
 
-            activate,
-            sortByRank,
-            updateItemTitle,
-            deleteItem,
-            addItem,
-            setMark,
-            setWeight,
-            updateCriterionTitle,
-            updateBoardTitle,
-            deleteCriterion,
-            addCostCriterion,
-            addBenefitCriterion,
-            applyFilter
+            activate: activate,
+            sortByRank: sortByRank,
+            updateItemTitle: updateItemTitle,
+            deleteItem: deleteItem,
+            addItem: addItem,
+            setMark: setMark,
+            setWeight: setWeight,
+            updateCriterionTitle: updateCriterionTitle,
+            updateBoardTitle: updateBoardTitle,
+            deleteCriterion: deleteCriterion,
+            addCostCriterion: addCostCriterion,
+            addBenefitCriterion: addBenefitCriterion,
+            applyFilter: applyFilter
         }
 
         function activate(boardId) {

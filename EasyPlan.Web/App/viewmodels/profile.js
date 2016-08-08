@@ -1,10 +1,10 @@
 ﻿define(['repositories/userRepository', 'repositories/boardRepository', 'spinner', 'constants'], function (userRepository, boardRepository, spinner, constants) {
     return profileViewModel = {
         user: {},
-        activate,
-        createBoard,
-        removeBoard,
-        getBoardColor
+        activate: activate,
+        createBoard: createBoard,
+        removeBoard: removeBoard,
+        getBoardColor: getBoardColor
     };
     
     function activate() {

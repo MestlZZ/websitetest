@@ -1,10 +1,10 @@
 ﻿define(['constants', 'http/storageHttpWrapper'],
     function (constants, storageHttpWrapper) {
         return {
-            setWeight,
-            setTitle,
-            remove,
-            getNewCriterion
+            setWeight: setWeight,
+            setTitle: setTitle,
+            remove: remove,
+            getNewCriterion: getNewCriterion
         }
 
         function setWeight(weight, criterionId, boardId) {

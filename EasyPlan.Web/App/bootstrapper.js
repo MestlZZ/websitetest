@@ -1,6 +1,6 @@
 ﻿define(['bootstrapper.tasks'], function (tasks) {
     return {
-        initialize
+        initialize: initialize
     }
 
     function initialize()

@@ -2,8 +2,8 @@
     function (constants, storageHttpWrapper) {
 
         return {
-            setValue,
-            createMark
+            setValue: setValue,
+            createMark: createMark
         }
 
         function setValue(value, markId, boardId) {

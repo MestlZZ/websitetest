@@ -1,9 +1,9 @@
 ﻿define(['durandal/app'], function (app) {
     return {
-        computeScore,
-        setRanks,
-        boardChanged,
-        criterionChanged
+        computeScore: computeScore,
+        setRanks: setRanks,
+        boardChanged: boardChanged,
+        criterionChanged: criterionChanged
     }
 
     function computeScore(marks) {

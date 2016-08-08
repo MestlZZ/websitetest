@@ -2,7 +2,7 @@
     function (constants, storageHttpWrapper) {
 
         return {
-            getCurrentUser
+            getCurrentUser: getCurrentUser
         }
 
         function getCurrentUser() {

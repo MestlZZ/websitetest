@@ -4,8 +4,8 @@
     
     return spinnerModel = {
         enabled: false,
-        show,
-        hide
+        show: show,
+        hide: hide
     }
 
     function show() {
