@@ -39,6 +39,9 @@ namespace EasyPlan.Web.Controllers
         
         public ActionResult Login()
         {
+            if(User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+
             return View();
         }
 
@@ -84,6 +87,9 @@ namespace EasyPlan.Web.Controllers
 
         public ActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+
             return View();
         }
         

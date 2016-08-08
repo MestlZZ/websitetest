@@ -10,7 +10,10 @@
 
     <div class="board-body">
         <div class="board-invite" data-bind="visible: userRole() == ROLE.ADMIN">
-            <label for="board-settings" class="board-settings-label noselect">⚒</label>
+            <label for="board-settings" class="board-settings-label noselect" data-bind="css: {'active': settingsVisible}">
+                <i class="board-settings-bigger-gear" data-bind="css: {'active': settingsVisible}"></i>
+                <i class="board-settings-smaller-gear" data-bind="css: {'active': settingsVisible}"></i>
+            </label>
             <input type="checkbox" id="board-settings" hidden="hidden" data-bind="checked: settingsVisible"/>
             <div class="board-settings-body" data-bind="boardSettings: {boardId: board.id}, css: {'invisible': !settingsVisible()}"></div>
         </div>        

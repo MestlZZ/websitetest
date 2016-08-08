@@ -231,6 +231,7 @@
     <Content Include="Content\authforms.css" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\images\arrow.png" />
+    <Content Include="Content\images\gear.png" />
     <Content Include="Content\popup.css" />
     <Content Include="Content\spinner.css" />
     <Content Include="Content\splash.css" />

@@ -15,7 +15,7 @@
             return false;
         },
         isInvalidBoolean: function (bool) {
-            if (_.isNull(number) || _.isUndefined(number)) {
+            if (_.isNull(bool) || _.isUndefined(bool)) {
                 return true;
             }
 

@@ -5,8 +5,7 @@
             user: {},
             activate: activate,
             createBoard: createBoard,
-            removeBoard: removeBoard,
-            getBoardColor: getBoardColor
+            removeBoard: removeBoard
         };
 
         function activate() {
@@ -27,10 +26,6 @@
                 });
         }
 
-        function getBoardColor() {
-            return Math.floor(Math.random() * 16777215).toString(16);
-        }
-
         function createBoard() {
             spinner.show();
 
@@ -49,7 +44,7 @@
                     if (response) {
                         boardRepository.removeBoard(board.id);
 
-                        profileViewModel.user.boardsShortInfo.remove(board);
+                        profileViewModel.user.boardsShortInfo.remove(entity);
                     }
                 });
         }
