@@ -24,47 +24,47 @@ namespace EasyPlan.Web.Hubs
 
         public void UpdateItemTitle(string boardId, string id, string title)
         {
-            Clients.OthersInGroup(boardId).updateItemTitle(id, title);
+            Clients.Group(boardId).updateItemTitle(id, title);
         }
 
         public void DeleteItem(string boardId, string id)
         {
-            Clients.OthersInGroup(boardId).deleteItem(id);
+            Clients.Group(boardId).deleteItem(id);
         }
 
         public void AddItem(string boardId, object item)
         {            
-            Clients.OthersInGroup(boardId).addItem(item);
+            Clients.Group(boardId).addItem(item);
         }
 
         public void SetMark(string boardId, object mark)
         {
-            Clients.OthersInGroup(boardId).setMark(mark);
+            Clients.Group(boardId).setMark(mark);
         }
 
         public void SetCriterionWeight(string boardId, string id, int weight)
         {
-            Clients.OthersInGroup(boardId).setCriterionWeight(id, weight);
+            Clients.Group(boardId).setCriterionWeight(id, weight);
         }
 
         public void UpdateCriterionTitle(string boardId, string id, string title)
         {
-            Clients.OthersInGroup(boardId).updateCriterionTitle(id, title);
+            Clients.Group(boardId).updateCriterionTitle(id, title);
         }
 
         public void UpdateBoardTitle(string boardId, string title)
         {
-            Clients.OthersInGroup(boardId).updateBoardTitle(title);
+            Clients.Group(boardId).updateBoardTitle(title);
         }
 
         public void DeleteCriterion(string boardId, string id)
         {
-            Clients.OthersInGroup(boardId).deleteCriterion(id);
+            Clients.Group(boardId).deleteCriterion(id);
         }
 
         public void AddCriterion(string boardId, object criterion)
         {
-            Clients.OthersInGroup(boardId).addCriterion(criterion);
+            Clients.Group(boardId).addCriterion(criterion);
         }
     }
 }

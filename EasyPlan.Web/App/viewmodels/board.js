@@ -205,7 +205,7 @@
         };
 
         function updateItemTitle (item) {
-            item.title(item.title().trim());
+           /* item.title(item.title().trim());*/
 
             itemRepository.setTitle(viewModel.board.id, item.title(), item.id);
 
@@ -213,7 +213,7 @@
         };
 
         function updateBoardTitle(context) {
-            context.board.title(context.board.title().trim());
+            //context.board.title(context.board.title().trim());
 
             boardRepository.setTitle(context.board.title(), context.board.id);
 
@@ -226,18 +226,15 @@
             if (title.length > 50)
                 title = title.slice(0, 50) + "...";
 
-            spinner.show();
             $(constants.popupTemplatesId.confirmation).popup({ title: "Delete", body: 'delete "' + title + '"' })
-            .then(function (s) { 
-                if (s) {
+            .then(function (responce) { 
+                if (responce) {
                     itemRepository.remove(item.id, viewModel.board.id).then(function () {
-                        viewModel.board.items.remove(item);
+                        //viewModel.board.items.remove(item);
 
-                        boardService.boardChanged(viewModel.board);
+                        //boardService.boardChanged(viewModel.board);
 
                         boardHub.server.deleteItem(viewModel.board.id, item.id);
-
-                        spinner.hide();
                     });
                 }
             });            
@@ -249,11 +246,11 @@
             itemRepository.getNewItem(viewModel.board.id).then(function (item) {
                 boardHub.server.addItem(viewModel.board.id, item);
 
-                item = mapItem(item);
+                //item = mapItem(item);
 
-                viewModel.board.items.unshift(item);
+                //viewModel.board.items.unshift(item);
 
-                boardService.boardChanged(viewModel.board);
+                //boardService.boardChanged(viewModel.board);
 
                 spinner.hide();
             });
@@ -275,8 +272,7 @@
 
                     return markRepository.setValue(+mark.value(), mark.id, viewModel.board.id);
                 });
-            } else {
-                markRepository.setValue(+mark.value(), mark.id, viewModel.board.id);
+            } else {               
 
                 var newMark = {
                     id: mark.id,
@@ -286,17 +282,19 @@
                 }
 
                 boardHub.server.setMark(viewModel.board.id, newMark);
+
+                return markRepository.setValue(+mark.value(), mark.id, viewModel.board.id);
             }
 
-            boardService.boardChanged(viewModel.board);
+           // boardService.boardChanged(viewModel.board);
         };
 
         function setWeight (criterion) {
             criterionRepository.setWeight(criterion.weight(), criterion.id, viewModel.board.id);
 
-            boardService.criterionChanged(criterion);
+            /*boardService.criterionChanged(criterion);
 
-            boardService.boardChanged(viewModel.board);
+            boardService.boardChanged(viewModel.board);*/
 
             boardHub.server.setCriterionWeight(viewModel.board.id, criterion.id, criterion.weight());
         };
@@ -304,9 +302,9 @@
         function updateCriterionTitle (criterion) {
             criterionRepository.setTitle(criterion.title, criterion.id, viewModel.board.id);
 
-            boardService.criterionChanged(criterion);
+            /*boardService.criterionChanged(criterion);
 
-            boardService.boardChanged(viewModel.board);
+            boardService.boardChanged(viewModel.board);*/
 
             boardHub.server.updateCriterionTitle(viewModel.board.id, criterion.id, criterion.title());
         };
@@ -328,7 +326,7 @@
             .then(function (s) {
                 if (s) {
                     criterionRepository.remove(criterion.id, viewModel.board.id);
-                    viewModel.board.criterions.remove(criterion);
+                    /*viewModel.board.criterions.remove(criterion);
                     
                     _.each(viewModel.board.items(), function (item) {
                         delete item.marks()[criterion.id];
@@ -342,7 +340,7 @@
 
                     boardService.criterionChanged(criterion);
 
-                    boardService.boardChanged(viewModel.board);
+                    boardService.boardChanged(viewModel.board);*/
 
                     boardHub.server.deleteCriterion(viewModel.board.id, criterion.id);
                 }
@@ -355,7 +353,7 @@
             criterionRepository.getNewCriterion(isBenefit, viewModel.board.id).then(function (criterion) {
                 boardHub.server.addCriterion(viewModel.board.id, criterion);
 
-                criterion = mapCriterion(criterion);
+                /*criterion = mapCriterion(criterion);
 
                 _.each(viewModel.board.items(), function (item) {
                     item.marks()[criterion.id] = mapMark({
@@ -377,7 +375,7 @@
 
                 boardService.criterionChanged(criterion);
 
-                boardService.boardChanged(viewModel.board);
+                boardService.boardChanged(viewModel.board);*/
 
                 spinner.hide();
             });

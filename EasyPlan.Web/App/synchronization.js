@@ -33,11 +33,11 @@
     }
 
     boardHub.client.deleteCriterion = function (id) {
-        app.trigger(constants.EVENT.CRITERION.REMOVED, id);
+        app.trigger(constants.EVENT.BOARD.CRITERION.REMOVED, id);
     }
 
     boardHub.client.addCriterion = function (criterion) {
-        app.trigger(constants.EVENT.CRITERION.ADDED, criterion);
+        app.trigger(constants.EVENT.BOARD.CRITERION.ADDED, criterion);
     }
 
     return {        
