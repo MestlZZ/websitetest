@@ -18,7 +18,11 @@ namespace EasyPlan.Web
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-            builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
+            builder.RegisterGeneric(typeof(EntityModelBinder<>))
+                .As(typeof(IEntityModelBinder<>));
+
+            builder.RegisterType(typeof(UserModelBinder))
+                .As(typeof(IUserModelBinder));
 
             builder.RegisterType<MembershipProvider>()
                .As<IMembershipProvider>();

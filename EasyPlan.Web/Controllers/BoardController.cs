@@ -26,6 +26,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult GetBoardData(Board board)
         {
             if(board == null)
@@ -38,10 +39,11 @@ namespace EasyPlan.Web.Controllers
             if (role == null)
                 return HttpNotFound();
 
-            return JsonSuccess(BoardMapper.Map(board, role.Name));
+            return JsonSuccess(new { board = BoardMapper.Map(board), clientRole = role.Name });
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin)]
         public void SetTitle(Board board, string title)
         {
@@ -49,6 +51,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create()
         {
             var user = _userRepository.FindUserByEmail(HttpContext.User.Identity.Name);
@@ -57,10 +60,11 @@ namespace EasyPlan.Web.Controllers
 
             _boardRepository.Add(board);
 
-            return JsonSuccess(BoardMapper.MapToShortInfo(board, RoleName.Admin));
+            return JsonSuccess(new { board = BoardMapper.MapToShortInfo(board), clientRole = RoleName.Admin });
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public void Remove(Board board)
         {
             var user = _userRepository.FindUserByEmail(HttpContext.User.Identity.Name);
@@ -71,6 +75,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin)]
         public ActionResult InviteUser(Board board, User user, int role)
         {
@@ -80,6 +85,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin, RoleName.Editor)]
         public ActionResult GetBoardUserInfo(Board board)
         {
@@ -87,10 +93,11 @@ namespace EasyPlan.Web.Controllers
 
             var role = board.GetRole(user);
 
-            return JsonSuccess(BoardMapper.MapToUsersInfo(board, role.Name, User.Identity.Name));
+            return JsonSuccess( new { board = BoardMapper.MapToUsersInfo(board), clientRole = role.Name, clientEmail = User.Identity.Name });
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin)]
         public void RemoveUser(Board board, User user)
         {

@@ -154,9 +154,9 @@
 
             return boardRepository.getBoard(boardId)
                 .then(function (data) {
-                var board = boardMapper.map(data);
+                var board = boardMapper.map(data.board);
 
-                self.userRole(data.userRole);
+                self.userRole(data.clientRole);
                 self.board = mapBoard(board);
 
                 _.each(self.board.criterions(), function (criterion) {

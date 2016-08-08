@@ -22,6 +22,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin, RoleName.Editor)]
         public void SetItemTitle(string title, Item item)
         {
@@ -29,6 +30,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin, RoleName.Editor)]
         public void RemoveItem(Item item)
         {
@@ -36,6 +38,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin, RoleName.Editor)]
         public ActionResult CreateItem(Board board)
         {

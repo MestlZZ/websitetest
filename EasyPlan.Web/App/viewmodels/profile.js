@@ -38,7 +38,9 @@
         })
     }
 
-    function removeBoard(board) {
+    function removeBoard(entity) {
+        var board = entity.board;
+
         $(constants.popupTemplatesId.confirmation).popup({ title: "Delete", body: 'delete "' + board.title + '"' })
             .then(function (s) {
                 if (s) {

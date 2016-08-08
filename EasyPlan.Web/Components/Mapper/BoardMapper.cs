@@ -11,7 +11,7 @@ namespace EasyPlan.Web.Components.Mapper
 {
     public class BoardMapper
     {
-        public static object Map(Board entity, RoleName userRole)
+        public static object Map(Board entity)
         {
             return new
             {
@@ -19,11 +19,10 @@ namespace EasyPlan.Web.Components.Mapper
                 title = entity.Title,
                 items = entity.Items.Select(e => ItemMapper.Map(e)),
                 criterions = entity.Criterions.Select(e => CriterionMapper.Map(e)),
-                userRole = userRole
             };
         }
 
-        public static object MapToShortInfo(Board entity, RoleName userRole)
+        public static object MapToShortInfo(Board entity)
         {
             return new
             {
@@ -31,18 +30,15 @@ namespace EasyPlan.Web.Components.Mapper
                 title = entity.Title,
                 createdOn = entity.CreatedOn.ToString(),
                 createdBy = entity.CreatedBy,
-                userRole = userRole
             };
         }
 
-        public static object MapToUsersInfo(Board entity, RoleName userRole, string email)
+        public static object MapToUsersInfo(Board entity)
         {
             return new
             {
                 createdOn = entity.CreatedOn.ToString(),
                 createdBy = entity.CreatedBy,
-                userRole = userRole,
-                email = email,
                 usersInRoles = entity.Roles.Select(e => RoleMapper.Map(e))
             };
         }

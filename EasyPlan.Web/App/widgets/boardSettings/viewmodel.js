@@ -4,6 +4,8 @@
         email: ko.observable(),
         info: ko.observable(),
         boardId: ko.observable(),
+        clientEmail: ko.observable(),
+        clientRole: ko.observable(),
         activate: function (settings) {
             var self = this;
 
@@ -12,8 +14,10 @@
             self.boardId(settings.boardId);
 
             return boardRepository.getBoardUsersInfo(settings.boardId).then(function (info) {
-                info.usersInRoles = ko.observableArray(_.map(info.usersInRoles, MapUserRole));
-                self.info(info);
+                info.usersInRoles = ko.observableArray(_.map(info.board.usersInRoles, MapUserRole));
+                self.info(info.board);
+                self.clientEmail(info.clientEmail);
+                self.clientRole(info.clientRole);
             });
         },
         invite: function (model) {

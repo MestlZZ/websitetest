@@ -43,7 +43,6 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Login(LogOnModel model, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -89,7 +88,6 @@ namespace EasyPlan.Web.Controllers
         }
         
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)

@@ -11,7 +11,17 @@ namespace EasyPlan.Web.Components.ModelBinding
             if (!typeof(Entity).IsAssignableFrom(modelType))
                 return null;
 
-            var modelBinderType = typeof(IEntityModelBinder<>).MakeGenericType(modelType);
+            Type modelBinderType;
+
+            if (typeof(User).IsAssignableFrom(modelType))
+            {
+                modelBinderType = typeof(IUserModelBinder);
+            }
+            else
+            {
+                modelBinderType = typeof(IEntityModelBinder<>).MakeGenericType(modelType);
+            }
+
             return (IModelBinder)DependencyResolver.Current.GetService(modelBinderType);
         }
     }

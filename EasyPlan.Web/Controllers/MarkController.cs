@@ -22,6 +22,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin, RoleName.Editor)]
         public void SetMarkValue(int value, Mark mark)
         {
@@ -29,6 +30,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin, RoleName.Editor)]
         public ActionResult CreateMark(Item item, Criterion criterion)
         {

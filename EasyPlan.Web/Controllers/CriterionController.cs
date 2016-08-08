@@ -24,6 +24,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin, RoleName.Editor)]
         public void SetCriterionWeight(int weight, Criterion criterion)
         {
@@ -31,6 +32,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin)]
         public void SetCriterionTitle(string title, Criterion criterion)
         {
@@ -38,6 +40,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin)]
         public void RemoveCriterion(Criterion criterion)
         {
@@ -47,6 +50,7 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin)]
         public ActionResult CreateCriterion(bool isBenefit, Board board)
         {

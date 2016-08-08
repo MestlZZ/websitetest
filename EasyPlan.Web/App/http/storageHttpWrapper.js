@@ -7,6 +7,12 @@
     };
 
     function post(url, data) {
+        if (_.isUndefined(data))
+            data = {};
+
+        var tokenField = $("input[type='hidden'][name$='__RequestVerificationToken']");
+        data[tokenField[0].name] = tokenField[0].value;
+
         return httpRequestSender.post(url, data, '');
     }
 
