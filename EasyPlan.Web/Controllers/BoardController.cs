@@ -27,23 +27,30 @@ namespace EasyPlan.Web.Controllers
         }
 
         [HttpPost]
+        [UserRole(RoleName.Admin, RoleName.Editor, RoleName.Viewer)]
         [ValidateAntiForgeryToken]
         public ActionResult GetBoardData(Board board)
         {
-            if(board == null)
-                return HttpNotFound();
-
             var user = _userRepository.FindUserByEmail(HttpContext.User.Identity.Name);
 
             var role = board.GetRole(user);
-
-            if (role == null)
-                return HttpNotFound();
 
             return JsonSuccess(new { board = BoardMapper.Map(board), clientRole = role.Name });
         }
 
         [HttpPost]
+        [UserRole(RoleName.Admin, RoleName.Editor, RoleName.Viewer)]
+        [ValidateAntiForgeryToken]
+        public ActionResult GetBoardShortData(Board board)
+        {
+            var user = _userRepository.FindUserByEmail(HttpContext.User.Identity.Name);
+
+            var role = board.GetRole(user);
+
+            return JsonSuccess(new { board = BoardMapper.MapToShortInfo(board), clientRole = role.Name });
+        }        
+
+       [HttpPost]
         [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin)]
         public void SetTitle(Board board, string title)
@@ -91,7 +98,7 @@ namespace EasyPlan.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [UserRole(RoleName.Admin, RoleName.Editor)]
+        [UserRole(RoleName.Admin, RoleName.Editor, RoleName.Viewer)]
         public ActionResult GetBoardUserInfo(Board board)
         {
             var user = _userRepository.FindUserByEmail(User.Identity.Name);

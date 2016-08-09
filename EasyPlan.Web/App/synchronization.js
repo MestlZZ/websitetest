@@ -31,6 +31,15 @@
     boardHub.client.addCriterion = function (criterion) {
         app.trigger(constants.EVENT.BOARD.CRITERION.ADDED, criterion);
     };
+    boardHub.client.addCollaborator = function (collaborator, boardId) {
+        app.trigger(constants.EVENT.BOARD.COLLABORATOR.ADDED, collaborator, boardId);
+    };
+    boardHub.client.removeCollaborator = function (email, boardId) {
+        app.trigger(constants.EVENT.BOARD.COLLABORATOR.REMOVED, email, boardId);
+    };
+    boardHub.client.collaboratorChangeRole = function (email, role, boardId) {
+        app.trigger(constants.EVENT.BOARD.COLLABORATOR.ROLE_CHANGED, email, role, boardId);
+    };
 
 
     return {

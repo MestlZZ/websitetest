@@ -1,7 +1,27 @@
-﻿define(['repositories/boardRepository', 'spinner', 'constants', 'error'],
-    function (boardRepository, spinner, constants, errorHandler) {
+﻿define(['repositories/boardRepository', 'spinner', 'constants', 'error', 'durandal/app'],
+    function (boardRepository, spinner, constants, errorHandler, app) {
+        
+        var boardHub = $.connection.boardHub;
 
-        return viewModel1 = {
+        /*Hub events*/
+        app.on(constants.EVENT.BOARD.COLLABORATOR.ADDED, function (collaborator) {
+            settingsViewModel.info().usersInRoles.unshift(MapUserRole(collaborator));
+        });
+
+        app.on(constants.EVENT.BOARD.COLLABORATOR.REMOVED, function (email) {
+            var userInRole = _.find(settingsViewModel.info().usersInRoles(), function (userInRole) { return userInRole.user.email == email; });
+
+            settingsViewModel.info().usersInRoles.remove(userInRole);
+        });
+
+        app.on(constants.EVENT.BOARD.COLLABORATOR.ROLE_CHANGED, function (email, role) {
+            var userInRole = _.find(settingsViewModel.info().usersInRoles(), function (userInRole) { return userInRole.user.email == email; });
+
+            userInRole.accessLevel._latestValue = role;
+        });
+        /*end*/
+
+        return settingsViewModel = {
             role: ko.observable(0),
             roles: [],
             email: ko.observable(''),
@@ -19,8 +39,10 @@
             $(constants.popupTemplatesId.confirmation).popup({ title: 'Remove', body: 'remove user "' + userRole.user.email + '" from board' })
                 .then(function (response) {
                     if (response) {
-                        boardRepository.removeUser(viewModel1.boardId(), userRole.user.email).then(function () {
-                            viewModel1.info().usersInRoles.remove(userRole);
+                        boardRepository.removeUser(settingsViewModel.boardId(), userRole.user.email).then(function () {
+                            settingsViewModel.info().usersInRoles.remove(userRole);
+
+                            boardHub.server.removeCollaborator(settingsViewModel.boardId(), userRole.user.email);
                         });
                     }
                 });
@@ -31,23 +53,19 @@
             var email = ko.unwrap(model.email);
             var role = ko.unwrap(model.role);
 
-            for (var i = 0; i < viewModel1.info().usersInRoles().length; i++)
+            for (var i = 0; i < settingsViewModel.info().usersInRoles().length; i++)
             {
-                if(viewModel1.info().usersInRoles()[i].user.email == email)
+                if(settingsViewModel.info().usersInRoles()[i].user.email == email)
                 {
                     return errorHandler.throw('User with email: ' + email + ' has already exist in board.', 400);
                 }
             }
 
             setRole(boardId, email, role).then(function (data) {
-                if (_.isUndefined(data.message)) {
+                model.email('');
+                model.role(3);
 
-                    model.info().usersInRoles.unshift(MapUserRole(data));
-
-                    model.email('');
-                    model.role(3);
-                } else {
-                }
+                boardHub.server.addCollaborator(settingsViewModel.boardId(), data);
             })
         }
 
@@ -81,10 +99,12 @@
             result.accessLevel = ko.observable(userRole.accessLevel);
 
             window.userRole = result;
-            window.viewModel = viewModel1;
+            window.viewModel = settingsViewModel;
 
             result.accessLevel.subscribe(function () {
-                setRole(viewModel1.boardId, result.user.email, result.accessLevel);
+                setRole(settingsViewModel.boardId(), result.user.email, result.accessLevel()).then(function () {
+                    boardHub.server.changeCollaboratorRole(settingsViewModel.boardId(), result.user.email, result.accessLevel());
+                });
             });
 
             return result;
@@ -93,10 +113,10 @@
         function setRole(boardId, email, role) {
             spinner.show();
 
-            return boardRepository.inviteUser(boardId, email, role).then(function (result) {
+            return boardRepository.inviteUser(boardId, email, role).then(function(data) {
                 spinner.hide();
 
-                return result;
+                return data;
             });
         }
     });

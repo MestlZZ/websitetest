@@ -8,11 +8,16 @@
             removeBoard: removeBoard,
             inviteUser: inviteUser,
             getBoardUsersInfo: getBoardUsersInfo,
-            removeUser: removeUser
+            removeUser: removeUser,
+            getShortBoard: getShortBoard
         };
 
         function getBoard(boardId) {
             return storageHttpWrapper.post(constants.storage.boardDataUrl, { boardId: boardId });
+        }
+
+        function getShortBoard(id) {
+            return storageHttpWrapper.post(constants.storage.boardShortDataUrl, { boardId: id });
         }
 
         function createBoard() {

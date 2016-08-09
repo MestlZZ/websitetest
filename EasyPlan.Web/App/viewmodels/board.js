@@ -1,10 +1,129 @@
 ﻿define(['plugins/router', 'repositories/boardRepository', 'repositories/itemRepository','mappers/markMapper','repositories/markRepository',
     'durandal/app', 'mappers/boardMapper', 'mappers/itemMapper', 'constants', 'services/boardService',
-    'repositories/criterionRepository', 'mappers/criterionMapper', 'spinner', 'services/validators', 'synchronization'],
+    'repositories/criterionRepository', 'mappers/criterionMapper', 'spinner', 'services/validators', 'synchronization', 'viewmodels/boards', 'error', 'widgets/boardSettings/viewModel'],
     function (router, boardRepository, itemRepository,markMapper, markRepository, app, boardMapper, itemMapper, constants, boardService,
-        criterionRepository, criterionMapper, spinner, validators, sync) {
+        criterionRepository, criterionMapper, spinner, validators, sync, boards, error, boardSettings) {
 
         var boardHub = $.connection.boardHub;
+
+        /*Hub events*/
+        app.on(constants.EVENT.BOARD.COLLABORATOR.ROLE_CHANGED, function (email, role, boardId) {
+            if (boardId == boardViewModel.board.id) {
+                if (boards.user.email == email) {
+                    boardSettings.clientRole(role);
+                    boardViewModel.userRole(role);
+                }
+            }
+        });
+
+        app.on(constants.EVENT.BOARD.COLLABORATOR.REMOVED, function (email, boardId) {
+            if (boardId == boardViewModel.board.id) {
+                if (boards.user.email == email) {
+                    error.throw('You was removed from this board by admin', 401);
+                }
+            }
+        })
+
+        app.on(constants.EVENT.BOARD.ITEM.TITLE_CHANGED, function (id, title) {
+            var item = _.find(boardViewModel.board.items(), function (item) { return id == item.id; });
+
+            boardViewModel.isFocusEnabled(false);
+
+            item.title(title);
+        });
+
+        app.on(constants.EVENT.BOARD.ITEM.REMOVED, function (id) {
+            var item = _.find(boardViewModel.board.items(), function (item) { return id == item.id; });
+
+            boardViewModel.board.items.remove(item);
+            boardViewModel.sorted(false);
+
+            boardService.setRanks(boardViewModel.board.items());
+        });
+
+        app.on(constants.EVENT.BOARD.ITEM.ADDED, function (item) {
+            item = mapItem(item, boardViewModel.board.criterions);
+
+            boardViewModel.board.items.unshift(item);
+            boardViewModel.sorted(false);
+
+            boardService.setRanks(boardViewModel.board.items());
+        });
+
+        app.on(constants.EVENT.BOARD.MARK.VALUE_CHANGED, function (mark) {
+            var item = _.find(boardViewModel.board.items(), function (item) { return mark.itemId == item.id; });
+            var criterion = _.find(boardViewModel.board.criterions(), function (criterion) { return mark.criterionId == criterion.id; });
+
+            item.marks()[mark.criterionId].id = mark.id;
+            item.marks()[mark.criterionId].value(mark.value);
+
+            boardViewModel.sorted(false);
+
+            boardService.setRanks(boardViewModel.board.items());
+        });
+
+        app.on(constants.EVENT.BOARD.CRITERION.WEIGHT_CHANGED, function (id, weight) {
+            var criterion = _.find(boardViewModel.board.criterions(), function (criterion) { return id == criterion.id; });
+
+            criterion.weight(weight);
+            boardViewModel.sorted(false);
+        });
+
+        app.on(constants.EVENT.BOARD.CRITERION.TITLE_CHANGED, function (id, title) {
+            var criterion = _.find(boardViewModel.board.criterions(), function (criterion) { return id == criterion.id; });
+
+            boardViewModel.isFocusEnabled(false);
+
+            criterion.title(title);
+        });
+
+        app.on(constants.EVENT.BOARD.TITLE_CHANGED, function (title) {
+            boardViewModel.board.title(title);
+        });
+
+        app.on(constants.EVENT.BOARD.CRITERION.REMOVED, function (id) {
+            var criterion = _.find(boardViewModel.board.criterions(), function (criterion) { return id == criterion.id; });
+
+            boardViewModel.board.criterions.remove(criterion);
+
+            if (criterion.isBenefit)
+                boardViewModel.benefitCriterions.remove(criterion);
+            else
+                boardViewModel.costCriterions.remove(criterion);
+
+            _.each(boardViewModel.board.items(), function (item) {
+                delete item.marks()[criterion.id];
+
+                item.marks.notifySubscribers();
+            });
+
+            boardViewModel.sorted(false);
+
+            boardService.setRanks(boardViewModel.board.items());
+        });
+
+        app.on(constants.EVENT.BOARD.CRITERION.ADDED, function (criterion) {
+            var criterion = mapCriterion(criterion);
+
+            _.each(boardViewModel.board.items(), function (item) {
+                item.marks()[criterion.id] = mapMark({
+                    id: null,
+                    value: 0,
+                    criterionId: criterion.id,
+                    itemId: item.id
+                }, criterion);
+
+                item.marks.notifySubscribers();
+            });
+
+            boardViewModel.board.criterions.unshift(criterion);
+
+            if (criterion.isBenefit)
+                boardViewModel.benefitCriterions.push(criterion);
+            else
+                boardViewModel.costCriterions.push(criterion);
+        });
+        /*End*/
 
         return boardViewModel = {
             board: {},
@@ -15,7 +134,7 @@
             sortAscending: ko.observable(true),
             benefitCriterions: ko.observableArray([]),
             costCriterions: ko.observableArray([]),
-            userRole: ko.observable(''),
+            userRole: ko.observable(0),
 
             filterValue: ko.observable('').extend({
                 validate: validators.validateFilterValue
@@ -55,109 +174,7 @@
             self.costCriterions([]);
             self.userRole('');
             self.settingsVisible(false);
-            self.filterValue('');
-
-            /*Hub events*/
-            app.on(constants.EVENT.BOARD.ITEM.TITLE_CHANGED, function (id, title) {
-                var item = _.find(self.board.items(), function (item) { return id == item.id; });
-                
-                self.isFocusEnabled(false);
-
-                item.title(title);
-            });
-
-            app.on(constants.EVENT.BOARD.ITEM.REMOVED, function (id) {
-                var item = _.find(self.board.items(), function (item) { return id == item.id; });
-
-                self.board.items.remove(item);
-                self.sorted(false);
-
-                boardService.setRanks(self.board.items());
-            });
-
-            app.on(constants.EVENT.BOARD.ITEM.ADDED, function (item) {
-                item = mapItem(item, boardViewModel.board.criterions);
-
-                self.board.items.unshift(item);
-                self.sorted(false);
-                
-                boardService.setRanks(self.board.items());
-            });
-
-            app.on(constants.EVENT.BOARD.MARK.VALUE_CHANGED, function (mark) {
-                var item = _.find(self.board.items(), function (item) { return mark.itemId == item.id; });
-                var criterion = _.find(self.board.criterions(), function (criterion) { return mark.criterionId == criterion.id; });
-
-                item.marks()[mark.criterionId].id = mark.id;
-                item.marks()[mark.criterionId].value(mark.value);
-
-                self.sorted(false);
-
-                boardService.setRanks(self.board.items());
-            });
-
-            app.on(constants.EVENT.BOARD.CRITERION.WEIGHT_CHANGED, function (id, weight) {
-                var criterion = _.find(self.board.criterions(), function (criterion) { return id == criterion.id; });
-
-                criterion.weight(weight);
-                self.sorted(false);
-            });
-
-            app.on(constants.EVENT.BOARD.CRITERION.TITLE_CHANGED, function (id, title) {
-                var criterion = _.find(self.board.criterions(), function (criterion) { return id == criterion.id; });
-
-                self.isFocusEnabled(false);
-
-                criterion.title(title);
-            });
-
-            app.on(constants.EVENT.BOARD.TITLE_CHANGED, function (title) {
-                self.board.title(title);
-            });
-
-            app.on(constants.EVENT.BOARD.CRITERION.REMOVED, function (id) {
-                var criterion = _.find(self.board.criterions(), function (criterion) { return id == criterion.id; });
-
-                self.board.criterions.remove(criterion);
-
-                if (criterion.isBenefit)
-                    boardViewModel.benefitCriterions.remove(criterion);
-                else
-                    boardViewModel.costCriterions.remove(criterion);
-
-                _.each(boardViewModel.board.items(), function (item) {
-                    delete item.marks()[criterion.id];
-
-                    item.marks.notifySubscribers();
-                });
-
-                self.sorted(false);
-
-                boardService.setRanks(self.board.items());
-            });
-
-            app.on(constants.EVENT.BOARD.CRITERION.ADDED, function (criterion) {
-                var criterion = mapCriterion(criterion);
-
-                _.each(boardViewModel.board.items(), function (item) {
-                    item.marks()[criterion.id] = mapMark({
-                        id: null,
-                        value: 0,
-                        criterionId: criterion.id,
-                        itemId: item.id
-                    }, criterion);
-
-                    item.marks.notifySubscribers();
-                });
-
-                boardViewModel.board.criterions.unshift(criterion);
-
-                if (criterion.isBenefit)
-                    boardViewModel.benefitCriterions.push(criterion);
-                else
-                    boardViewModel.costCriterions.push(criterion);
-            });
-            /*End*/
+            self.filterValue('');            
 
             return boardRepository.getBoard(boardId)
                 .then(function (data) {
@@ -187,6 +204,8 @@
                     self.board.items.subscribe(function () { applyFilter(); });
 
                     spinner.hide();
+
+                    return boardSettings.activate({ boardId: boardId });
                 });
         }
 

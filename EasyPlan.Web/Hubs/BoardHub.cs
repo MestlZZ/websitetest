@@ -66,5 +66,20 @@ namespace EasyPlan.Web.Hubs
         {
             Clients.Group(boardId).addCriterion(criterion);
         }
+
+        public void AddCollaborator(string boardId, object collaborator)
+        {
+            Clients.All.addCollaborator(collaborator, boardId);
+        }
+
+        public void RemoveCollaborator(string boardId, string email)
+        {
+            Clients.All.removeCollaborator(email, boardId);
+        }
+
+        public void ChangeCollaboratorRole(string boardId, string email, int role)
+        {
+            Clients.All.collaboratorChangeRole(email, role, boardId);
+        }
     }
 }

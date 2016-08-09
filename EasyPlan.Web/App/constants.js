@@ -3,6 +3,7 @@
         storage: {
             boardsInfoUrl: 'board/GetBoardsInfo',
             boardDataUrl: 'board/GetBoardData',
+            boardShortDataUrl: 'board/GetBoardShortData',
             setItemTitleUrl: 'board/item/SetItemTitle',
             removeItemUrl: 'board/item/RemoveItem',
             createNewItemUrl: 'board/item/CreateItem',
@@ -39,7 +40,12 @@
                     VALUE_CHANGED: 'board_mark:value',
                     ADDED: 'board_mark:add'
                 },
-                TITLE_CHANGED: 'board:title'
+                TITLE_CHANGED: 'board:title',
+                COLLABORATOR: {
+                    REMOVED: 'collaborator:remove',
+                    ADDED: 'collaborator:add',
+                    ROLE_CHANGED: 'collaborator:changed-role'
+                }
             }
         },
         ROLE: {
