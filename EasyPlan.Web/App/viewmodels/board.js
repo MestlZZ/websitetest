@@ -4,7 +4,6 @@
     function (boardRepository, itemRepository,markMapper, markRepository, app, boardMapper, itemMapper, constants, boardService,
         criterionRepository, criterionMapper, spinner, validators, sync) {
 
-        var mappedCriterions = [];
         var boardHub = $.connection.boardHub;
 
         return viewModel = {
@@ -76,7 +75,7 @@
             });
 
             app.on(constants.EVENT.BOARD.ITEM.ADDED, function (item) {
-                item = mapItem(item);
+                item = mapItem(item, viewModel.board.criterions);
 
                 self.board.items.unshift(item);
                 self.sorted(false);
@@ -378,9 +377,7 @@
                 validate: validators.validateBoardTitle
             });
 
-            mappedCriterions = boardViewModel.criterions;
-
-            boardViewModel.items = ko.observableArray(_.map(board.items, mapItem));
+            boardViewModel.items = ko.observableArray(_.map(board.items, function (item) { return mapItem(item, boardViewModel.criterions) }));
 
             boardViewModel.items.countVisible = ko.observable(board.items.length);
 
@@ -402,7 +399,7 @@
             return criterionViewModel;
         }
 
-        function mapItem(item) {
+        function mapItem(item, mappedCriterions) {
             var itemViewModel = {};
 
             itemViewModel.id = item.id;
