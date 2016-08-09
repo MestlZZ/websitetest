@@ -16,8 +16,14 @@
             }
         });
 
+        app.on(constants.EVENT.BOARD.REMOVED, function (boardId) {            
+            if (boardId == boardViewModel.board.id && sync.isBoardOpened) {
+                error.throw('Board war removed by creator', 404);
+            }
+        });
+
         app.on(constants.EVENT.BOARD.COLLABORATOR.REMOVED, function (email, boardId) {
-            if (boardId == boardViewModel.board.id) {
+            if (boardId == boardViewModel.board.id && sync.isBoardOpened) {
                 if (boards.user.email == email) {
                     error.throw('You was removed from this board by admin', 401);
                 }
@@ -125,7 +131,7 @@
         });
         /*End*/
 
-        return boardViewModel = {
+        var boardViewModel = {
             board: {},
             ROLE: constants.ROLE,
             settingsVisible: ko.observable(false),
@@ -141,7 +147,6 @@
             }),
 
             activate: activate,
-            deactivate: deactivate,
             sortByRank: sortByRank,
             updateItemTitle: updateItemTitle,
             deleteItem: deleteItem,
@@ -153,10 +158,13 @@
             deleteCriterion: deleteCriterion,
             addCostCriterion: addCostCriterion,
             addBenefitCriterion: addBenefitCriterion,
-            applyFilter: applyFilter
+            applyFilter: applyFilter,
+            detached: detached
         };
 
-        function deactivate() {
+        return boardViewModel;
+
+        function detached() {
             sync.closeBoard();
         }
 

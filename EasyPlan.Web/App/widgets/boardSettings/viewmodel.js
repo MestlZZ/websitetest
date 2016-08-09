@@ -21,7 +21,7 @@
         });
         /*end*/
 
-        return settingsViewModel = {
+        var settingsViewModel = {
             role: ko.observable(0),
             roles: [],
             email: ko.observable(''),
@@ -34,6 +34,8 @@
             invite: invite,
             removeUser: removeUser
         };
+
+        return settingsViewModel;
 
         function removeUser(userRole) {
             $(constants.popupTemplatesId.confirmation).popup({ title: 'Remove', body: 'remove user "' + userRole.user.email + '" from board' })

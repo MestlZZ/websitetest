@@ -25,6 +25,7 @@
         },
         EVENT:{
             BOARD: {
+                REMOVED: 'board:remove',
                 ITEM: {
                     TITLE_CHANGED: 'board_item:title',
                     REMOVED: 'board_item:remove',

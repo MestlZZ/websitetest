@@ -17,14 +17,22 @@
                 profileViewModel.user.boardsShortInfo.remove(entity);
             }
         });
+
+        app.on(constants.EVENT.BOARD.REMOVED, function (boardId) {
+            var entity = _.find(profileViewModel.user.boardsShortInfo(), function (entity) { return entity.board.id == boardId; })
+
+            profileViewModel.user.boardsShortInfo.remove(entity);
+        });
         /*end*/
 
-        return profileViewModel = {
+        var profileViewModel = {
             user: {},
             activate: activate,
             createBoard: createBoard,
             removeBoard: removeBoard
         };
+
+        return profileViewModel;
 
         function activate() {
             var self = this;
@@ -70,7 +78,11 @@
                     if (response) {
                         boardRepository.removeBoard(board.id);
 
-                        profileViewModel.user.boardsShortInfo.remove(entity);
+                        if (board.createdBy == profileViewModel.user.email) {
+                            boardHub.server.removeBoard(board.id);
+                        } else {
+                            boardHub.server.removeCollaborator(board.id, profileViewModel.user.email);
+                        }
                     }
                 });
         }

@@ -2,7 +2,6 @@
 
     var boardHub = $.connection.boardHub;
     var boardId = '';
-    var isConnectedToBoard = false;
 
     boardHub.client.updateItemTitle = function (id, title) {
         app.trigger(constants.EVENT.BOARD.ITEM.TITLE_CHANGED, id, title);
@@ -40,19 +39,24 @@
     boardHub.client.collaboratorChangeRole = function (email, role, boardId) {
         app.trigger(constants.EVENT.BOARD.COLLABORATOR.ROLE_CHANGED, email, role, boardId);
     };
+    boardHub.client.removeBoard = function (boardId) {
+        app.trigger(constants.EVENT.BOARD.REMOVED, boardId);
+    };
 
 
-    return {
+    var model = {
         boardHub: boardHub,
+        isBoardOpened: false,
         connect: connect,
         disconnect: disconnect,
         openBoard: openBoard,
         closeBoard: closeBoard
     };
 
+    return model;
 
-    function openBoard(id) {
-        isConnectedToBoard = true;
+    function openBoard(id) {        
+        model.isBoardOpened = true;
         boardId = id;
 
         boardHub.server.openBoard(id);
@@ -64,15 +68,17 @@
 
         boardHub.server.closeBoard(boardId);
 
-        isConnectedToBoard = false;
+        model.isBoardOpened = false;
         boardId = '';
     }
 
     function connect() {
+        model.isBoardOpened = false;
         return $.connection.hub.start();
     }
 
     function disconnect() {
+        model.isBoardOpened = false;
         return $.connection.hub.stop();
     }
 });

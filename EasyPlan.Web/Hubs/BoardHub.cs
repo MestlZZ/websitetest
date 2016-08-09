@@ -81,5 +81,10 @@ namespace EasyPlan.Web.Hubs
         {
             Clients.All.collaboratorChangeRole(email, role, boardId);
         }
+
+        public void RemoveBoard(string boardId)
+        {
+            Clients.All.removeBoard(boardId);
+        }
     }
 }
