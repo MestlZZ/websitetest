@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'durandal/app'], function (router, app, error) {
+﻿define(['plugins/router', 'durandal/app'], function (router, app) {
 
     return viewModel = {
         user: {},

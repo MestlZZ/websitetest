@@ -2,13 +2,13 @@
     function (boardRepository, spinner, constants, errorHandler) {
 
         return viewModel1 = {
-            role: ko.observable(),
+            role: ko.observable(0),
             roles: [],
-            email: ko.observable(),
-            info: ko.observable(),
-            boardId: ko.observable(),
-            clientEmail: ko.observable(),
-            clientRole: ko.observable(),
+            email: ko.observable(''),
+            info: ko.observable({}),
+            boardId: ko.observable(''),
+            clientEmail: ko.observable(''),
+            clientRole: ko.observable(0),
             ROLE: constants.ROLE,
             activate: activate,
             invite: invite,

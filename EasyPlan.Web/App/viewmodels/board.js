@@ -11,6 +11,7 @@
             ROLE: constants.ROLE,
             settingsVisible: ko.observable(false),
             sorted: ko.observable(true),
+            isFocusEnabled: ko.observable(false),
             sortAscending: ko.observable(true),
             benefitCriterions: ko.observableArray([]),
             costCriterions: ko.observableArray([]),
@@ -59,6 +60,8 @@
             /*Hub events*/
             app.on(constants.EVENT.BOARD.ITEM.TITLE_CHANGED, function (id, title) {
                 var item = _.find(self.board.items(), function (item) { return id == item.id; });
+                
+                self.isFocusEnabled(false);
 
                 item.title(title);
             });
@@ -77,7 +80,7 @@
 
                 self.board.items.unshift(item);
                 self.sorted(false);
-
+                
                 boardService.setRanks(self.board.items());
             });
 
@@ -102,6 +105,8 @@
 
             app.on(constants.EVENT.BOARD.CRITERION.TITLE_CHANGED, function (id, title) {
                 var criterion = _.find(self.board.criterions(), function (criterion) { return id == criterion.id; });
+
+                self.isFocusEnabled(false);
 
                 criterion.title(title);
             });
@@ -242,8 +247,9 @@
             spinner.show();
 
             itemRepository.getNewItem(boardViewModel.board.id).then(function (item) {
-                boardHub.server.addItem(boardViewModel.board.id, item);
+                boardViewModel.isFocusEnabled(true);
 
+                boardHub.server.addItem(boardViewModel.board.id, item);
                 spinner.hide();
             });
         }
@@ -336,6 +342,8 @@
 
             criterionRepository.getNewCriterion(isBenefit, boardViewModel.board.id)
                 .then(function (criterion) {
+                    boardViewModel.isFocusEnabled(true);
+
                     boardHub.server.addCriterion(boardViewModel.board.id, criterion);
 
                     spinner.hide();

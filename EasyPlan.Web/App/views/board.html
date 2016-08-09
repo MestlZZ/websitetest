@@ -57,7 +57,7 @@
                 <tr>
                     <!--ko foreach: benefitCriterions-->
                     <td class="cell-field board-criterion criterion-benefit">
-                        <div class="criterion-title-input title-value" data-bind="editableText: {handler: $root.updateCriterionTitle, value: title, active: $root.userRole() <= $root.ROLE.EDITOR}, selectTextOnFocus: true, hasFocus: true"></div>
+                        <div class="criterion-title-input title-value" data-bind="editableText: {handler: $root.updateCriterionTitle, value: title, active: $root.userRole() <= $root.ROLE.EDITOR}, selectTextOnFocus: true, hasFocus: $root.isFocusEnabled()"></div>
                         <!--ko if: $root.benefitCriterions().length > 1 && $root.userRole() <= $root.ROLE.EDITOR-->
                         <i class="criterion-title-delete" title="Delete criterion" data-bind="click: $root.deleteCriterion">✗</i>
                         <!--/ko-->
@@ -69,7 +69,7 @@
                     <!--/ko-->
                     <!--ko foreach: costCriterions-->
                     <td class="cell-field board-criterion criterion-cost">
-                        <div class="criterion-title-input title-value" data-bind="editableText: {handler: $root.updateCriterionTitle, value: title, active: $root.userRole() <= $root.ROLE.EDITOR}, selectTextOnFocus: true, hasFocus: true"></div>
+                        <div class="criterion-title-input title-value" data-bind="editableText: {handler: $root.updateCriterionTitle, value: title, active: $root.userRole() <= $root.ROLE.EDITOR}, selectTextOnFocus: true, hasFocus: $root.isFocusEnabled()"></div>
                         <!--ko if: $root.costCriterions().length > 1  && $root.userRole() <= $root.ROLE.EDITOR-->
                         <i class="criterion-title-delete" title="Delete criterion" data-bind="click: $root.deleteCriterion">✗</i>
                         <!--/ko-->
@@ -114,7 +114,7 @@
                 <!--ko foreach: board.items-->
                 <tr class="item-cell" data-bind="visible: visible">
                     <td class="cell-field item-title noselect"> 
-                        <div class="item-title-input title-value" data-bind="editableText: {handler: $root.updateItemTitle, value: title, active: $root.userRole() <= $root.ROLE.EDITOR}, selectTextOnFocus: true, hasFocus: true"></div>
+                        <div class="item-title-input title-value" data-bind="editableText: {handler: $root.updateItemTitle, value: title, active: $root.userRole() <= $root.ROLE.EDITOR}, selectTextOnFocus: true, hasFocus: $root.isFocusEnabled()"></div>
                         <!--ko if: $root.userRole() <= $root.ROLE.EDITOR-->
                         <i class="item-title-delete" title="Delete item" data-bind="click: $root.deleteItem">✗</i>
                         <!--/ko-->
