@@ -24,19 +24,20 @@ namespace EasyPlan.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [UserRole(RoleName.Admin, RoleName.Editor)]
-        public void SetMarkValue(int value, Mark mark)
+        public ActionResult CreateMark(Item item, Criterion criterion, int value)
         {
-            mark.SetValue(value);
-        }
+            var mark = _markRepository.FindByItemAndCriterionId(item.Id, criterion.Id);
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [UserRole(RoleName.Admin, RoleName.Editor)]
-        public ActionResult CreateMark(Item item, Criterion criterion)
-        {
-            var mark = new Mark(item, criterion, 0);
+            if (mark == null)
+            {
+                mark = new Mark(item, criterion, value);
 
-            _markRepository.Add(mark);
+                _markRepository.Add(mark);
+            }
+            else
+            {
+                mark.SetValue(value);
+            }
 
             return JsonSuccess(MarkMapper.Map(mark));
         }

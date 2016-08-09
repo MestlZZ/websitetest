@@ -257,38 +257,18 @@
         function setMark(mark) {
             spinner.show();
 
-            if (_.isNull(mark.id)) {
-                markRepository.createMark(mark.itemId, mark.criterionId, boardViewModel.board.id)
-                    .then(function (newMark) {
-                        mark.id = newMark.id;
+            var newMark = {
+                id: mark.id,
+                value: mark.value(),
+                criterionId: mark.criterionId,
+                itemId: mark.itemId
+            };
 
-                        var newMark = {
-                            id: mark.id,
-                            value: mark.value(),
-                            criterionId: mark.criterionId,
-                            itemId: mark.itemId
-                        };
+            markRepository.setValue(mark.itemId, mark.criterionId, boardViewModel.board.id, +mark.value()).then(function () {
+                boardHub.server.setMark(boardViewModel.board.id, newMark);
 
-                        markRepository.setValue(+mark.value(), mark.id, boardViewModel.board.id).then(function () {
-                            boardHub.server.setMark(boardViewModel.board.id, newMark);
-
-                            spinner.hide();
-                        });
-                    });
-            } else {
-                var newMark = {
-                    id: mark.id,
-                    value: mark.value(),
-                    criterionId: mark.criterionId,
-                    itemId: mark.itemId
-                };
-
-                markRepository.setValue(+mark.value(), mark.id, boardViewModel.board.id).then(function () {
-                    boardHub.server.setMark(boardViewModel.board.id, newMark);
-
-                    spinner.hide();
-                });
-            }
+                spinner.hide();
+            });
         }
 
         function setWeight(criterion) {

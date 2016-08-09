@@ -6,7 +6,6 @@
             setItemTitleUrl: 'board/item/SetItemTitle',
             removeItemUrl: 'board/item/RemoveItem',
             createNewItemUrl: 'board/item/CreateItem',
-            setMarkValueUrl: 'board/mark/SetMarkValue',
             createMarkUrl: 'board/mark/CreateMark',
             setCriterionWeightUrl: 'board/criterion/SetCriterionWeight',
             setCriterionTitleUrl: 'board/criterion/SetCriterionTitle',
