@@ -223,6 +223,8 @@
     <Content Include="App\views\shell.html" />
     <Content Include="App\widgets\boardSettings\view.html" />
     <Content Include="App\widgets\boardSettings\viewmodel.js" />
+    <Content Include="App\widgets\popup\view.html" />
+    <Content Include="App\widgets\popup\viewmodel.js" />
     <Content Include="Content\authforms.css" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\images\arrow.png" />
