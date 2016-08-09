@@ -1,7 +1,6 @@
 ﻿using EasyPlan.DomainModel.Entities;
 using EasyPlan.DomainModel.Repositories;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace EasyPlan.DataAccess.Repositories
 {

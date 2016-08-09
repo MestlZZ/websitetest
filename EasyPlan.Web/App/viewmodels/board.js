@@ -18,7 +18,7 @@
 
         app.on(constants.EVENT.BOARD.REMOVED, function (boardId) {            
             if (boardId == boardViewModel.board.id && sync.isBoardOpened) {
-                error.throw('Board war removed by creator', 404);
+                error.throw('Board was deleted by creator', 404);
             }
         });
 

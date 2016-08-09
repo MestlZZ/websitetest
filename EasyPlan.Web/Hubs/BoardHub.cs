@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
-using EasyPlan.DomainModel.Repositories;
-using EasyPlan.Web.Components.Mapper;
-using EasyPlan.Web.Components;
-using Newtonsoft.Json;
 
 namespace EasyPlan.Web.Hubs
 {

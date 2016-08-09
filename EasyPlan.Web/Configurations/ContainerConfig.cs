@@ -2,10 +2,7 @@
 using Autofac.Integration.Mvc;
 using System.Web.Mvc;
 using EasyPlan.DataAccess;
-using EasyPlan.Infrastructure;
 using EasyPlan.Web.Components.Providers;
-using EasyPlan.DomainModel.Entities;
-using EasyPlan.Web.Components.Mapper;
 using EasyPlan.Web.Components.ModelBinding;
 
 namespace EasyPlan.Web

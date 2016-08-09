@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EasyPlan.Web.ViewModels
 {
@@ -20,7 +16,7 @@ namespace EasyPlan.Web.ViewModels
 
         [Required]
         [DataType(DataType.Password)]
-        [RegularExpression("([\\S]{7,})", ErrorMessage = "You can't input space symbols, and length must be 7 or more")]
+        [RegularExpression("([\\S]{7,})", ErrorMessage = "You must input at least 7 no space symbols")]
         [Display(Name = "Password")]
         public string Password { get; set; }
     }

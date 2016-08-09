@@ -10,7 +10,7 @@
         }
 
         function select() {
-            if ($input.prop("tagName") === "INPUT") {
+            if ($input.prop('tagName') === 'INPUT') {
                 $input.select();
             } else {
                 $input.selectText();

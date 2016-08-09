@@ -59,7 +59,7 @@
                     <td class="cell-field board-criterion criterion-benefit">
                         <div class="criterion-title-input title-value" data-bind="editableText: {handler: $root.updateCriterionTitle, value: title, active: $root.userRole() <= $root.ROLE.EDITOR}, selectTextOnFocus: true, hasFocus: $root.isFocusEnabled()"></div>
                         <!--ko if: $root.benefitCriterions().length > 1 && $root.userRole() <= $root.ROLE.EDITOR-->
-                        <i class="criterion-title-delete" title="Delete criterion" data-bind="click: $root.deleteCriterion">✗</i>
+                        <i class="criterion-title-delete" title="Remove criterion" data-bind="click: $root.deleteCriterion">✗</i>
                         <!--/ko-->
                         <span class="criterion-title-validation-message validation-message" data-bind="css: {'visible':title.hasError}">
                             <span class="validation-message-error" data-bind="text: title.validationMessage"></span>
@@ -71,7 +71,7 @@
                     <td class="cell-field board-criterion criterion-cost">
                         <div class="criterion-title-input title-value" data-bind="editableText: {handler: $root.updateCriterionTitle, value: title, active: $root.userRole() <= $root.ROLE.EDITOR}, selectTextOnFocus: true, hasFocus: $root.isFocusEnabled()"></div>
                         <!--ko if: $root.costCriterions().length > 1  && $root.userRole() <= $root.ROLE.EDITOR-->
-                        <i class="criterion-title-delete" title="Delete criterion" data-bind="click: $root.deleteCriterion">✗</i>
+                        <i class="criterion-title-delete" title="Remove criterion" data-bind="click: $root.deleteCriterion">✗</i>
                         <!--/ko-->
                         <span class="criterion-title-validation-message validation-message" data-bind="css: {'visible':title.hasError}">
                             <span class="validation-message-error" data-bind="text: title.validationMessage"></span>

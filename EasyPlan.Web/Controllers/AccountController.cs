@@ -1,17 +1,10 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using System.Web.Mvc;
 using EasyPlan.DomainModel.Entities;
 using EasyPlan.DomainModel.Repositories;
-using EasyPlan.Infrastructure;
 using EasyPlan.Web.Components.Mapper;
 using EasyPlan.Web.Components;
 using EasyPlan.Web.Components.Providers;
 using EasyPlan.Web.ViewModels;
-using System.Web.Security;
-
-
 
 namespace EasyPlan.Web.Controllers
 {
@@ -108,7 +101,7 @@ namespace EasyPlan.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "User with this email address are exist.");
+                    ModelState.AddModelError("", "Current email is used by another user.");
                 }
             }
 

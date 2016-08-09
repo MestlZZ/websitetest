@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using EasyPlan.DomainModel.Repositories;
 using EasyPlan.DomainModel.Entities;
 using EasyPlan.Infrastructure;
-using System.Web.Security;
 
 namespace EasyPlan.Web.Components.ActionFilters.Premission
 {
@@ -71,17 +67,5 @@ namespace EasyPlan.Web.Components.ActionFilters.Premission
 
             return false;
         }
-
-        /*private Entity GetEntity(Guid id)
-        {
-
-            var serviceType = typeof(IQueryableRepository<>).MakeGenericType(typeof(Board));
-            var service = DependencyResolver.Current.GetService(serviceType);
-            var method = serviceType.GetMethod("Get");
-
-            var callParams = new object[] { id };
-
-            return (Entity)method.Invoke(service, callParams);
-        }*/
     }
 }

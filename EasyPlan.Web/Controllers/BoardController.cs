@@ -1,13 +1,9 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using System.Web.Mvc;
 using EasyPlan.DomainModel.Entities;
 using EasyPlan.DomainModel.Repositories;
 using EasyPlan.Infrastructure;
 using EasyPlan.Web.Components.Mapper;
 using EasyPlan.Web.Components;
-using EasyPlan.Web.Components.Providers;
 using EasyPlan.Web.Components.ActionFilters.Premission;
 using EasyPlan.DomainModel.ObjectMothers;
 
@@ -89,7 +85,7 @@ namespace EasyPlan.Web.Controllers
         {
             if(board.CreatedBy == user.Email)
             {
-                throw new ArgumentValidationException("Can't change role for creator of board", statusCode: 403);
+                throw new ArgumentValidationException("You can't change board creator role", statusCode: 403);
             }
             board.SetRole(user, (RoleName)role);
 

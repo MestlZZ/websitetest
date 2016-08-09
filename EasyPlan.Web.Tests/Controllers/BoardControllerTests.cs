@@ -16,16 +16,14 @@ namespace EasyPlan.Web.Tests
         private BoardController _controller;
         private IBoardRepository _boardRepository;
         private IMembershipProvider _membershipProvider;
-        private IRoleProvider _roleProvider;
 
         [TestInitialize]
         public void Initialize()
         {
             _boardRepository = Substitute.For<IBoardRepository>();
             _membershipProvider = Substitute.For<IMembershipProvider>();
-            _roleProvider = Substitute.For<IRoleProvider>();
 
-            _controller = new BoardController(_boardRepository, _membershipProvider, _roleProvider);
+            _controller = new BoardController(_boardRepository, _membershipProvider);
         }
     }
 }

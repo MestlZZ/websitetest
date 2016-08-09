@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
-using System.Collections.Generic;
 using EasyPlan.DomainModel.Entities;
 using EasyPlan.Infrastructure;
 using EasyPlan.DomainModel.Repositories;

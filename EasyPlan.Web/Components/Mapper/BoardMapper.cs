@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using EasyPlan.DomainModel.Repositories;
-using System.Web.Security;
+﻿using System.Linq;
 using EasyPlan.DomainModel.Entities;
-using EasyPlan.Infrastructure;
 
 namespace EasyPlan.Web.Components.Mapper
 {
