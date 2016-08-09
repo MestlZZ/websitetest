@@ -189,6 +189,7 @@
     <Content Include="App\bootstrapping\popupTemplatesTask.js" />
     <Content Include="App\bootstrapping\underscoreExtraTask.js" />
     <Content Include="App\constants.js" />
+    <Content Include="App\error.js" />
     <Content Include="App\packages\underscore\validation.js" />
     <Content Include="App\http\httpRequestSender.js" />
     <Content Include="App\http\storageHttpWrapper.js" />
@@ -214,9 +215,11 @@
     <Content Include="App\templates\confirmation-popup-template.html" />
     <Content Include="App\viewmodels\board.js" />
     <Content Include="App\viewmodels\boards.js" />
+    <Content Include="App\viewmodels\error.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\views\board.html" />
     <Content Include="App\views\boards.html" />
+    <Content Include="App\views\error.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="App\widgets\boardSettings\view.html" />
     <Content Include="App\widgets\boardSettings\viewmodel.js" />

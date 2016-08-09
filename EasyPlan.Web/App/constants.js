@@ -47,6 +47,9 @@
             ADMIN: 1,
             EDITOR: 2,
             VIEWER: 3
+        },
+        ERROR: {
+            CRITICAL: 'error:crit'
         }
     }
 });

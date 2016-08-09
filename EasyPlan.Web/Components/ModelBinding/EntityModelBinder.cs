@@ -24,13 +24,23 @@ namespace EasyPlan.Web.Components.ModelBinding
         {
             var entityId = bindingContext.ValueProvider.GetValue(bindingContext.ModelName + "Id");
 
-            var id = Guid.Parse(entityId.AttemptedValue);
+            Guid id;
+
+            try
+            {
+                id = Guid.Parse(entityId.AttemptedValue);
+            }
+            catch
+            {
+                throw new ArgumentValidationException(bindingContext.ModelName + " id is invalid!", statusCode: 400);
+            }
 
             ArgumentValidation.ThrowIfNull(id, bindingContext.ModelName + " id");
 
             var model = _repository.Get(id);
 
-            ArgumentValidation.ThrowIfNull(model, bindingContext.ModelName);
+            if (model == null)
+                throw new ArgumentValidationException(bindingContext.ModelName + " not found!", statusCode: 404);
 
             return model;       
         }

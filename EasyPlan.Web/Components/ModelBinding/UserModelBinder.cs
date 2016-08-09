@@ -25,6 +25,9 @@ namespace EasyPlan.Web.Components.ModelBinding
 
             var user = (_repository.GetCollection()).FirstOrDefault(e => e.Email == userEmail.AttemptedValue);
 
+            if (user == null)
+                throw new ArgumentValidationException("User not found!", 404);
+
             return user;
         }
     }

@@ -15,7 +15,7 @@
             </thead>
             <tbody data-bind="foreach: info().usersInRoles">
                 <tr>
-                    <td><!--ko text: user.name--><!--/ko-->(<!--ko text: user.email--><!--/ko-->)</td>
+                    <td><!--ko text: user.name--><!--/ko--> (<!--ko text: user.email--><!--/ko-->)</td>
                     <td>
                         <select class="settings-user-select-role" data-bind="value: accessLevel, options: $parent.roles, optionsText: 'name', optionsValue: 'accessLevel', attr: {'disabled': ($parent.info().createdBy == user.email) || (user.email == $parent.clientEmail())}"></select>
                     </td>

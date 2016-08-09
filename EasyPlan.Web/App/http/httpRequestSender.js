@@ -18,7 +18,7 @@
         }).then(function (response) {
             deferred.resolve(response);
         }).fail(function (reason) {
-            deferred.reject(reason.status);
+            deferred.reject({status: reason.status, message: reason.statusText});
         });
 
         return deferred.promise;

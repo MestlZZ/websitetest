@@ -1,5 +1,5 @@
-﻿define(['repositories/boardRepository', 'spinner', 'constants'],
-    function (boardRepository, spinner, constants) {
+﻿define(['repositories/boardRepository', 'spinner', 'constants', 'error'],
+    function (boardRepository, spinner, constants, errorHandler) {
 
         return viewModel1 = {
             role: ko.observable(),
@@ -30,6 +30,14 @@
             var boardId = ko.unwrap(model.boardId);
             var email = ko.unwrap(model.email);
             var role = ko.unwrap(model.role);
+
+            for (var i = 0; i < viewModel1.info().usersInRoles().length; i++)
+            {
+                if(viewModel1.info().usersInRoles()[i].user.email == email)
+                {
+                    return errorHandler.throw('User with email: ' + email + ' has already exist in board.', 400);
+                }
+            }
 
             setRole(boardId, email, role).then(function (data) {
                 if (_.isUndefined(data.message)) {
