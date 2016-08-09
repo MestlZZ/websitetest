@@ -3,6 +3,7 @@
 
         return viewModel1 = {
             role: ko.observable(),
+            roles: [],
             email: ko.observable(),
             info: ko.observable(),
             boardId: ko.observable(),
@@ -45,13 +46,19 @@
         function activate(settings) {
             var self = this;
 
+            self.roles = [
+                { name: 'Admin', accessLevel: constants.ROLE.ADMIN },
+                { name: 'Editor', accessLevel: constants.ROLE.EDITOR },
+                { name: 'Viewer', accessLevel: constants.ROLE.VIEWER }
+            ];
+
             self.role(3);
             self.email('');
             self.boardId(settings.boardId);
 
             return boardRepository.getBoardUsersInfo(settings.boardId)
                 .then(function (info) {
-                    info.usersInRoles = ko.observableArray(_.map(info.board.usersInRoles, MapUserRole));
+                    info.board.usersInRoles = ko.observableArray(_.map(info.board.usersInRoles, MapUserRole));
 
                     self.info(info.board);
                     self.clientEmail(info.clientEmail);
@@ -64,6 +71,9 @@
 
             result.user = userRole.user;
             result.accessLevel = ko.observable(userRole.accessLevel);
+
+            window.userRole = result;
+            window.viewModel = viewModel1;
 
             result.accessLevel.subscribe(function () {
                 setRole(viewModel1.boardId, result.user.email, result.accessLevel);

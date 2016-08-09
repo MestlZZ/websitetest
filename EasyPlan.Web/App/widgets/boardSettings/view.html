@@ -2,11 +2,7 @@
     <div class="board-settings-item invite-user">
         <span>Invite user</span>
         <input type="email" data-bind="value: email" />
-        <select data-bind="value: role">
-            <option data-bind="value: ROLE.ADMIN">Admin</option>
-            <option data-bind="value: ROLE.EDITOR">Editor</option>
-            <option selected data-bind="value: ROLE.VIEWER">Viewer</option>
-        </select>
+        <select data-bind="value: role, options: roles, optionsText: 'name', optionsValue: 'accessLevel'"></select>
         <button data-bind="click: invite">Invite</button>
     </div>
     <div class="board-settings-item user-list">
@@ -21,11 +17,7 @@
                 <tr>
                     <td><!--ko text: user.name--><!--/ko-->(<!--ko text: user.email--><!--/ko-->)</td>
                     <td>
-                        <select class="settings-user-select-role" data-bind="value: accessLevel, attr: {'disabled': ($parent.info().createdBy == user.email)}">
-                            <option data-bind="value: $parent.ROLE.ADMIN">Admin</option>
-                            <option data-bind="value: $parent.ROLE.EDITOR">Editor</option>
-                            <option data-bind="value: $parent.ROLE.VIEWER">Wiewer</option>
-                        </select>
+                        <select class="settings-user-select-role" data-bind="value: accessLevel, options: $parent.roles, optionsText: 'name', optionsValue: 'accessLevel', attr: {'disabled': ($parent.info().createdBy == user.email) || (user.email == $parent.clientEmail())}"></select>
                     </td>
                     <!--ko if: $parent.clientRole() == $parent.ROLE.ADMIN && $parent.info().createdBy != user.email && $parent.clientEmail() != user.email-->
                     <td>
