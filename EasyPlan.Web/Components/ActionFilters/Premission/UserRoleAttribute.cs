@@ -42,7 +42,16 @@ namespace EasyPlan.Web.Components.ActionFilters.Premission
 
             var user = UserRepository.FindUserByEmail(filterContext.HttpContext.User.Identity.Name);
 
-            var boardId = Guid.Parse(entityId.AttemptedValue);
+            Guid boardId;
+
+            try
+            {
+                boardId = Guid.Parse(entityId.AttemptedValue);
+            }
+            catch
+            {
+                throw new ArgumentValidationException("Invalid board Id", statusCode: 400);
+            }
 
             if (!CheckAccess(boardId, user))
             {
@@ -55,9 +64,9 @@ namespace EasyPlan.Web.Components.ActionFilters.Premission
             var board = BoardRepository.Get(boardId);
 
             if (board == null)
-                return false;
+                throw new ArgumentValidationException("Board not found", statusCode: 404);
 
-            foreach(var role in SelectedRoles)
+            foreach (var role in SelectedRoles)
             {
                 if(board.GetRole(user).Name == role)
                 {

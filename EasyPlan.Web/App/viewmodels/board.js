@@ -173,8 +173,6 @@
 
             var self = this;
 
-            sync.openBoard(boardId);
-
             self.board = {};
             self.sorted(true);
             self.sortAscending(true);
@@ -190,6 +188,8 @@
                     {
                         return;
                     }
+
+                    sync.openBoard(boardId);
 
                     var board = boardMapper.map(data.board);
 

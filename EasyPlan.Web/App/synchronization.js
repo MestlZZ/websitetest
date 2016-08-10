@@ -63,13 +63,12 @@
     }
 
     function closeBoard() {
-        if (_.isEmpty(boardId))
-            throw 'Can\'t disconect from board because board id is clear';
+        if (!_.isEmpty(boardId)) {
+            boardHub.server.closeBoard(boardId);
 
-        boardHub.server.closeBoard(boardId);
-
-        model.isBoardOpened = false;
-        boardId = '';
+            model.isBoardOpened = false;
+            boardId = '';
+        }
     }
 
     function connect() {
