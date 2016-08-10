@@ -1,5 +1,5 @@
-﻿define(['repositories/boardRepository', 'spinner', 'constants', 'error', 'durandal/app'],
-    function (boardRepository, spinner, constants, errorHandler, app) {
+﻿define(['repositories/boardRepository', 'spinner', 'constants', 'error', 'durandal/app', 'widgets/popup/viewModel'],
+    function (boardRepository, spinner, constants, errorHandler, app, popup) {
         
         var boardHub = $.connection.boardHub;
 
@@ -38,16 +38,13 @@
         return settingsViewModel;
 
         function removeUser(userRole) {
-            $(constants.popupTemplatesId.confirmation).popup({ title: 'Remove', body: 'remove user "' + userRole.user.email + '" from board' })
-                .then(function (response) {
-                    if (response) {
-                        boardRepository.removeUser(settingsViewModel.boardId(), userRole.user.email).then(function () {
-                            settingsViewModel.info().usersInRoles.remove(userRole);
+            popup.showConfirmation('Remove', 'remove user "' + userRole.user.email + '" from board', function () {
+                boardRepository.removeUser(settingsViewModel.boardId(), userRole.user.email).then(function () {
+                    settingsViewModel.info().usersInRoles.remove(userRole);
 
-                            boardHub.server.removeCollaborator(settingsViewModel.boardId(), userRole.user.email);
-                        });
-                    }
+                    boardHub.server.removeCollaborator(settingsViewModel.boardId(), userRole.user.email);
                 });
+            });
         }
 
         function invite(model) {

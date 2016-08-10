@@ -1,5 +1,5 @@
-﻿<div class="popup-back-layer" data-bind="attr: {'visible': enabled}"></div>
-<div class="popup-content" data-bind="attr: {'visible': enabled}">
+﻿<div class="popup-back-layer" data-bind="css: {'visible': enabled, 'invisible': !enabled()}"></div>
+<div class="popup-content" data-bind="css: {'visible': enabled, 'invisible': !enabled()}">
     <div class="popup-header">
         <span class="popup-header-title" data-bind="text: title"></span>
         <i class="popup-header-close" data-bind="click: hide">✖</i>
@@ -8,6 +8,6 @@
     <div class="popup-body"></div>
     
     <div class="popup-buttons" data-bind="foreach: buttons">
-        <button class="popup-buttons-button button" data-bind="text: title, click: callback, css: {class: true}"></button>
+        <button class="popup-buttons-button button" data-bind="text: title, click: callback, css: buttonClass"></button>
     </div>
 </div>

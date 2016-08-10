@@ -186,7 +186,6 @@
     <Content Include="App\bootstrapping\jqueryPluginsTask.js" />
     <Content Include="App\bootstrapping\knockoutBindingTask.js" />
     <Content Include="App\bootstrapping\knockoutExtendersTask.js" />
-    <Content Include="App\bootstrapping\popupTemplatesTask.js" />
     <Content Include="App\bootstrapping\underscoreExtraTask.js" />
     <Content Include="App\constants.js" />
     <Content Include="App\error.js" />
@@ -269,7 +268,6 @@
     <Content Include="App\packages\knockoutBindings\editableTextBinding.js" />
     <Content Include="App\packages\knockoutBindings\selectTextOnFocusBinding.js" />
     <Content Include="App\packages\knockoutExtenders\validateExtender.js" />
-    <Content Include="App\packages\jqueryPlugins\jquery.popup.js" />
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />

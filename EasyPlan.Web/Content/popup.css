@@ -7,74 +7,93 @@
     /*left: calc(50% - 220px);
     top: calc(50% - 100px);*/
 }
-.ui-dialog-titlebar{
-    border-bottom: 1px solid rgba(0,0,0, .1);
-    padding: 10px 0;
-    cursor: move;
-}
-.ui-dialog-title{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
+/*Widjet popup*/
+.popup-back-layer{
+    background-color: rgba(0,30,30,.3);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    transition: all .3s;
 }
 
-.ui-button{
+.popup-content{
+    position: absolute;
+    width: 460px;
+    height: 140px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-content:space-between;
+    top: calc(50% - 85px);
+    left: calc(50% - 250px);
+    z-index: 100;
+    transition: all .3s;
+    border-radius: 5px;
+    padding: 15px 20px;
+    border: 1px solid rgb(196,196,196);
+    box-shadow: black 2px 2px 10px -3px;
+}
+
+.popup-header{
+    border-bottom: 1px solid rgb(220, 220, 220);
+    position: relative;
+    padding: 5px 0px;
+    flex: 0 21px;
+}
+
+.popup-header-close{
+    position: absolute;
+    right: 0;
+    top: -5px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 23px;
+    color: rgb(196, 196, 196);
     cursor: pointer;
 }
 
-.ui-widget-overlay {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height:100vh;
-    background-color: black;
-    opacity: .20;
+.popup-header-title{
+    font-family: Arial;
+    font-size: 18px;
 }
 
-.ui-dialog-titlebar-close{
-    position: absolute;
-    right: 20px;
-    top: 15px;
-    background: none;
-    width: 20px;
-    border: none;
-    height: 20px;
-}
-.ui-dialog-titlebar-close .ui-button-text{
-    font-size: 25px;
-    position: absolute;
-    top: -8px;
-    left: 0;
-    font-weight: bold;
-    color: rgba(150,150,200, .5);
-}
-
-
-.ui-dialog-titlebar-close::after{
-    display: block;
-    content: '';
-    clear: both;
-}
-
-.ui-dialog-content{
+.popup-body{
     padding: 10px 0;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
+    font-family: Arial;
+    font-size: 14px;
+    flex: 1;
 }
 
-.ui-dialog-buttonset{
-    width: 100%;
+.popup-buttons{
     text-align: center;
 }
 
-.ui-dialog-buttonset .ui-button{
-    border: 1px solid rgba(100, 100, 100, .2);
-    border-radius: 4px;
-    padding: 8px;
-    background-color: transparent;
-    margin: 3px;
+.visible{
+    opacity: 1;
 }
-.ui-dialog-buttonset .confirm-button{
-    background-color: rgb(0, 100, 153);
-    color: white;
-    border: 1px solid black;
+
+.popup-content.invisible,
+.popup-back-layer.invisible{
+    opacity: 0;
+    z-index: -1;
+    transform: scale(1);
 }
+
+.button{
+    cursor: pointer;
+}
+
+.confirm-button{
+    border: 1px solid rgb(0, 34, 51);
+}
+
+.cancel-button{
+    background-color: rgb(254, 254, 254);
+    border: 1px solid rgb(220, 220, 220);
+    color: rgb(51, 51, 63);
+}
+
+/*END*/

@@ -1,8 +1,8 @@
 ﻿define(['plugins/router', 'repositories/boardRepository', 'repositories/itemRepository','mappers/markMapper','repositories/markRepository',
     'durandal/app', 'mappers/boardMapper', 'mappers/itemMapper', 'constants', 'services/boardService',
-    'repositories/criterionRepository', 'mappers/criterionMapper', 'spinner', 'services/validators', 'synchronization', 'viewmodels/boards', 'error', 'widgets/boardSettings/viewModel'],
+    'repositories/criterionRepository', 'mappers/criterionMapper', 'spinner', 'services/validators', 'synchronization', 'viewmodels/boards', 'error', 'widgets/boardSettings/viewmodel', 'widgets/popup/viewmodel'],
     function (router, boardRepository, itemRepository,markMapper, markRepository, app, boardMapper, itemMapper, constants, boardService,
-        criterionRepository, criterionMapper, spinner, validators, sync, boards, error, boardSettings) {
+        criterionRepository, criterionMapper, spinner, validators, sync, boards, error, boardSettings, popup) {
 
         var boardHub = $.connection.boardHub;
 
@@ -256,18 +256,15 @@
             if (title.length > 50)
                 title = title.slice(0, 50) + '...';
 
-            $(constants.popupTemplatesId.confirmation).popup({ title: 'Delete', body: 'delete "' + title + '"' })
-            .then(function (response) { 
-                if (response) {
-                    spinner.show();
+            popup.showConfirmation('Delete', 'delete "' + title + '"', function () {
+                spinner.show();
 
-                    itemRepository.remove(item.id, boardViewModel.board.id).then(function () {
+                itemRepository.remove(item.id, boardViewModel.board.id).then(function () {
 
-                        boardHub.server.deleteItem(boardViewModel.board.id, item.id);
-                        spinner.hide();
-                    });
-                }
-            });            
+                    boardHub.server.deleteItem(boardViewModel.board.id, item.id);
+                    spinner.hide();
+                });
+            });
         }
 
         function addItem() {
@@ -330,18 +327,15 @@
             if (criterion.length > 50)
                 criterion = criterion.slice(0, 50) + '...';
 
-            $(constants.popupTemplatesId.confirmation).popup({ title: 'Delete', body: 'delete "' + title + '"' })
-                .then(function (response) {
-                    if (response) {
-                        spinner.show();
+            popup.showConfirmation('Delete', 'delete "' + title + '"', function () {
+                spinner.show();
 
-                        criterionRepository.remove(criterion.id, boardViewModel.board.id).then(function () {
-                            boardHub.server.deleteCriterion(boardViewModel.board.id, criterion.id);
+                criterionRepository.remove(criterion.id, boardViewModel.board.id).then(function () {
+                    boardHub.server.deleteCriterion(boardViewModel.board.id, criterion.id);
 
-                            spinner.hide();
-                        });
-                    }
+                    spinner.hide();
                 });
+            });
         }
 
         function addCriterion(isBenefit) {

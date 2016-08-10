@@ -1,5 +1,5 @@
-﻿define(['repositories/userRepository', 'repositories/boardRepository', 'spinner', 'constants', 'durandal/app'],
-    function (userRepository, boardRepository, spinner, constants, app) {
+﻿define(['repositories/userRepository', 'repositories/boardRepository', 'spinner', 'constants', 'durandal/app', 'widgets/popup/viewmodel'],
+    function (userRepository, boardRepository, spinner, constants, app, popup) {
 
         var boardHub = $.connection.boardHub;
 
@@ -48,7 +48,7 @@
 
                     self.user.boardsShortInfo = ko.observableArray(user.boardsShortInfo);
 
-                    spinner.hide();
+                    spinner.hide();                    
                 });
         }
 
@@ -73,17 +73,14 @@
         function removeBoard(entity) {
             var board = entity.board;
 
-            $(constants.popupTemplatesId.confirmation).popup({ title: 'Delete', body: 'delete "' + board.title + '"' })
-                .then(function (response) {
-                    if (response) {
-                        boardRepository.removeBoard(board.id);
+            popup.showConfirmation('Delete', 'delete "' + board.title + '"', function () {
+                boardRepository.removeBoard(board.id);
 
-                        if (board.createdBy == profileViewModel.user.email) {
-                            boardHub.server.removeBoard(board.id);
-                        } else {
-                            boardHub.server.removeCollaborator(board.id, profileViewModel.user.email);
-                        }
-                    }
-                });
+                if (board.createdBy == profileViewModel.user.email) {
+                    boardHub.server.removeBoard(board.id);
+                } else {
+                    boardHub.server.removeCollaborator(board.id, profileViewModel.user.email);
+                }
+            });
         }
     });

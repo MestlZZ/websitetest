@@ -26,7 +26,7 @@ define(['durandal/system', 'durandal/app', 'synchronization',
         router: true,
         dialog: true,
         widget: {
-            kinds: ['boardSettings']
+            kinds: ['boardSettings', 'popup']
         }
     });
 
