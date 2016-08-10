@@ -9,7 +9,7 @@
         /*Hub events*/
         app.on(constants.EVENT.BOARD.COLLABORATOR.ROLE_CHANGED, function (email, role, boardId) {
             if (boardId == boardViewModel.board.id) {
-                if (boards.user.email == email) {
+                if (boardSettings.clientEmail() == email) {
                     boardSettings.clientRole(role);
                     boardViewModel.userRole(role);
                 }

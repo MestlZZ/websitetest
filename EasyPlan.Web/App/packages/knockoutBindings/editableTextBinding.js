@@ -14,10 +14,16 @@
             }
         });
 
-        $input.attr('contenteditable', active);
+
+        $input.attr('tabindex', 0);
         $input.text(observValue());
                
         $input.focus(function focus(event) {
+            data = ko.unwrap(valueAccessor());
+            active = data.active;
+
+            $input.attr('contenteditable', active);
+
             hasFocus = true;
 
             clearBind();

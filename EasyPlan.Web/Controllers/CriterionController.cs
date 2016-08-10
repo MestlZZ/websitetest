@@ -30,7 +30,7 @@ namespace EasyPlan.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [UserRole(RoleName.Admin)]
+        [UserRole(RoleName.Admin, RoleName.Editor)]
         public void SetCriterionTitle(string title, Criterion criterion)
         {
             criterion.SetTitle(title);
@@ -38,7 +38,7 @@ namespace EasyPlan.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [UserRole(RoleName.Admin)]
+        [UserRole(RoleName.Admin, RoleName.Editor)]
         public void RemoveCriterion(Criterion criterion)
         {
             criterion.Marks.Clear();
@@ -48,7 +48,7 @@ namespace EasyPlan.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [UserRole(RoleName.Admin)]
+        [UserRole(RoleName.Admin, RoleName.Editor)]
         public ActionResult CreateCriterion(bool isBenefit, Board board)
         {
             var criterion = new Criterion(board, isBenefit);

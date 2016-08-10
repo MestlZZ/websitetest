@@ -1,6 +1,6 @@
 ﻿<div class="board">
     <div class="board-title">
-        <div class="board-title-input title-value" data-bind="editableText: {handler: updateBoardTitle, value: board.title, active: $root.userRole() <= $root.ROLE.EDITOR}, selectTextOnFocus: true"></div>
+        <div class="board-title-input title-value" data-bind="editableText: {handler: updateBoardTitle, value: board.title, active: userRole() < ROLE.EDITOR}, selectTextOnFocus: true, hasFocus: $root.isFocusEnabled()"></div>
         <span class="board-title-validation-message validation-message" data-bind="css: {'visible': board.title.hasError}">
             <span class="validation-message-error" data-bind="text: board.title.validationMessage"></span>
             <i class="validation-message-arrow"></i>
