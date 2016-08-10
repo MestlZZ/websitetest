@@ -19,7 +19,7 @@
         </div>             
         <!--/ko-->   
         <div class="board-body-filter">
-            <label for="board-filter">Filter: </label>
+            <label class="board-filter-label" for="board-filter">Filter: </label>
             <input id="board-filter" type="text" data-bind="value: filterValue, valueUpdate: 'afterkeydown'"/>
             <span class="board-filter-validation-message validation-message" data-bind="css: {'visible':filterValue.hasError}">
                 <span class="validation-message-error" data-bind="text: filterValue.validationMessage"></span>
@@ -30,7 +30,7 @@
             <thead class="table-head">
                 <tr>
                     <td rowspan="2" class="cell-field item-title">
-                        <span>Title </span>
+                        <span class="table-head-title">Title </span>
                         <!--ko if: userRole() <= ROLE.EDITOR-->
                         <button class="board-body-item-add" data-bind="click: addItem">⛨
                             <!--ko if: _.isEmpty(board.items()) -->
@@ -40,18 +40,18 @@
                         <!--/ko-->                
                     </td>
                     <td class="cell-field item-criterion-type" data-bind="attr: {'colspan': benefitCriterions().length}">
-                        <span>Benefit</span>                        
+                        <span class="table-head-title">Benefit</span>                        
                         <!--ko if: userRole() <= ROLE.EDITOR-->
                         <button class="board-body-criterion-add" data-bind="click: addBenefitCriterion">⛨</button>
                         <!--/ko-->
                     </td>
                     <td class="cell-field item-criterion-type" data-bind="attr: {'colspan': costCriterions().length}">
-                        <span>Cost</span>                        
+                        <span class="table-head-title">Cost</span>                        
                         <!--ko if: userRole() <= ROLE.EDITOR-->
                         <button class="board-body-criterion-add" data-bind="click: addCostCriterion">⛨</button>
                         <!--/ko-->
                     </td>
-                    <td rowspan="3" class="cell-field item-score">Score</td>
+                    <td rowspan="3" class="cell-field item-score table-head-title">Score</td>
                     <td rowspan="3" class="cell-field item-rank"><span class="item-rank-title" data-bind="click: sortByRank, css: {'sorted-ascending' : sortAscending && sorted, 'sorted-descending' : !sortAscending() && sorted}">Rank</span></td>
                 </tr>
                 <tr>

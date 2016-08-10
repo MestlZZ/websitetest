@@ -1,4 +1,4 @@
-﻿define(['repositories/boardRepository', 'spinner', 'constants', 'error', 'durandal/app', 'widgets/popup/viewModel'],
+﻿define(['repositories/boardRepository', 'spinner', 'constants', 'error', 'durandal/app', 'widgets/popup/viewmodel'],
     function (boardRepository, spinner, constants, errorHandler, app, popup) {
         
         var boardHub = $.connection.boardHub;

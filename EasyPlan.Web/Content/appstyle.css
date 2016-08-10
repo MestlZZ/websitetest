@@ -4,6 +4,14 @@
     overflow-x: auto;
 }
 
+.table-head-title{
+    cursor: default;
+}
+
+.board-filter-label{
+    cursor: pointer;
+}
+
 .error-status{
     text-align: center;
     color: red;
@@ -120,6 +128,7 @@ body{
     display: inline-block;
     position: relative;
     margin-bottom: 10px;
+    z-index: 2;
 }
 
 .board-body-filter{
